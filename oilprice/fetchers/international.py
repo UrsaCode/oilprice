@@ -3,11 +3,15 @@
 Sources are tried in order until one works (none needs an API key):
   1. Stooq live quotes        - real-time futures, but blocks some cloud IPs
   2. Yahoo Finance chart API  - real-time, but rate-limits datacenter IPs
-  3. FRED (St. Louis Fed)     - official spot series, datacenter-friendly,
-                                lags up to a couple of business days
+  3. FRED (St. Louis Fed)     - official spot series, lags a couple of
+                                business days; also throttles some cloud IPs
+  4. datasets/oil-prices      - EIA spot series republished on GitHub
+                                (raw.githubusercontent.com), always
+                                reachable from CI; lags a few business days
 
-GitHub Actions runners are typically served by FRED; running locally you
-will usually get the real-time Stooq/Yahoo quotes.
+Running locally you will usually get the real-time Stooq/Yahoo quotes;
+GitHub Actions runners typically fall through to FRED or the GitHub
+dataset.
 """
 
 import csv
@@ -30,6 +34,12 @@ YAHOO_URL = "https://query1.finance.yahoo.com/v8/finance/chart/{symbol}"
 # FRED daily spot price series (Europe Brent / WTI Cushing), CSV download.
 FRED_SERIES = {"DCOILBRENTEU": "BRENT", "DCOILWTICO": "WTI"}
 FRED_URL = "https://fred.stlouisfed.org/graph/fredgraph.csv?id={series}"
+
+# EIA spot series republished daily in the datasets/oil-prices GitHub repo.
+GITHUB_DATASET_FILES = {"brent-daily.csv": "BRENT", "wti-daily.csv": "WTI"}
+GITHUB_DATASET_URL = (
+    "https://raw.githubusercontent.com/datasets/oil-prices/{branch}/data/{file}"
+)
 
 
 def _now_utc() -> str:
@@ -94,9 +104,38 @@ def _from_fred() -> list[BenchmarkQuote]:
     return quotes
 
 
+def _from_github_dataset() -> list[BenchmarkQuote]:
+    quotes = []
+    for filename, name in GITHUB_DATASET_FILES.items():
+        for branch in ("master", "main"):
+            url = GITHUB_DATASET_URL.format(branch=branch, file=filename)
+            try:
+                resp = http.get(url)
+            except Exception as exc:
+                log.warning("GitHub dataset fetch %s failed: %s", url, exc)
+                continue
+            # CSV of "Date,Price" rows; last line is the latest observation.
+            for row in reversed(list(csv.reader(io.StringIO(resp.text)))):
+                if len(row) != 2:
+                    continue
+                try:
+                    price = float(row[1])
+                except ValueError:
+                    continue
+                quotes.append(BenchmarkQuote(
+                    name, price, _now_utc(),
+                    f"github.com/datasets/oil-prices ({row[0]})",
+                ))
+                break
+            break
+    if not quotes:
+        raise ValueError("GitHub dataset returned no usable quotes")
+    return quotes
+
+
 def fetch() -> list[BenchmarkQuote]:
     """Return Brent/WTI quotes, trying each source in order."""
-    for fetcher in (_from_stooq, _from_yahoo, _from_fred):
+    for fetcher in (_from_stooq, _from_yahoo, _from_fred, _from_github_dataset):
         try:
             return fetcher()
         except Exception as exc:

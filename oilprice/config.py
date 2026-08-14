@@ -25,8 +25,8 @@ SCHEDULE_HOURS = tuple(
 HTTP_TIMEOUT = int(os.environ.get("OILPRICE_HTTP_TIMEOUT", "30"))
 HTTP_RETRIES = int(os.environ.get("OILPRICE_HTTP_RETRIES", "3"))
 USER_AGENT = (
-    "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 "
-    "(KHTML, like Gecko) Chrome/124.0 Safari/537.36 oilprice-collector"
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
+    "(KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36"
 )
 
 # One oil barrel in litres (used to derive per-litre benchmark prices).

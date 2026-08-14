@@ -137,6 +137,33 @@ def test_fred_parser(monkeypatch):
     assert quotes["WTI"].price_usd == 76.40
 
 
+def test_github_dataset_parser(monkeypatch):
+    from oilprice.fetchers import international
+
+    csv_by_url = {
+        international.GITHUB_DATASET_URL.format(
+            branch="master", file="brent-daily.csv"):
+            "Date,Price\n2026-08-10,92.74\n2026-08-11,93.26\n",
+        international.GITHUB_DATASET_URL.format(
+            branch="master", file="wti-daily.csv"):
+            "Date,Price\n2026-08-11,84.77\n",
+    }
+
+    class FakeResp:
+        def __init__(self, text):
+            self.text = text
+
+    def fake_get(url):
+        if url not in csv_by_url:
+            raise RuntimeError("404")
+        return FakeResp(csv_by_url[url])
+
+    monkeypatch.setattr(international.http, "get", fake_get)
+    quotes = {q.benchmark: q for q in international._from_github_dataset()}
+    assert quotes["BRENT"].price_usd == 93.26
+    assert quotes["WTI"].price_usd == 84.77
+
+
 def test_pakistan_table_parser(monkeypatch):
     html = """
     <table>

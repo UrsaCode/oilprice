@@ -10,9 +10,17 @@ from .. import config
 log = logging.getLogger(__name__)
 
 
+DEFAULT_HEADERS = {
+    "User-Agent": config.USER_AGENT,
+    "Accept": ("text/html,application/xhtml+xml,application/xml;q=0.9,"
+               "text/csv,application/json;q=0.8,*/*;q=0.7"),
+    "Accept-Language": "en-US,en;q=0.9",
+}
+
+
 def get(url: str, **kwargs) -> requests.Response:
-    """GET with a browser-ish User-Agent and exponential-backoff retries."""
-    headers = {"User-Agent": config.USER_AGENT, **kwargs.pop("headers", {})}
+    """GET with browser-like headers and exponential-backoff retries."""
+    headers = {**DEFAULT_HEADERS, **kwargs.pop("headers", {})}
     last_exc = None
     for attempt in range(config.HTTP_RETRIES):
         try:
