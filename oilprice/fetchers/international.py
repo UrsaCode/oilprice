@@ -1,7 +1,13 @@
 """International crude benchmark prices (Brent, WTI) in USD per barrel.
 
-Primary source: Stooq free CSV quotes (no API key).
-Fallback: Yahoo Finance chart API (no API key).
+Sources are tried in order until one works (none needs an API key):
+  1. Stooq live quotes        - real-time futures, but blocks some cloud IPs
+  2. Yahoo Finance chart API  - real-time, but rate-limits datacenter IPs
+  3. FRED (St. Louis Fed)     - official spot series, datacenter-friendly,
+                                lags up to a couple of business days
+
+GitHub Actions runners are typically served by FRED; running locally you
+will usually get the real-time Stooq/Yahoo quotes.
 """
 
 import csv
@@ -20,6 +26,10 @@ STOOQ_URL = "https://stooq.com/q/l/?s=cb.f,cl.f&f=sd2t2ohlcv&h&e=csv"
 
 YAHOO_SYMBOLS = {"BZ=F": "BRENT", "CL=F": "WTI"}
 YAHOO_URL = "https://query1.finance.yahoo.com/v8/finance/chart/{symbol}"
+
+# FRED daily spot price series (Europe Brent / WTI Cushing), CSV download.
+FRED_SERIES = {"DCOILBRENTEU": "BRENT", "DCOILWTICO": "WTI"}
+FRED_URL = "https://fred.stlouisfed.org/graph/fredgraph.csv?id={series}"
 
 
 def _now_utc() -> str:
@@ -59,9 +69,34 @@ def _from_yahoo() -> list[BenchmarkQuote]:
     return quotes
 
 
+def _from_fred() -> list[BenchmarkQuote]:
+    quotes = []
+    for series, name in FRED_SERIES.items():
+        try:
+            resp = http.get(FRED_URL.format(series=series))
+            # Last row with a numeric value ("." marks missing days).
+            for row in reversed(list(csv.reader(io.StringIO(resp.text)))):
+                if len(row) != 2:
+                    continue
+                try:
+                    price = float(row[1])
+                except ValueError:
+                    continue
+                quotes.append(BenchmarkQuote(
+                    name, price, _now_utc(),
+                    f"fred.stlouisfed.org ({row[0]})",
+                ))
+                break
+        except Exception as exc:
+            log.warning("FRED fetch for %s failed: %s", series, exc)
+    if not quotes:
+        raise ValueError("FRED returned no usable quotes")
+    return quotes
+
+
 def fetch() -> list[BenchmarkQuote]:
     """Return Brent/WTI quotes, trying each source in order."""
-    for fetcher in (_from_stooq, _from_yahoo):
+    for fetcher in (_from_stooq, _from_yahoo, _from_fred):
         try:
             return fetcher()
         except Exception as exc:

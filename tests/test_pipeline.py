@@ -75,15 +75,66 @@ def test_full_run_with_mocked_sources(isolated_data, monkeypatch):
     assert snap["international_usd_per_barrel"]["BRENT"] == 80.5
 
 
-def test_partial_when_local_scrape_fails(isolated_data, monkeypatch):
-    def boom():
-        raise RuntimeError("site down")
+def _boom():
+    raise RuntimeError("source down")
 
+
+def test_partial_when_local_scrape_fails(isolated_data, monkeypatch):
     monkeypatch.setattr(pipeline.international, "fetch", lambda: FAKE_QUOTES)
     monkeypatch.setattr(pipeline.fx, "fetch", lambda: (FAKE_RATES, "test-fx"))
-    monkeypatch.setitem(pipeline.LOCAL_SCRAPERS, "PK", boom)
+    monkeypatch.setitem(pipeline.LOCAL_SCRAPERS, "PK", _boom)
 
     assert pipeline.run() == "partial"
+
+
+def test_international_failure_still_saves_fx_and_local(isolated_data,
+                                                        monkeypatch):
+    monkeypatch.setattr(pipeline.international, "fetch", _boom)
+    monkeypatch.setattr(pipeline.fx, "fetch", lambda: (FAKE_RATES, "test-fx"))
+    monkeypatch.setitem(pipeline.LOCAL_SCRAPERS, "PK", lambda: FAKE_LOCAL)
+
+    assert pipeline.run() == "partial"
+
+    conn = db.connect()
+    assert conn.execute("SELECT COUNT(*) c FROM local_prices").fetchone()["c"] == 2
+    assert conn.execute("SELECT COUNT(*) c FROM fx_rates").fetchone()["c"] == 3
+    # No benchmark conversion possible without international quotes.
+    assert conn.execute(
+        "SELECT COUNT(*) c FROM benchmark_local"
+    ).fetchone()["c"] == 0
+
+
+def test_failed_when_every_source_fails(isolated_data, monkeypatch):
+    monkeypatch.setattr(pipeline.international, "fetch", _boom)
+    monkeypatch.setattr(pipeline.fx, "fetch", _boom)
+    monkeypatch.setitem(pipeline.LOCAL_SCRAPERS, "PK", _boom)
+
+    assert pipeline.run() == "failed"
+    # Nothing collected -> no exports written.
+    assert not (isolated_data / "snapshots").exists()
+
+
+def test_fred_parser(monkeypatch):
+    from oilprice.fetchers import international
+
+    csv_by_url = {
+        international.FRED_URL.format(series="DCOILBRENTEU"):
+            "DATE,DCOILBRENTEU\n2026-08-11,79.10\n2026-08-12,80.25\n2026-08-13,.\n",
+        international.FRED_URL.format(series="DCOILWTICO"):
+            "DATE,DCOILWTICO\n2026-08-12,76.40\n",
+    }
+
+    class FakeResp:
+        def __init__(self, text):
+            self.text = text
+
+    monkeypatch.setattr(
+        international.http, "get", lambda url: FakeResp(csv_by_url[url])
+    )
+    quotes = {q.benchmark: q for q in international._from_fred()}
+    # "." (missing day) rows are skipped; latest numeric value wins.
+    assert quotes["BRENT"].price_usd == 80.25
+    assert quotes["WTI"].price_usd == 76.40
 
 
 def test_pakistan_table_parser(monkeypatch):

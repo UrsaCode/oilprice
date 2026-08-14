@@ -21,6 +21,8 @@ log = logging.getLogger("oilprice")
 def cmd_run(args):
     status = pipeline.run(force=args.force)
     print(f"Collection finished with status: {status}")
+    if status == "failed":  # nothing at all was collected
+        raise SystemExit(1)
 
 
 def _next_run_time(now):

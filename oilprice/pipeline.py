@@ -96,26 +96,30 @@ def run(force: bool = False) -> str:
 
     failures = []
 
-    # 1. International benchmarks (required — without them the run fails).
+    # Every layer is best-effort: one blocked source must never prevent the
+    # others from being collected and saved.
+
+    # 1. International benchmarks.
+    quotes = []
     try:
         quotes = international.fetch()
         db.save_international(conn, run_id, quotes)
         log.info("International: %s",
                  {q.benchmark: q.price_usd for q in quotes})
     except Exception as exc:
+        failures.append("international")
         log.error("International fetch failed: %s", exc)
-        db.finish_run(conn, run_id, "failed")
-        raise
 
-    # 2. FX rates + derived per-country benchmark prices (best effort).
+    # 2. FX rates + derived per-country benchmark prices.
     rates, fx_source, benchmark_rows = {}, None, []
     try:
         rates, fx_source = fx.fetch()
         db.save_fx(conn, run_id, fetched_utc, rates, fx_source)
-        benchmark_rows = _derive_benchmark_local(run_id, quotes, rates)
-        db.save_benchmark_local(conn, run_id, benchmark_rows)
-        log.info("FX: %d currencies from %s -> %d country benchmark rows",
-                 len(rates), fx_source, len(benchmark_rows))
+        log.info("FX: %d currencies from %s", len(rates), fx_source)
+        if quotes:
+            benchmark_rows = _derive_benchmark_local(run_id, quotes, rates)
+            db.save_benchmark_local(conn, run_id, benchmark_rows)
+            log.info("Derived %d country benchmark rows", len(benchmark_rows))
     except Exception as exc:
         failures.append("fx")
         log.error("FX fetch failed: %s", exc)
@@ -134,10 +138,17 @@ def run(force: bool = False) -> str:
     if local_prices:
         db.save_local_prices(conn, run_id, local_prices)
 
-    _export(run_id, fetched_utc, quotes, rates, fx_source, local_prices,
-            benchmark_rows)
+    collected_anything = bool(quotes or rates or local_prices)
+    if collected_anything:
+        _export(run_id, fetched_utc, quotes, rates, fx_source, local_prices,
+                benchmark_rows)
 
-    status = "partial" if failures else "ok"
+    if not collected_anything:
+        status = "failed"
+    elif failures:
+        status = "partial"
+    else:
+        status = "ok"
     db.finish_run(conn, run_id, status)
     log.info("Run %s finished: %s%s", run_id, status,
              f" (failed: {', '.join(failures)})" if failures else "")
