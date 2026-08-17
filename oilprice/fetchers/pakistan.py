@@ -1,11 +1,16 @@
 """Pakistan local pump prices (PKR per litre).
 
 Official prices are set by OGRA and published by retailers. We scrape the
-Pakistan State Oil (PSO) product-price page first and fall back to
-hamariweb's petroleum price page. Scrapers are keyword-driven rather than
-tied to exact page markup, so minor site redesigns keep working; if a site
-changes beyond recognition the fetch fails loudly and the pipeline records
-the run as partial instead of storing wrong numbers.
+Pakistan State Oil (PSO) fuel-price page first and fall back to hamariweb's
+petroleum price page. Scrapers are keyword-driven rather than tied to exact
+page markup, and handle both table orientations in use — PSO lists one
+product per row, hamariweb puts products in the header with one row per
+date. If a site changes beyond recognition the fetch fails loudly and the
+pipeline records the run as partial instead of storing wrong numbers.
+
+OGRA publishes the authoritative notifications at
+https://www.ogra.org.pk/notified-petroleum-prices, but only as linked PDFs,
+so it is not scraped here.
 
 Prices can also be entered manually:  python -m oilprice add-local ...
 """
@@ -21,7 +26,7 @@ from . import http
 
 log = logging.getLogger(__name__)
 
-PSO_URL = "https://psopk.com/en/product-and-services/product-prices"
+PSO_URL = "https://psopk.com/en/fuels/fuel-prices"
 HAMARIWEB_URL = "https://hamariweb.com/finance/petroleum_prices/"
 
 # Keywords (lowercase) that identify each product in scraped text.
@@ -43,11 +48,18 @@ def _now_utc() -> str:
 
 
 def _classify(text: str) -> str | None:
+    """Map a label to a product, preferring the most specific match.
+
+    Labels overlap ("Light Diesel" contains "diesel"), so the longest
+    matching keyword wins rather than whichever product is checked first.
+    """
     text = text.lower()
+    best_product, best_len = None, 0
     for product, keywords in PRODUCT_KEYWORDS.items():
-        if any(kw in text for kw in keywords):
-            return product
-    return None
+        for kw in keywords:
+            if kw in text and len(kw) > best_len:
+                best_product, best_len = product, len(kw)
+    return best_product
 
 
 def _extract_price(text: str) -> float | None:
@@ -58,12 +70,22 @@ def _extract_price(text: str) -> float | None:
     return None
 
 
-def _scrape_tables(url: str, source: str) -> list[LocalPrice]:
-    """Generic table scraper: rows whose label matches a product keyword."""
-    soup = BeautifulSoup(http.get(url).text, "html.parser")
+def _cells(row) -> list[str]:
+    return [c.get_text(" ", strip=True) for c in row.find_all(["td", "th"])]
+
+
+def _price(product: str, value: float, source: str) -> LocalPrice:
+    return LocalPrice(
+        country_code="PK", product=product, price=value,
+        currency="PKR", fetched_utc=_now_utc(), source=source,
+    )
+
+
+def _parse_row_oriented(soup, source: str) -> dict[str, LocalPrice]:
+    """One product per row: label in the first cell, price alongside it."""
     found: dict[str, LocalPrice] = {}
     for row in soup.find_all("tr"):
-        cells = [c.get_text(" ", strip=True) for c in row.find_all(["td", "th"])]
+        cells = _cells(row)
         if len(cells) < 2:
             continue
         product = _classify(cells[0])
@@ -73,11 +95,48 @@ def _scrape_tables(url: str, source: str) -> list[LocalPrice]:
         for cell in cells[1:]:
             price = _extract_price(cell)
             if price is not None:
-                found[product] = LocalPrice(
-                    country_code="PK", product=product, price=price,
-                    currency="PKR", fetched_utc=_now_utc(), source=source,
-                )
+                found[product] = _price(product, price, source)
                 break
+    return found
+
+
+def _parse_column_oriented(soup, source: str) -> dict[str, LocalPrice]:
+    """One product per column: products in the header, one row per date.
+
+    Prices are read by column index from the first data row, so a leading
+    date column is never mistaken for a price.
+    """
+    for table in soup.find_all("table"):
+        rows = table.find_all("tr")
+        for header_index, header in enumerate(rows):
+            columns = {
+                i: product
+                for i, cell in enumerate(_cells(header))
+                if (product := _classify(cell))
+            }
+            if len(columns) < 2:
+                continue
+            for data_row in rows[header_index + 1:]:
+                cells = _cells(data_row)
+                found: dict[str, LocalPrice] = {}
+                for i, product in columns.items():
+                    if i >= len(cells) or product in found:
+                        continue
+                    price = _extract_price(cells[i])
+                    if price is not None:
+                        found[product] = _price(product, price, source)
+                if found:
+                    return found
+            break  # header found but no usable data row; try next table
+    return {}
+
+
+def _scrape_tables(url: str, source: str) -> list[LocalPrice]:
+    """Scrape pump prices, accepting either table orientation."""
+    soup = BeautifulSoup(http.get(url).text, "html.parser")
+    found = _parse_row_oriented(soup, source)
+    if "petrol" not in found and "diesel" not in found:
+        found = _parse_column_oriented(soup, source) or found
     if "petrol" not in found and "diesel" not in found:
         raise ValueError(f"No recognisable fuel prices found at {url}")
     return list(found.values())

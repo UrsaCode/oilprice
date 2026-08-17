@@ -1,2 +1,6 @@
 requests>=2.31
 beautifulsoup4>=4.12
+# IANA timezone database. Windows ships no system tz database, and minimal
+# Linux images (e.g. alpine, slim) often omit it, so ZoneInfo("Asia/Karachi")
+# raises ZoneInfoNotFoundError at import without this.
+tzdata>=2024.1

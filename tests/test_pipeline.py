@@ -185,6 +185,70 @@ def test_pakistan_table_parser(monkeypatch):
     assert all(p.currency == "PKR" for p in prices.values())
 
 
+def test_pakistan_pso_current_markup(monkeypatch):
+    """Row-oriented table as served by psopk.com/en/fuels/fuel-prices."""
+    html = """
+    <table>
+      <tr><th>Product Name</th><th>Rs./Litre</th></tr>
+      <tr><td>PREMIER EURO 5</td><td>Rs.325.43/Ltr</td></tr>
+      <tr><td>HI-CETANE DIESEL EURO 5</td><td>Rs.383.95/Ltr</td></tr>
+      <tr><td>LDO</td><td>Rs.249.03/Ltr</td></tr>
+      <tr><td>SKO</td><td>Rs.289.75/Ltr</td></tr>
+      <tr><td>JP-1</td><td>Rs.324.8/Ltr</td></tr>
+    </table>
+    """
+
+    class FakeResp:
+        text = html
+
+    monkeypatch.setattr(pakistan.http, "get", lambda url: FakeResp())
+    prices = {p.product: p for p in pakistan._scrape_tables("http://x", "test")}
+    assert prices["petrol"].price == 325.43
+    assert prices["diesel"].price == 383.95
+    assert prices["light_diesel"].price == 249.03
+    assert prices["kerosene"].price == 289.75
+    # Jet fuel is not one of our products.
+    assert set(prices) == {"petrol", "diesel", "light_diesel", "kerosene"}
+
+
+def test_pakistan_column_oriented_table(monkeypatch):
+    """hamariweb lists products as headers with one row per date."""
+    html = """
+    <table>
+      <tr><th>Date</th><th>Petrol</th><th>HS Diesel</th>
+          <th>Light Diesel</th><th>Kerosene Oil</th></tr>
+      <tr><td>Aug 14, 2026</td><td>325.43</td><td>383.95</td>
+          <td>249.03</td><td>289.75</td></tr>
+      <tr><td>Aug 13, 2026</td><td>324.98</td><td>382.79</td>
+          <td>247.82</td><td>289.27</td></tr>
+    </table>
+    """
+
+    class FakeResp:
+        text = html
+
+    monkeypatch.setattr(pakistan.http, "get", lambda url: FakeResp())
+    prices = {p.product: p for p in pakistan._scrape_tables("http://x", "test")}
+    # Most recent row (first) wins; the date column is never read as a price.
+    assert prices["petrol"].price == 325.43
+    assert prices["diesel"].price == 383.95
+    assert prices["light_diesel"].price == 249.03
+    assert prices["kerosene"].price == 289.75
+
+
+def test_light_diesel_not_classified_as_diesel():
+    """'Light Diesel' contains 'diesel'; the more specific product must win."""
+    assert pakistan._classify("Light Diesel") == "light_diesel"
+    assert pakistan._classify("Light Diesel Oil") == "light_diesel"
+    assert pakistan._classify("LDO") == "light_diesel"
+    assert pakistan._classify("HS Diesel") == "diesel"
+    assert pakistan._classify("Hi-Cetane Diesel Euro 5") == "diesel"
+    assert pakistan._classify("Premier Euro 5") == "petrol"
+    assert pakistan._classify("Kerosene Oil") == "kerosene"
+    assert pakistan._classify("Date") is None
+    assert pakistan._classify("JP-1") is None
+
+
 def test_slot_boundaries():
     tz = config.LOCAL_TZ
     assert pipeline.current_slot(datetime(2026, 8, 13, 9, 0, tzinfo=tz))[1] == "AM"
