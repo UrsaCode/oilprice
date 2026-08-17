@@ -3,9 +3,10 @@
 Twice-daily collection and storage of oil prices:
 
 1. **International benchmarks** — Brent and WTI crude in USD per barrel.
-   Sources tried in order, no API keys needed: Stooq live quotes, Yahoo
-   Finance, then FRED (official St. Louis Fed spot series — reliable from
-   datacenter/CI IPs where the first two often block, lags a day or two).
+   Sources tried in order, no API keys needed: Yahoo Finance, then FRED
+   (official St. Louis Fed spot series — reliable from datacenter/CI IPs
+   where Yahoo often blocks, lags a day or two), then the EIA spot series
+   republished on GitHub.
 2. **Worldwide local-currency view** — the international benchmark expressed
    in **every country's currency** (~190 countries), per barrel and per
    litre, using free USD exchange rates captured at the same moment
