@@ -130,8 +130,15 @@ def run(force: bool = False) -> str:
         try:
             prices = scraper()
             local_prices.extend(prices)
-            log.info("Local %s: %s", country,
-                     {p.product: p.price for p in prices})
+            covered = {p.country_code for p in prices}
+            if len(covered) > 1:
+                # A multi-country source (the EU bulletin) would otherwise be
+                # reported as one country alone, hiding everything else.
+                log.info("Local %s: %d prices across %d countries",
+                         country, len(prices), len(covered))
+            else:
+                log.info("Local %s: %s", country,
+                         {p.product: p.price for p in prices})
         except Exception as exc:
             failures.append(f"local:{country}")
             log.error("Local scrape for %s failed: %s", country, exc)

@@ -4,3 +4,5 @@ beautifulsoup4>=4.12
 # Linux images (e.g. alpine, slim) often omit it, so ZoneInfo("Asia/Karachi")
 # raises ZoneInfoNotFoundError at import without this.
 tzdata>=2024.1
+# Reads the EU Weekly Oil Bulletin, published only as .xlsx.
+openpyxl>=3.1

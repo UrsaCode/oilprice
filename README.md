@@ -11,9 +11,21 @@ Twice-daily collection and storage of oil prices:
    in **every country's currency** (~190 countries), per barrel and per
    litre, using free USD exchange rates captured at the same moment
    (open.er-api.com, frankfurter.app fallback).
-3. **Local pump prices** — actual market prices in local currency. Pakistan
-   (PKR/litre for petrol, diesel, kerosene, light diesel) is built in via a
-   scraper; other countries can be added as scrapers or entered manually.
+3. **Local pump prices** — actual market prices per litre. Built-in
+   scrapers cover roughly 30 countries:
+
+   | Source | Countries | Products | Currency |
+   |---|---|---|---|
+   | PSO, hamariweb | Pakistan | petrol, diesel, kerosene, light diesel | PKR |
+   | EIA | United States | petrol, diesel | USD |
+   | gov.uk (DESNZ) | United Kingdom | petrol, diesel | GBP |
+   | EC Weekly Oil Bulletin | 27 EU member states | petrol, diesel, heating oil, LPG | EUR |
+
+   The Commission publishes the bulletin in euro for *every* member state,
+   including those outside the eurozone, so those rows are stored as EUR
+   rather than the national currency. US prices are published per gallon
+   and converted to litres on the way in. Countries without a scraper can
+   be entered manually.
 
 Everything is *stored only* (as requested) — no UI, no analysis. Three
 formats are written on every run so the data is easy to consume later:
@@ -82,6 +94,11 @@ python -m oilprice add-local --country AE --product petrol --price 3.02
 
 The pipeline runs every registered scraper each cycle; one country failing
 only marks the run `partial`, it never blocks the rest.
+
+A scraper may cover several countries at once — the registry key is used
+only for logging, while each `LocalPrice` carries its own `country_code`.
+The EU bulletin fetcher uses this to return every member state from one
+file.
 
 ## Configuration (environment variables)
 

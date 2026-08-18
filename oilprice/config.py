@@ -31,3 +31,6 @@ USER_AGENT = (
 
 # One oil barrel in litres (used to derive per-litre benchmark prices).
 LITRES_PER_BARREL = 158.987
+
+# One US liquid gallon in litres (EIA publishes US prices per gallon).
+LITRES_PER_US_GALLON = 3.785411784
