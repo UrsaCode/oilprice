@@ -455,7 +455,7 @@ def test_eu_skips_tonne_priced_heavy_fuel_oil(monkeypatch):
 
 def test_all_scrapers_registered():
     from oilprice.fetchers import LOCAL_SCRAPERS
-    assert set(LOCAL_SCRAPERS) == {"PK", "US", "GB", "EU"}
+    assert set(LOCAL_SCRAPERS) == {"PK", "US", "GB", "EU", "BR", "EG", "MX"}
 
 
 def test_multi_country_scraper_logs_every_country(isolated_data, monkeypatch,
@@ -478,6 +478,212 @@ def test_multi_country_scraper_logs_every_country(isolated_data, monkeypatch,
     stored = conn.execute(
         "SELECT DISTINCT country_code FROM local_prices").fetchall()
     assert {r["country_code"] for r in stored} == {"DE", "FR", "PL"}
+
+
+# --- Brazil (ANP) ------------------------------------------------------
+
+def _br_workbook():
+    """Workbook shaped like the ANP weekly resumo, BRASIL sheet."""
+    import io
+    import openpyxl
+    wb = openpyxl.Workbook()
+    wb.remove(wb.active)
+    ws = wb.create_sheet("CAPITAIS")
+    ws.append(["ignored"])
+    ws = wb.create_sheet("BRASIL")
+    for _ in range(9):
+        ws.append([])
+    ws.append(["DATA INICIAL", "DATA FINAL", "BRASIL", "PRODUTO",
+               "NÚMERO DE POSTOS PESQUISADOS", "UNIDADE DE MEDIDA",
+               "PREÇO MÉDIO REVENDA", "DESVIO PADRÃO REVENDA"])
+    rows = [
+        ("ETANOL HIDRATADO", "R$/l", 3.91),
+        ("GASOLINA ADITIVADA", "R$/l", 6.73),
+        ("GASOLINA COMUM", "R$/l", 6.53),
+        ("GLP", "R$/13kg", 113.89),
+        ("GNV", "R$/m3", 4.67),
+        ("OLEO DIESEL", "R$/l", 6.51),
+        ("OLEO DIESEL S10", "R$/l", 6.91),
+    ]
+    for product, unit, price in rows:
+        ws.append(["2026-08-09", "2026-08-15", "BRASIL", product, 100,
+                   unit, price, 0.4])
+    buf = io.BytesIO()
+    wb.save(buf)
+    return buf.getvalue()
+
+
+BR_PAGE_HTML = (
+    '<html><body>'
+    '<a href="/anp/arquivos-lpc/2026/resumo_semanal_lpc_2026-08-09_2026-08-15.xlsx">resumo</a>'
+    '<a href="/anp/arquivos-lpc/2026/revendas_lpc_2026-08-09_2026-08-15.xlsx">revendas</a>'
+    '</body></html>'
+)
+
+
+def _br_fake_get():
+    book = _br_workbook()
+
+    def fake_get(url):
+        class Resp:
+            text = BR_PAGE_HTML
+            content = book
+        return Resp()
+    return fake_get
+
+
+def test_brazil_parser(monkeypatch):
+    from oilprice.fetchers import brazil
+
+    monkeypatch.setattr(brazil.http, "get", _br_fake_get())
+    prices = {p.product: p for p in brazil.fetch()}
+
+    assert prices["petrol"].price == pytest.approx(6.53)
+    assert prices["diesel"].price == pytest.approx(6.51)
+    assert prices["ethanol"].price == pytest.approx(3.91)
+    assert all(p.currency == "BRL" and p.country_code == "BR" and p.unit == "litre"
+               for p in prices.values())
+
+
+def test_brazil_does_not_confuse_diesel_s10_with_diesel(monkeypatch):
+    """'OLEO DIESEL S10' contains 'OLEO DIESEL' and must stay distinct."""
+    from oilprice.fetchers import brazil
+
+    monkeypatch.setattr(brazil.http, "get", _br_fake_get())
+    prices = {p.product: p for p in brazil.fetch()}
+    assert prices["diesel"].price == pytest.approx(6.51)
+    assert prices["diesel_s10"].price == pytest.approx(6.91)
+
+
+def test_brazil_skips_non_litre_units(monkeypatch):
+    """GLP is priced per 13kg and GNV per cubic metre."""
+    from oilprice.fetchers import brazil
+
+    monkeypatch.setattr(brazil.http, "get", _br_fake_get())
+    prices = brazil.fetch()
+    assert all(p.unit == "litre" for p in prices)
+    products = {p.product for p in prices}
+    assert "lpg" not in products and "cng" not in products
+    assert not [p for p in prices if p.price > 100]
+
+
+# --- Egypt -------------------------------------------------------------
+
+EG_HTML = """
+<table>
+  <tr><th></th><th>Type</th><th>Price</th><th>Unit</th></tr>
+  <tr><td></td><td>Gasoline 80</td><td>20.75</td><td>piaster/liter</td></tr>
+  <tr><td></td><td>Gasoline 92</td><td>22.25</td><td>LE/liter</td></tr>
+  <tr><td></td><td>Gasoline 95</td><td>24</td><td>LE/liter</td></tr>
+</table>
+<table>
+  <tr><th></th><th>Type</th><th>Price</th><th>Unit</th></tr>
+  <tr><td></td><td>kerosene</td><td>20.5</td><td>LE/liter</td></tr>
+  <tr><td></td><td>solar</td><td>20.5</td><td>LE/liter</td></tr>
+  <tr><td></td><td>Gas stove</td><td>275</td><td>LE/cylinder</td></tr>
+</table>
+"""
+
+
+def test_egypt_parser(monkeypatch):
+    from oilprice.fetchers import egypt
+
+    class FakeResp:
+        text = EG_HTML
+
+    monkeypatch.setattr(egypt.http, "get", lambda url: FakeResp())
+    prices = {p.product: p for p in egypt.fetch()}
+
+    assert prices["petrol_92"].price == pytest.approx(22.25)
+    assert prices["petrol_95"].price == pytest.approx(24.0)
+    assert prices["diesel"].price == pytest.approx(20.5)   # "solar"
+    assert prices["kerosene"].price == pytest.approx(20.5)
+    assert all(p.currency == "EGP" and p.country_code == "EG"
+               for p in prices.values())
+
+
+def test_egypt_excludes_per_cylinder_rows(monkeypatch):
+    """Bottled gas is sold per cylinder, not per litre."""
+    from oilprice.fetchers import egypt
+
+    class FakeResp:
+        text = EG_HTML
+
+    monkeypatch.setattr(egypt.http, "get", lambda url: FakeResp())
+    prices = egypt.fetch()
+    assert all(p.unit == "litre" for p in prices)
+    assert not [p for p in prices if p.price > 200]
+
+
+# --- Mexico (CRE) ------------------------------------------------------
+
+MX_XML = """<?xml version="1.0" encoding="utf-8"?>
+<places>
+  <place place_id="1">
+    <gas_price type="regular">22.95</gas_price>
+    <gas_price type="premium">27.90</gas_price>
+    <gas_price type="diesel">25.00</gas_price>
+  </place>
+  <place place_id="2">
+    <gas_price type="regular">24.50</gas_price>
+    <gas_price type="premium">30.50</gas_price>
+    <gas_price type="diesel">27.00</gas_price>
+  </place>
+  <place place_id="3">
+    <gas_price type="regular">95.00</gas_price>
+    <gas_price type="premium">28.00</gas_price>
+  </place>
+  <place place_id="4">
+    <gas_price type="regular">999.00</gas_price>
+  </place>
+</places>
+"""
+
+
+def test_mexico_uses_median_not_mean(monkeypatch):
+    """One absurd station reading must not drag the national figure."""
+    from oilprice.fetchers import mexico
+
+    class FakeResp:
+        text = MX_XML
+        content = MX_XML.encode("utf-8")
+
+    monkeypatch.setattr(mexico.http, "get", lambda url: FakeResp())
+    prices = {p.product: p for p in mexico.fetch()}
+
+    # In-bounds readings 22.95 / 24.50 / 95.00 -> median 24.50; the mean
+    # would be 47.48. The 999.00 station is rejected by the sanity bound
+    # before the median is taken.
+    assert prices["petrol"].price == pytest.approx(24.50)
+    assert "3 stations" in prices["petrol"].source
+    assert prices["diesel"].price == pytest.approx(26.00)
+    assert all(p.currency == "MXN" and p.country_code == "MX"
+               for p in prices.values())
+
+
+def test_mexico_handles_byte_order_mark(monkeypatch):
+    """The live feed begins with a BOM, which the XML parser rejects."""
+    from oilprice.fetchers import mexico
+
+    class FakeResp:
+        content = (chr(0xFEFF) + MX_XML).encode("utf-8")
+
+    monkeypatch.setattr(mexico.http, "get", lambda url: FakeResp())
+    assert {p.product for p in mexico.fetch()} == {
+        "petrol", "petrol_premium", "diesel"}
+
+
+def test_mexico_labels_source_as_derived(monkeypatch):
+    """The national figure is computed here, not published; say so."""
+    from oilprice.fetchers import mexico
+
+    class FakeResp:
+        text = MX_XML
+        content = MX_XML.encode("utf-8")
+
+    monkeypatch.setattr(mexico.http, "get", lambda url: FakeResp())
+    for p in mexico.fetch():
+        assert "median" in p.source.lower()
 
 
 def test_slot_boundaries():

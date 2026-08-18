@@ -11,7 +11,7 @@ EU entry uses this to return rows for every member state from the single
 Weekly Oil Bulletin file.
 """
 
-from . import eu, pakistan, uk, usa
+from . import brazil, egypt, eu, mexico, pakistan, uk, usa
 
 # country code -> callable returning list[LocalPrice]
 LOCAL_SCRAPERS = {
@@ -19,4 +19,7 @@ LOCAL_SCRAPERS = {
     "US": usa.fetch,
     "GB": uk.fetch,
     "EU": eu.fetch,
+    "BR": brazil.fetch,
+    "EG": egypt.fetch,
+    "MX": mexico.fetch,
 }
