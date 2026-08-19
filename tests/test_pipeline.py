@@ -456,7 +456,7 @@ def test_eu_skips_tonne_priced_heavy_fuel_oil(monkeypatch):
 def test_all_scrapers_registered():
     from oilprice.fetchers import LOCAL_SCRAPERS
     assert set(LOCAL_SCRAPERS) == {"PK", "US", "GB", "EU", "BR", "EG",
-                                   "MX", "BD"}
+                                   "MX", "BD", "IN"}
 
 
 def test_multi_country_scraper_logs_every_country(isolated_data, monkeypatch,
@@ -783,6 +783,76 @@ def test_bangladesh_matches_both_bengali_encodings(monkeypatch):
         monkeypatch.setattr(bangladesh.http, "get", lambda url, **kw: FakeResp())
         prices = {p.product: p for p in bangladesh.fetch()}
         assert prices["furnace_oil"].price == pytest.approx(100.39)
+
+
+# --- India (PPAC) ------------------------------------------------------
+
+IN_PAGE_HTML = (
+    '<html><body>'
+    '<a href="https://ppac.gov.in/download.php?file=whatsnew/'
+    '1785476355_PP_9_a_DailyPriceMSHSD_Metro_31.07.2026.pdf">older</a>'
+    '<a href="https://ppac.gov.in/uploads/page-images/'
+    '1787118616_PP_9_a_DailyPriceMSHSD_Metro_19.08.2026.pdf">Current</a>'
+    '</body></html>'
+)
+
+# Verbatim shape of the PDF text: petrol table left, diesel right.
+IN_PDF_TEXT = chr(10).join([
+    "Table Posted: 19-Aug-26",
+    "Delhi Mumbai Chennai Kolkata Delhi Mumbai Chennai Kolkata",
+    "19-Aug-26 102.12  111.21  107.77  113.51  19-Aug-26 95.20  97.83  99.55  99.82",
+    "18-Aug-26 101.00  110.00  106.00  112.00  18-Aug-26 94.00  96.00  98.00  98.50",
+    "Petroleum Planning & Analysis Cell",
+    "Retail Selling Price of Petrol Retail Selling Price of Diesel",
+    "Date of Revision Date of Revision",
+    "(Rs./Litre) (Rs./Litre)",
+])
+
+
+def test_india_prefers_the_current_pdf_link():
+    from oilprice.fetchers import india
+    link = india._pdf_link(IN_PAGE_HTML)
+    assert link.endswith("Metro_19.08.2026.pdf")
+
+
+def test_india_reads_newest_row_and_delhi_column():
+    from oilprice.fetchers import india
+    values = india._parse_page_text(IN_PDF_TEXT)
+    # Newest row (19-Aug), Delhi column, not Mumbai (111.21) or the
+    # previous day (101.00).
+    assert values["petrol"] == pytest.approx(102.12)
+    assert values["diesel"] == pytest.approx(95.20)
+
+
+def test_india_ignores_header_and_footer_lines():
+    """Only rows carrying two dates are data rows."""
+    from oilprice.fetchers import india
+    for line in ("Table Posted: 19-Aug-26",
+                 "Delhi Mumbai Chennai Kolkata Delhi Mumbai Chennai Kolkata",
+                 "Retail Selling Price of Petrol Retail Selling Price of Diesel",
+                 "(Rs./Litre) (Rs./Litre)"):
+        assert india._parse_page_text(line) == {}
+
+
+def test_india_builds_local_prices(monkeypatch):
+    from oilprice.fetchers import india
+
+    monkeypatch.setattr(india, "_parse_pdf",
+                        lambda data: {"petrol": 102.12, "diesel": 95.20})
+
+    def fake_get(url, **kw):
+        class Resp:
+            text = IN_PAGE_HTML
+            content = b"%PDF-fake"
+        return Resp()
+
+    monkeypatch.setattr(india.http, "get", fake_get)
+    prices = {p.product: p for p in india.fetch()}
+    assert prices["petrol"].price == pytest.approx(102.12)
+    assert all(p.currency == "INR" and p.country_code == "IN"
+               and p.unit == "litre" for p in prices.values())
+    # The reference city is recorded, since India has no single national price.
+    assert "Delhi" in prices["petrol"].source
 
 
 def test_slot_boundaries():

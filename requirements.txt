@@ -9,3 +9,5 @@ openpyxl>=3.1
 # Root store, combined with a bundled intermediate for bpc.gov.bd,
 # which serves an incomplete certificate chain.
 certifi>=2024.2
+# PPAC publishes Indian daily pump prices only as PDF.
+pypdf>=4.0

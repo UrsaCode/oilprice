@@ -12,7 +12,7 @@ Twice-daily collection and storage of oil prices:
    litre, using free USD exchange rates captured at the same moment
    (open.er-api.com, frankfurter.app fallback).
 3. **Local pump prices** — actual market prices per litre. Built-in
-   scrapers cover roughly 34 countries:
+   scrapers cover roughly 35 countries:
 
    | Source | Countries | Products | Currency |
    |---|---|---|---|
@@ -24,6 +24,7 @@ Twice-daily collection and storage of oil prices:
    | Ministry of Petroleum | Egypt | petrol 80/92/95, diesel, kerosene | EGP |
    | CRE open data | Mexico | petrol, premium, diesel | MXN |
    | BPC | Bangladesh | petrol, octane, diesel, light diesel, kerosene, furnace oil | BDT |
+   | PPAC | India | petrol, diesel (Delhi reference) | INR |
 
    The Commission publishes the bulletin in euro for *every* member state,
    including those outside the eurozone, so those rows are stored as EUR
@@ -35,6 +36,11 @@ Twice-daily collection and storage of oil prices:
    chain, so the missing (long-lived) intermediate ships in
    `oilprice/data` and is added to the trusted roots for that request
    rather than turning verification off.
+
+   India publishes daily prices only as a PDF, and only for the four
+   metro cities; Delhi is stored as the conventional reference and the
+   `source` records it. Note `ppac.gov.in` refuses connections from some
+   networks, in which case that run is marked partial for India alone.
 
    Countries without a scraper can be entered manually.
 
