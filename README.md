@@ -12,7 +12,7 @@ Twice-daily collection and storage of oil prices:
    litre, using free USD exchange rates captured at the same moment
    (open.er-api.com, frankfurter.app fallback).
 3. **Local pump prices** — actual market prices per litre. Built-in
-   scrapers cover roughly 33 countries:
+   scrapers cover roughly 34 countries:
 
    | Source | Countries | Products | Currency |
    |---|---|---|---|
@@ -23,6 +23,7 @@ Twice-daily collection and storage of oil prices:
    | ANP | Brazil | petrol, premium, diesel, diesel S10, ethanol | BRL |
    | Ministry of Petroleum | Egypt | petrol 80/92/95, diesel, kerosene | EGP |
    | CRE open data | Mexico | petrol, premium, diesel | MXN |
+   | BPC | Bangladesh | petrol, octane, diesel, light diesel, kerosene, furnace oil | BDT |
 
    The Commission publishes the bulletin in euro for *every* member state,
    including those outside the eurozone, so those rows are stored as EUR
@@ -30,6 +31,11 @@ Twice-daily collection and storage of oil prices:
    and converted to litres on the way in. Mexico is the one derived figure:
    the regulator publishes only per-station prices, so the stored national
    price is the median across reporting stations and its `source` says so.
+   Bangladesh needs one extra step: BPC serves an incomplete certificate
+   chain, so the missing (long-lived) intermediate ships in
+   `oilprice/data` and is added to the trusted roots for that request
+   rather than turning verification off.
+
    Countries without a scraper can be entered manually.
 
 Everything is *stored only* (as requested) — no UI, no analysis. Three

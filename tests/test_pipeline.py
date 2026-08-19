@@ -455,7 +455,8 @@ def test_eu_skips_tonne_priced_heavy_fuel_oil(monkeypatch):
 
 def test_all_scrapers_registered():
     from oilprice.fetchers import LOCAL_SCRAPERS
-    assert set(LOCAL_SCRAPERS) == {"PK", "US", "GB", "EU", "BR", "EG", "MX"}
+    assert set(LOCAL_SCRAPERS) == {"PK", "US", "GB", "EU", "BR", "EG",
+                                   "MX", "BD"}
 
 
 def test_multi_country_scraper_logs_every_country(isolated_data, monkeypatch,
@@ -684,6 +685,104 @@ def test_mexico_labels_source_as_derived(monkeypatch):
     monkeypatch.setattr(mexico.http, "get", lambda url: FakeResp())
     for p in mexico.fetch():
         assert "median" in p.source.lower()
+
+
+# --- Bangladesh (BPC) --------------------------------------------------
+
+BD_HTML = """
+<table>
+  <tr><th>নং</th><th>পণ্যের নাম</th>
+      <th>স্থানীয় বিক্রয় মূল্য</th>
+      <th>কার্যকরের তারিখ</th></tr>
+  <tr><td>১</td><td>ডিজেল</td>
+      <td>১১৫.০০ (টাকা/লিটার)</td><td>০১/০৬/২০২৬</td></tr>
+  <tr><td>২</td><td>কেরোসিন</td>
+      <td>১৩৫.০০ (টাকা/লিটার)</td><td>০১/০৬/২০২৬</td></tr>
+  <tr><td>৩</td><td>অকটেন</td>
+      <td>১৪৫.০০ (টাকা/লিটার)</td><td>০১/০৬/২০২৬</td></tr>
+  <tr><td>৪</td><td>পেট্রোল</td>
+      <td>১৪০.০০ (টাকা/লিটার)</td><td>০১/০৬/২০২৬</td></tr>
+  <tr><td>৫</td><td>জেট এ-১</td>
+      <td>১.০৩৫৮ (মা.ড/লিটার)</td><td>১০/০৮/২০২৬</td></tr>
+  <tr><td>৬</td><td>এলপি গ্যাস</td>
+      <td>৭৭৬.৫৩/সিলিন্ডার</td><td>২৩/০২/২০২৬</td></tr>
+  <tr><td>৭</td><td>এলডিও</td>
+      <td>১১৩.০০ (টাকা/লিটার)</td><td>০৭/০৭/২০২৬</td></tr>
+</table>
+"""
+
+
+def test_bangladesh_parser(monkeypatch):
+    from oilprice.fetchers import bangladesh
+
+    class FakeResp:
+        text = BD_HTML
+
+    monkeypatch.setattr(bangladesh.http, "get",
+                        lambda url, **kw: FakeResp())
+    prices = {p.product: p for p in bangladesh.fetch()}
+
+    # Bengali-Indic numerals are transliterated before parsing.
+    assert prices["diesel"].price == pytest.approx(115.0)
+    assert prices["kerosene"].price == pytest.approx(135.0)
+    assert prices["petrol"].price == pytest.approx(140.0)
+    assert prices["petrol_premium"].price == pytest.approx(145.0)
+    assert prices["light_diesel"].price == pytest.approx(113.0)
+    assert all(p.currency == "BDT" and p.country_code == "BD" and p.unit == "litre"
+               for p in prices.values())
+
+
+def test_bangladesh_rejects_dollar_priced_jet_fuel(monkeypatch):
+    """Jet fuel is quoted per litre but in US dollars, not Taka."""
+    from oilprice.fetchers import bangladesh
+
+    class FakeResp:
+        text = BD_HTML
+
+    monkeypatch.setattr(bangladesh.http, "get",
+                        lambda url, **kw: FakeResp())
+    prices = bangladesh.fetch()
+    # 1.0358 USD/litre must never be stored, in any currency.
+    assert not [p for p in prices if p.price < 10]
+    assert all(p.currency == "BDT" for p in prices)
+
+
+def test_bangladesh_excludes_per_cylinder_rows(monkeypatch):
+    from oilprice.fetchers import bangladesh
+
+    class FakeResp:
+        text = BD_HTML
+
+    monkeypatch.setattr(bangladesh.http, "get",
+                        lambda url, **kw: FakeResp())
+    products = {p.product for p in bangladesh.fetch()}
+    assert products == {"diesel", "kerosene", "petrol", "petrol_premium",
+                        "light_diesel"}
+
+
+def test_bangladesh_matches_both_bengali_encodings(monkeypatch):
+    """ya-nukta may arrive precomposed or as base letter plus combining mark."""
+    from oilprice.fetchers import bangladesh
+
+    # Built from codepoints so the two spellings are genuinely different:
+    # U+09DF, versus U+09AF followed by the combining nukta U+09BC.
+    stem = "ফার্নেস অ"
+    tail = "েল"
+    precomposed = stem + chr(0x09DF) + tail
+    decomposed = stem + chr(0x09AF) + chr(0x09BC) + tail
+    assert precomposed != decomposed
+    assert bangladesh._normalise(precomposed) == bangladesh._normalise(decomposed)
+
+    for spelling in (precomposed, decomposed):
+        html = ("<table><tr><td>১১</td><td>" + spelling
+                + "</td><td>১০০.৩৯ (টাকা/লিটার)</td></tr></table>")
+
+        class FakeResp:
+            text = html
+
+        monkeypatch.setattr(bangladesh.http, "get", lambda url, **kw: FakeResp())
+        prices = {p.product: p for p in bangladesh.fetch()}
+        assert prices["furnace_oil"].price == pytest.approx(100.39)
 
 
 def test_slot_boundaries():

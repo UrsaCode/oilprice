@@ -6,3 +6,6 @@ beautifulsoup4>=4.12
 tzdata>=2024.1
 # Reads the EU Weekly Oil Bulletin, published only as .xlsx.
 openpyxl>=3.1
+# Root store, combined with a bundled intermediate for bpc.gov.bd,
+# which serves an incomplete certificate chain.
+certifi>=2024.2
