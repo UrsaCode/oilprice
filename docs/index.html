@@ -132,6 +132,31 @@
     opacity: 0; transition: opacity .45s ease;
   }
   .band.shown { opacity: 1; }
+  /* --- one litre, split against each seller ---------------------------- */
+  .split-head { font-size: 15px; color: var(--ink); margin: 0 0 12px; }
+  .split-head b { font-variant-numeric: tabular-nums; }
+  .split-row {
+    display: grid; grid-template-columns: 118px 1fr 168px;
+    align-items: center; gap: 12px; padding: 3px 0;
+  }
+  .split-name { font-size: 14px; color: var(--muted); text-align: right; white-space: nowrap; }
+  .split-track {
+    display: flex; height: 22px; border-radius: 4px; overflow: hidden;
+    background: color-mix(in srgb, var(--muted) 16%, transparent);
+  }
+  .split-crude {
+    height: 100%; width: 0;
+    transition: width .8s cubic-bezier(.22, .9, .28, 1);
+    transition-delay: calc(var(--i, 0) * 70ms);
+  }
+  .split-val { font-size: 13px; color: var(--muted); font-variant-numeric: tabular-nums; }
+  .split-val b { color: var(--ink); font-weight: 600; }
+  @media (prefers-reduced-motion: reduce) { .split-crude { transition: none !important; } }
+  @media (max-width: 620px) {
+    .split-row { grid-template-columns: 84px 1fr; }
+    .split-val { grid-column: 2; font-size: 12px; }
+  }
+
   .legend { display: flex; flex-wrap: wrap; gap: 18px; margin-top: 18px; font-size: 13px; color: var(--muted); }
   .swatch { display: inline-block; width: 22px; height: 10px; border-radius: 2px; vertical-align: middle; margin-right: 7px; }
 
@@ -251,16 +276,27 @@
   </section>
 
   <section>
-    <h2>One country over time</h2>
+    <h2>One country, against each seller</h2>
     <p class="note">
-      Pump prices in US dollars per litre, run by run. Each point uses the exchange rate
-      captured with it, never today&rsquo;s applied backwards — so a move in this line is a move
-      in the price or in the currency, and both are real.
+      The same litre, split four ways. The bar is what it costs at the pump; the coloured
+      part is the crude inside it, priced against one seller at a time. Everything to the
+      right of that is refining, freight, duty, levy and margin — and it changes depending
+      on whose barrel you say went in, which is the honest reason nobody quotes a single
+      number for &ldquo;the tax on fuel&rdquo;.
     </p>
     <div class="controls">
       <label for="country-pick" class="bar-sub">Country</label>
       <select id="country-pick"></select>
     </div>
+    <p class="split-head" id="split-head"></p>
+    <div id="split"></div>
+
+    <h2 style="margin-top:44px">The same country over time</h2>
+    <p class="note">
+      Pump prices in US dollars per litre, run by run. Each point uses the exchange rate
+      captured with it, never today&rsquo;s applied backwards — so a move in this line is a move
+      in the price or in the currency, and both are real.
+    </p>
     <figure><svg class="plot" id="country-plot" viewBox="0 0 960 300" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Pump prices for the selected country in US dollars per litre"></svg></figure>
     <div class="legend" id="country-legend"></div>
   </section>
@@ -478,6 +514,10 @@
         product = name;
         productButtons();
         bars();
+        /* The split is about the same product, so it follows the toggle
+           rather than making the reader set the same thing twice. */
+        var picked = el('country-pick').value;
+        if (picked) { splitBySeller(picked); }
       });
       host.appendChild(button);
     });
@@ -530,10 +570,18 @@
      run stored. Sorted cheapest first so the stacked labels read in the same
      order as the lines they point at. */
   function references() {
-    var keys = benchmark === 'ALL'
+    return refsFor(benchmark === 'ALL'
       ? BENCHMARKS.map(function (one) { return one.key; })
-      : [benchmark];
+      : [benchmark]);
+  }
 
+  /* Every benchmark the run stored, cheapest first — what the per-seller
+     split always draws, whatever the chart above is set to. */
+  function allReferences() {
+    return refsFor(BENCHMARKS.map(function (one) { return one.key; }));
+  }
+
+  function refsFor(keys) {
     return keys.map(function (key) {
       return {
         key: key,
@@ -749,8 +797,66 @@
     var preferred = options.some(function (one) { return one.code === 'PK'; }) ? 'PK'
       : (options.length ? options[0].code : '');
     pick.value = preferred;
-    pick.addEventListener('change', function () { countryPlot(pick.value); });
-    if (preferred) { countryPlot(preferred); }
+    pick.addEventListener('change', function () {
+      splitBySeller(pick.value);
+      countryPlot(pick.value);
+    });
+    if (preferred) {
+      splitBySeller(preferred);
+      countryPlot(preferred);
+    }
+  }
+
+  /* One country's litre, against each seller in turn.
+   *
+   * Every row is the same length, because every row is the same pump price —
+   * only the crude slice inside it moves. That is the comparison: not four
+   * different litres, one litre answered four ways. */
+  function splitBySeller(code) {
+    var host = el('split');
+    var head = el('split-head');
+
+    var country = null;
+    data.countries.forEach(function (one) { if (one.code === code) { country = one; } });
+    var priced = country && country.prices[product];
+
+    if (!priced || priced.usd === null || priced.usd === undefined) {
+      text(head, '');
+      host.innerHTML = '<p class="empty">' + (country ? country.name : code) +
+        ' did not report ' + product + ' in this run.</p>';
+      return;
+    }
+
+    var pump = priced.usd;
+    var refs = allReferences();
+    if (!refs.length) { host.innerHTML = ''; return; }
+
+    head.innerHTML = country.name + ', ' + product + ' — <b>$' + money(pump) +
+      '</b> a litre <span class="bar-sub">(' +
+      money(priced.local, priced.local < 10 ? 2 : 1) + ' ' + country.currency + ')</span>';
+
+    host.innerHTML = refs.map(function (one, position) {
+      var share = Math.max(0, Math.min(1, one.usd / pump));
+      var rest = pump - one.usd;
+      return '<div class="split-row">' +
+        '<div class="split-name">' + one.label + '</div>' +
+        '<div class="split-track"><div class="split-crude" style="--i:' + position +
+          ';background:' + one.colour + ';width:' +
+          (STILL ? (100 * share).toFixed(2) + '%' : '0') + '" data-w="' +
+          (100 * share).toFixed(2) + '%"></div></div>' +
+        '<div class="split-val">crude <b>$' + money(one.usd) + '</b> · ' +
+          Math.round(share * 100) + '%, rest $' + money(rest) + '</div>' +
+      '</div>';
+    }).join('');
+
+    if (!STILL) {
+      var slices = host.querySelectorAll('.split-crude');
+      afterPaint(function () {
+        Array.prototype.forEach.call(slices, function (slice) {
+          slice.style.width = slice.dataset.w;
+        });
+      });
+    }
   }
 
   function countryPlot(code) {
