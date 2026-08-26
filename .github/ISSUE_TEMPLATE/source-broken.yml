@@ -26,8 +26,9 @@ body:
     id: what
     attributes:
       label: What happens
-      description: The log line, the traceback, or simply which figures stopped appearing.
-      render: text
+      description: |
+        The log line, the traceback, or simply which figures stopped appearing.
+        (No `render` here on purpose: GitHub will not let a rendered textarea be required.)
     validations:
       required: true
 
