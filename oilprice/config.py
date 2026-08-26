@@ -29,6 +29,11 @@ USER_AGENT = (
     "(KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36"
 )
 
+# Which browser http.browser_get impersonates, for the one host that decides
+# what to serve from the TLS handshake. "chrome" tracks curl_cffi's newest
+# Chrome profile rather than pinning a version that ages out of recognition.
+IMPERSONATE = os.environ.get("OILPRICE_IMPERSONATE", "chrome")
+
 # One oil barrel in litres (used to derive per-litre benchmark prices).
 LITRES_PER_BARREL = 158.987
 

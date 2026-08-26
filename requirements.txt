@@ -11,3 +11,10 @@ openpyxl>=3.1
 certifi>=2024.2
 # PPAC publishes Indian daily pump prices only as PDF.
 pypdf>=4.0
+# opec.org decides what to serve from the TLS handshake and answers a plain
+# client with an interstitial carrying a 200. curl_cffi shakes hands the way a
+# browser does, so the public feed arrives as the feed. Used by one source
+# only, through http.browser_get.
+curl_cffi>=0.7
+# That feed is remote XML, so it is not parsed with the standard library.
+defusedxml>=0.7

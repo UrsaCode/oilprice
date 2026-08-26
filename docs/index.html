@@ -21,6 +21,12 @@
     --grid: #e7ecf0;
     --ok: #1a7f37;
     --warn: #9a6700;
+    /* One line per benchmark. Each is also named in the legend and on the
+       selector, so the chart never asks anyone to tell them apart by hue. */
+    --s-brent: #d97706;
+    --s-wti: #59636e;
+    --s-opec: #0e7490;
+    --s-dubai: #9d174d;
   }
   @media (prefers-color-scheme: dark) {
     :root {
@@ -35,6 +41,10 @@
       --grid: #262c36;
       --ok: #3fb950;
       --warn: #d29922;
+      --s-brent: #f59e0b;
+      --s-wti: #9198a1;
+      --s-opec: #22d3ee;
+      --s-dubai: #f472b6;
     }
   }
 
@@ -124,6 +134,8 @@
 
   footer { margin-top: 64px; padding-top: 24px; border-top: 1px solid var(--border); color: var(--muted); font-size: 14px; }
   footer p { max-width: 74ch; }
+  footer .by { margin-top: 18px; padding-top: 16px; border-top: 1px solid var(--border); color: var(--faint); }
+  footer .by b { color: var(--muted); font-weight: 600; }
 
   /* --- motion ------------------------------------------------------------
      Every animation here runs once and then the page is still. Nothing loops:
@@ -190,10 +202,20 @@
     <p class="note">
       Every country the scrapers reached in the latest run, converted to US dollars at the
       exchange rate captured in that same run. The dashed line is what the crude in a litre
-      costs — one figure for the whole world, because a barrel of Brent costs the same
-      everywhere. Everything to the right of it is refining, freight, duty, levy and margin.
+      costs, and everything to the right of it is refining, freight, duty, levy and margin.
+    </p>
+    <p class="note">
+      <b>Which crude, though.</b> Brent is North Sea and WTI is American, but a refinery in
+      Karachi or Dhaka is buying Arab Light from Saudi Arabia and Murban from the UAE, and
+      those cargoes are priced off Dubai. The sellers do not all charge the same, so the
+      line moves depending on whose barrel you mean.
     </p>
     <div class="controls" id="product-buttons" role="group" aria-label="Product"></div>
+    <div class="controls">
+      <label for="benchmark-pick" class="bar-sub">Priced against</label>
+      <select id="benchmark-pick"></select>
+      <span class="bar-sub" id="benchmark-says"></span>
+    </div>
     <div class="bars" id="bars"></div>
     <div class="legend">
       <span><i class="swatch" style="background:var(--accent)"></i>pump price, USD per litre</span>
@@ -243,6 +265,9 @@
       <a href="summary.json">the figures on this page as JSON</a> ·
       Pakistani prices from <a href="https://eklitre.pk">ek litre</a>
     </p>
+    <p class="by">
+      Built and maintained by <a href="https://ursacode.com"><b>UrsaCode</b></a>, a software studio in Pakistan.
+    </p>
   </footer>
 
 </div>
@@ -264,6 +289,30 @@
 
   var data = null;
   var product = 'petrol';
+  var benchmark = 'BRENT';
+
+  /* What each benchmark is, in the fewest words that stop it being mistaken
+     for another. The order is the order they are offered in. */
+  var BENCHMARKS = [
+    { key: 'BRENT', label: 'Brent', token: '--s-brent',
+      says: 'North Sea. The number everybody quotes.' },
+    { key: 'DUBAI', label: 'Dubai', token: '--s-dubai',
+      says: 'What Asian cargoes are actually priced against. Monthly average.' },
+    { key: 'OPEC', label: 'OPEC basket', token: '--s-opec',
+      says: 'The twelve member crudes averaged — Arab Light, Murban and the rest.' },
+    { key: 'WTI', label: 'WTI', token: '--s-wti',
+      says: 'American. Landlocked, and the least relevant to South Asia.' }
+  ];
+
+  var swatchFor = function (token) {
+    return getComputedStyle(document.documentElement).getPropertyValue(token).trim();
+  };
+  var known = function (key) {
+    for (var i = 0; i < BENCHMARKS.length; i++) {
+      if (BENCHMARKS[i].key === key) { return BENCHMARKS[i]; }
+    }
+    return { key: key, label: key, token: '--muted', says: '' };
+  };
 
   /* One question asked once, and every animation obeys the answer. */
   var STILL = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -318,6 +367,7 @@
   function draw() {
     chips();
     productButtons();
+    benchmarkPicker();
     bars();
     crudePlot();
     countryPicker();
@@ -359,7 +409,10 @@
     var totals = data.totals;
     var brent = data.benchmarks_usd_per_barrel.BRENT;
     var parts = [
-      ['latest run', run.id, run.status, null],
+      /* Only the status chip is coloured by the status. The run id carried the
+         class too, so a partial run tinted the date amber as though the date
+         were the thing in doubt. */
+      ['latest run', run.id, '', null],
       ['status', run.status, run.status, null],
       ['countries priced', String(totals.countries_priced), '', totals.countries_priced],
       ['runs collected', String(totals.runs), '', totals.runs],
@@ -410,9 +463,42 @@
     });
   }
 
+  /* Only benchmarks the run actually stored are offered. A source being down
+     costs its own line and nothing else, so the list is built from the data
+     rather than from the vocabulary above. */
+  function benchmarkPicker() {
+    var pick = el('benchmark-pick');
+    var have = BENCHMARKS.filter(function (one) {
+      return data.crude_usd_per_litre[one.key] !== undefined;
+    });
+
+    if (have.length < 2) {
+      pick.parentNode.style.display = 'none';
+      if (have.length) { benchmark = have[0].key; }
+      return;
+    }
+
+    benchmark = have[0].key;
+    pick.innerHTML = have.map(function (one) {
+      return '<option value="' + one.key + '">' + one.label + ' — $' +
+        money(data.benchmarks_usd_per_barrel[one.key]) + ' / barrel</option>';
+    }).join('');
+    pick.value = benchmark;
+
+    var explain = function () {
+      text(el('benchmark-says'), known(benchmark).says);
+    };
+    pick.addEventListener('change', function () {
+      benchmark = pick.value;
+      explain();
+      bars();
+    });
+    explain();
+  }
+
   function bars() {
     var host = el('bars');
-    var crude = data.crude_usd_per_litre.BRENT;
+    var crude = data.crude_usd_per_litre[benchmark];
 
     var rows = data.countries.filter(function (one) {
       var priced = one.prices[product];
@@ -462,7 +548,7 @@
          ends 84px + 12px short of the right edge. The line has to land inside
          the track, so it is placed against the track and not against the row. */
       rule.style.left = 'calc(160px + (100% - 256px) * ' + (crude / top).toFixed(4) + ')';
-      rule.innerHTML = '<span>crude $' + money(crude) + '</span>';
+      rule.innerHTML = '<span>' + known(benchmark).label + ' $' + money(crude) + '</span>';
       host.style.paddingTop = '22px';
       host.appendChild(rule);
 
@@ -549,17 +635,21 @@
   function crudePlot() {
     var runs = data.history.runs;
     var marks = data.history.benchmarks;
-    var series = [
-      { label: 'Brent', values: marks.BRENT || [], colour: ACCENT },
-      { label: 'WTI', values: marks.WTI || [], colour: INK }
-    ].filter(function (one) { return one.values.length; });
+    var series = BENCHMARKS.map(function (one) {
+      return { label: one.label, values: marks[one.key] || [], colour: swatchFor(one.token) };
+    }).filter(function (one) { return one.values.length; });
 
     var live = plot(el('crude-plot'), runs, series, function (v) { return '$' + v.toFixed(0); });
     legend(el('crude-legend'), live);
+
+    /* Dubai is a monthly average, so its line is a staircase rather than a
+       series that moved. Saying so beats leaving a reader to wonder why one
+       line is flat for a fortnight. */
+    var monthly = marks.DUBAI ? ' Dubai is a monthly average, which is why it steps rather than moves.' : '';
     text(el('crude-note'),
       'US dollars per barrel, one point per collection run — ' + runs.length +
       ' runs from ' + runDate(runs[0]) + ' to ' + runDate(runs[runs.length - 1]) +
-      '. Two points a day, so this is a short record and reads like one.');
+      '. Two points a day, so this is a short record and reads like one.' + monthly);
   }
 
   function countryPicker() {

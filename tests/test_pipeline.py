@@ -23,6 +23,11 @@ FAKE_LOCAL = [
     LocalPrice("PK", "petrol", 275.6, "PKR", NOW, "test"),
     LocalPrice("PK", "diesel", 285.3, "PKR", NOW, "test"),
 ]
+# The seller-side benchmarks are a second, independent network call inside
+# pipeline.run. Every test that exercises the pipeline has to stub them or the
+# suite silently starts reaching opec.org, and "tests run fully offline" stops
+# being true the moment somebody runs them on a train.
+FAKE_SELLERS = [BenchmarkQuote("OPEC", 90.28, NOW, "test-opec")]
 
 
 @pytest.fixture
@@ -36,6 +41,7 @@ def isolated_data(tmp_path, monkeypatch):
 
 def test_full_run_with_mocked_sources(isolated_data, monkeypatch):
     monkeypatch.setattr(pipeline.international, "fetch", lambda: FAKE_QUOTES)
+    monkeypatch.setattr(pipeline.sellers, "fetch", lambda: FAKE_SELLERS)
     monkeypatch.setattr(pipeline.fx, "fetch", lambda: (FAKE_RATES, "test-fx"))
     monkeypatch.setattr(pipeline, "LOCAL_SCRAPERS", {"PK": lambda: FAKE_LOCAL})
 
@@ -43,7 +49,9 @@ def test_full_run_with_mocked_sources(isolated_data, monkeypatch):
 
     conn = db.connect()
     intl = conn.execute("SELECT * FROM international_prices").fetchall()
-    assert {r["benchmark"] for r in intl} == {"BRENT", "WTI"}
+    assert {r["benchmark"] for r in intl} == {"BRENT", "WTI", "OPEC"}, (
+        "both benchmark calls are merged into one stored set"
+    )
 
     pk = conn.execute(
         "SELECT * FROM benchmark_local WHERE country_code = 'PK' "
@@ -65,7 +73,7 @@ def test_full_run_with_mocked_sources(isolated_data, monkeypatch):
     assert pipeline.run() == "skipped"
     assert conn.execute(
         "SELECT COUNT(*) c FROM international_prices"
-    ).fetchone()["c"] == 2
+    ).fetchone()["c"] == 3
 
     # Exports exist.
     assert (isolated_data / "csv" / "international.csv").exists()
@@ -81,15 +89,42 @@ def _boom():
 
 def test_partial_when_local_scrape_fails(isolated_data, monkeypatch):
     monkeypatch.setattr(pipeline.international, "fetch", lambda: FAKE_QUOTES)
+    monkeypatch.setattr(pipeline.sellers, "fetch", lambda: FAKE_SELLERS)
     monkeypatch.setattr(pipeline.fx, "fetch", lambda: (FAKE_RATES, "test-fx"))
     monkeypatch.setattr(pipeline, "LOCAL_SCRAPERS", {"PK": _boom})
 
     assert pipeline.run() == "partial"
 
 
+def test_a_seller_benchmark_failing_costs_only_itself(isolated_data, monkeypatch):
+    """Brent and the OPEC basket are different failures, not one.
+
+    Brent going missing costs the reference every other figure is read
+    against; the basket going missing costs one comparison. They are fetched
+    separately so neither can take the other down, and the run says partial
+    rather than pretending nothing was missed.
+    """
+    monkeypatch.setattr(pipeline.international, "fetch", lambda: FAKE_QUOTES)
+    monkeypatch.setattr(pipeline.sellers, "fetch", _boom)
+    monkeypatch.setattr(pipeline.fx, "fetch", lambda: (FAKE_RATES, "test-fx"))
+    monkeypatch.setattr(pipeline, "LOCAL_SCRAPERS", {"PK": lambda: FAKE_LOCAL})
+
+    assert pipeline.run() == "partial"
+
+    conn = db.connect()
+    stored = {r["benchmark"] for r in
+              conn.execute("SELECT benchmark FROM international_prices")}
+    assert stored == {"BRENT", "WTI"}, "Brent survives the basket being down"
+    # And the per-country derivation still happened for what did arrive.
+    assert conn.execute(
+        "SELECT COUNT(*) c FROM benchmark_local WHERE country_code = 'PK'"
+    ).fetchone()["c"] == 2
+
+
 def test_international_failure_still_saves_fx_and_local(isolated_data,
                                                         monkeypatch):
     monkeypatch.setattr(pipeline.international, "fetch", _boom)
+    monkeypatch.setattr(pipeline.sellers, "fetch", _boom)
     monkeypatch.setattr(pipeline.fx, "fetch", lambda: (FAKE_RATES, "test-fx"))
     monkeypatch.setattr(pipeline, "LOCAL_SCRAPERS", {"PK": lambda: FAKE_LOCAL})
 
@@ -106,6 +141,7 @@ def test_international_failure_still_saves_fx_and_local(isolated_data,
 
 def test_failed_when_every_source_fails(isolated_data, monkeypatch):
     monkeypatch.setattr(pipeline.international, "fetch", _boom)
+    monkeypatch.setattr(pipeline.sellers, "fetch", _boom)
     monkeypatch.setattr(pipeline.fx, "fetch", _boom)
     monkeypatch.setattr(pipeline, "LOCAL_SCRAPERS", {"PK": _boom})
 
@@ -247,6 +283,160 @@ def test_light_diesel_not_classified_as_diesel():
     assert pakistan._classify("Kerosene Oil") == "kerosene"
     assert pakistan._classify("Date") is None
     assert pakistan._classify("JP-1") is None
+
+
+# --- Seller-side benchmarks (OPEC basket, Dubai) -----------------------
+
+ORB_XML = (
+    '<?xml version="1.0" encoding="utf-8" ?>'
+    '<Basket xmlns="http://tempuri.org/basketDayArchives.xsd">'
+    '<BasketList data="2026-08-20" val="92.84"/>'
+    '<BasketList data="2026-08-25" val="90.28"/>'
+    '<BasketList data="2026-08-21" val="94.91"/>'
+    '<BasketList data="2026-08-26" val="0.00"/>'
+    '</Basket>'
+).encode()
+
+
+def _bytes_response(payload):
+    class Resp:
+        content = payload
+        text = payload.decode("utf-8", "replace")
+    return Resp
+
+
+def test_opec_basket_takes_the_newest_dated_entry(monkeypatch):
+    """Entries are not in date order, and the newest is not the last."""
+    from oilprice.fetchers import sellers
+
+    monkeypatch.setattr(
+        sellers.http, "browser_get", lambda url, **kw: _bytes_response(ORB_XML))
+    quote = sellers._from_opec()
+
+    # 2026-08-26 exists but reads 0.00, which no crude benchmark can be, so it
+    # is rejected as a mis-read and the newest plausible entry wins instead.
+    assert quote.price_usd == 90.28
+    assert quote.benchmark == "OPEC"
+    assert quote.source == "opec.org (reference basket, 2026-08-25)"
+
+
+def test_opec_basket_survives_the_namespace_being_tidied(monkeypatch):
+    """The feed's namespace is a tempuri.org placeholder, so it is not pinned."""
+    from oilprice.fetchers import sellers
+
+    plain = ORB_XML.replace(
+        b' xmlns="http://tempuri.org/basketDayArchives.xsd"', b'')
+    monkeypatch.setattr(
+        sellers.http, "browser_get", lambda url, **kw: _bytes_response(plain))
+    assert sellers._from_opec().price_usd == 90.28
+
+
+def test_opec_basket_with_nothing_usable_fails_loudly(monkeypatch):
+    from oilprice.fetchers import sellers
+
+    empty = b'<Basket><BasketList data="2026-08-25" val="not a price"/></Basket>'
+    monkeypatch.setattr(
+        sellers.http, "browser_get", lambda url, **kw: _bytes_response(empty))
+    with pytest.raises(ValueError):
+        sellers._from_opec()
+
+
+def _pink_sheet(dubai_column_at=3, dubai_values=None):
+    """A workbook shaped like the World Bank Pink Sheet's monthly tab."""
+    import io as _io
+    import openpyxl
+
+    book = openpyxl.Workbook()
+    book.active.title = "Monthly Prices"
+    sheet = book.active
+
+    # Four rows of title block before the header, as the real file has.
+    for line in ("World Bank Commodity Price Data", "monthly prices",
+                 "(averages)", "Updated on August 06, 2026"):
+        sheet.append([line])
+
+    header = [None, "Crude oil, average", "Crude oil, Brent", "Crude oil, WTI",
+              "Coal, Australian", "Natural gas, US"]
+    header.insert(dubai_column_at, "Crude oil, Dubai")
+    sheet.append(header)
+
+    units = [None] + ["($/bbl)"] * 4 + ["($/mt)", "($/mmbtu)"]
+    sheet.append(units)
+
+    for month, dubai in (dubai_values or [("2026M05", 74.1), ("2026M07", 76.7),
+                                          ("2026M06", 75.3), ("2026M08", "..")]):
+        row = [month, 80.0, 85.0, 80.1, 120.0, 3.0]
+        row.insert(dubai_column_at, dubai)
+        sheet.append(row)
+
+    buffer = _io.BytesIO()
+    book.save(buffer)
+    return buffer.getvalue()
+
+
+def test_dubai_reads_the_newest_month_it_is_priced_for():
+    from oilprice.fetchers import sellers
+
+    month, value = sellers._newest_dubai(_pink_sheet())
+    # 2026M08 exists but carries "..", the sheet's way of saying no price.
+    assert (month, value) == ("2026M07", 76.7)
+
+
+def test_dubai_column_is_found_by_name_not_position():
+    """The World Bank adds commodities; a fixed index would read coal."""
+    from oilprice.fetchers import sellers
+
+    for at in (1, 3, 5):
+        month, value = sellers._newest_dubai(_pink_sheet(dubai_column_at=at))
+        assert (month, value) == ("2026M07", 76.7), f"column at {at}"
+
+
+def test_dubai_without_its_column_fails_rather_than_guessing():
+    from oilprice.fetchers import sellers
+    import io as _io
+    import openpyxl
+
+    book = openpyxl.Workbook()
+    book.active.title = "Monthly Prices"
+    book.active.append([None, "Crude oil, Brent"])
+    book.active.append(["2026M07", 85.0])
+    buffer = _io.BytesIO()
+    book.save(buffer)
+
+    with pytest.raises(ValueError):
+        sellers._newest_dubai(buffer.getvalue())
+
+
+def test_the_world_bank_url_is_discovered_and_falls_back():
+    from oilprice.fetchers import sellers
+
+    linked = ("https://thedocs.worldbank.org/en/doc/abc-0050012026/related/"
+              "CMO-Historical-Data-Monthly.xlsx")
+    assert sellers._world_bank_file('<a href="' + linked + '">x</a>') == linked
+    # The URL carries a content hash that changes on republication, so a page
+    # that does not link it leaves the last known address.
+    assert sellers._world_bank_file("<html>no link</html>") == sellers.WORLD_BANK_FILE
+
+
+def test_one_seller_benchmark_failing_does_not_cost_the_other(monkeypatch):
+    """These are different quantities, not fallbacks for one another."""
+    from oilprice.fetchers import sellers
+
+    dubai = BenchmarkQuote("DUBAI", 76.7, NOW, "test")
+    monkeypatch.setattr(sellers, "_from_opec", _boom)
+    monkeypatch.setattr(sellers, "_from_world_bank", lambda: dubai)
+
+    quotes = sellers.fetch()
+    assert [q.benchmark for q in quotes] == ["DUBAI"]
+
+
+def test_both_seller_benchmarks_failing_is_an_error(monkeypatch):
+    from oilprice.fetchers import sellers
+
+    monkeypatch.setattr(sellers, "_from_opec", _boom)
+    monkeypatch.setattr(sellers, "_from_world_bank", _boom)
+    with pytest.raises(RuntimeError):
+        sellers.fetch()
 
 
 # --- Pakistan (ek litre) -----------------------------------------------
@@ -607,6 +797,7 @@ def test_multi_country_scraper_logs_every_country(isolated_data, monkeypatch,
         LocalPrice("PL", "petrol", 1.69, "EUR", NOW, "test"),
     ]
     monkeypatch.setattr(pipeline.international, "fetch", lambda: FAKE_QUOTES)
+    monkeypatch.setattr(pipeline.sellers, "fetch", lambda: FAKE_SELLERS)
     monkeypatch.setattr(pipeline.fx, "fetch", lambda: (FAKE_RATES, "test-fx"))
     monkeypatch.setattr(pipeline, "LOCAL_SCRAPERS", {"EU": lambda: multi})
 

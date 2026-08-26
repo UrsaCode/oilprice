@@ -4,6 +4,7 @@
 
 <p align="center">
   <a href="https://ursacode.github.io/oilprice/"><b>See the data &rarr;</b></a> &nbsp;·&nbsp;
+  <a href="https://ursacode.com">UrsaCode</a> &nbsp;·&nbsp;
   <a href="https://github.com/UrsaCode/oilprice/actions/workflows/tests.yml"><img src="https://github.com/UrsaCode/oilprice/actions/workflows/tests.yml/badge.svg" alt="Tests"></a>
   <a href="https://github.com/UrsaCode/oilprice/actions/workflows/collect.yml"><img src="https://github.com/UrsaCode/oilprice/actions/workflows/collect.yml/badge.svg" alt="Collection"></a>
   <img src="https://img.shields.io/badge/python-3.12%20%7C%203.13-blue" alt="Python 3.12 and 3.13">
@@ -27,11 +28,30 @@ every collection.
 
 What it collects:
 
-1. **International benchmarks** — Brent and WTI crude in USD per barrel.
-   Sources tried in order, no API keys needed: Yahoo Finance, then FRED
-   (official St. Louis Fed spot series — reliable from datacenter/CI IPs
-   where Yahoo often blocks, lags a day or two), then the EIA spot series
-   republished on GitHub.
+1. **Crude benchmarks** — four of them, in USD per barrel, because the
+   sellers do not all charge the same and Brent is not what everyone buys:
+
+   | Benchmark | What it is | Source | Frequency |
+   |---|---|---|---|
+   | Brent | North Sea. The number everybody quotes. | Yahoo Finance → FRED → EIA | daily |
+   | WTI | American, landlocked. | same chain | daily |
+   | OPEC basket | The twelve member crudes averaged — Arab Light (Saudi), Murban (UAE), Iran Heavy, Basra Medium, Kuwait Export and the rest. | opec.org | daily |
+   | Dubai | What Asian cargoes are actually priced against. | World Bank Pink Sheet | monthly average |
+
+   Brent's three sources are **fallbacks for one figure** — the first that
+   answers wins. The other two are **different figures** and are fetched
+   independently, so one being down costs only its own line.
+
+   This matters more than it sounds. A refinery in Karachi or Dhaka is buying
+   Arab Light and Murban, priced off Dubai, not Brent — and on the day this
+   was written the OPEC basket stood at $90.28 against Dubai's $76.70, which
+   is 8.5 US cents a litre depending on whose barrel you mean.
+
+   Per-seller prices are **not** available free: Saudi Aramco announces its
+   Official Selling Prices as a press release with no feed, ADNOC's Murban
+   settles on an exchange whose data pages refuse anonymous clients, and
+   Iranian cargoes are not openly priced. The basket is as close as free
+   public data gets.
 2. **Worldwide local-currency view** — the international benchmark expressed
    in **every country's currency** (~190 countries), per barrel and per
    litre, using free USD exchange rates captured at the same moment
@@ -169,11 +189,12 @@ file.
 
 - `runs` — one row per slot: `run_id` (`2026-08-13-AM`), status
   (`ok` / `partial` / `failed`).
-- `international_prices` — Brent/WTI in USD per barrel, per run.
+- `international_prices` — Brent, WTI, the OPEC basket and Dubai in USD per
+  barrel, per run.
 - `fx_rates` — 1 USD → currency rate for ~160 currencies, per run.
 - `benchmark_local` — **derived**: benchmark × FX per country, per barrel
-  and per litre. This is the "oil price in local currency" for every
-  country; it is *not* the pump price.
+  and per litre, for every benchmark. This is the "oil price in local
+  currency" for every country; it is *not* the pump price.
 - `local_prices` — actual pump prices (scraped or manual), local currency.
 
 Example queries:
@@ -256,3 +277,10 @@ See also [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md) and [SECURITY.md](SECURITY.md)
 
 MIT — see [LICENSE](LICENSE). That covers the code in this repository. It
 does not, and cannot, relicense the source data.
+
+---
+
+<p align="center">
+  Built and maintained by <a href="https://ursacode.com"><b>UrsaCode</b></a>, a software studio in Pakistan.<br>
+  <sub>Pakistani pump prices come from our own public record at <a href="https://eklitre.pk">eklitre.pk</a>.</sub>
+</p>

@@ -12,7 +12,7 @@ from pathlib import Path
 
 from . import config, db
 from .countries import load_countries
-from .fetchers import LOCAL_SCRAPERS, fx, international
+from .fetchers import LOCAL_SCRAPERS, fx, international, sellers
 
 log = logging.getLogger(__name__)
 
@@ -99,16 +99,29 @@ def run(force: bool = False) -> str:
     # Every layer is best-effort: one blocked source must never prevent the
     # others from being collected and saved.
 
-    # 1. International benchmarks.
+    # 1. International benchmarks: Brent and WTI, then the seller-side pair.
+    #
+    # Two calls rather than one, and separately best-effort, because they are
+    # different failures. Brent going missing costs the reference every other
+    # figure here is read against; the OPEC basket going missing costs one
+    # comparison. Folding them into a single try would let either take the
+    # other down.
     quotes = []
     try:
         quotes = international.fetch()
-        db.save_international(conn, run_id, quotes)
-        log.info("International: %s",
-                 {q.benchmark: q.price_usd for q in quotes})
     except Exception as exc:
         failures.append("international")
         log.error("International fetch failed: %s", exc)
+
+    try:
+        quotes = quotes + sellers.fetch()
+    except Exception as exc:
+        failures.append("sellers")
+        log.error("Seller benchmark fetch failed: %s", exc)
+
+    if quotes:
+        db.save_international(conn, run_id, quotes)
+        log.info("Benchmarks: %s", {q.benchmark: q.price_usd for q in quotes})
 
     # 2. FX rates + derived per-country benchmark prices.
     rates, fx_source, benchmark_rows = {}, None, []
