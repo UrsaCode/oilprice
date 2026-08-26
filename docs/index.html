@@ -108,10 +108,30 @@
     position: absolute; top: 0; bottom: 22px; width: 0;
     border-left: 2px dashed var(--accent); opacity: .85; pointer-events: none;
   }
+  /* With every benchmark shown at once the four lines fall within about three
+     per cent of the chart's width, so their labels cannot sit side by side.
+     Each is lifted to its own height instead and keeps its line's colour.
+     They stack UPWARD from where the line starts and the chart reserves
+     exactly that much room above the first bar — an earlier version hung them
+     off the top of the chart instead, where they landed on the controls. */
   .rule span {
-    position: absolute; top: -20px; left: 6px; white-space: nowrap;
+    position: absolute; left: 6px; white-space: nowrap;
+    top: calc(-17px - var(--lift, 0) * 17px);
     font-size: 12px; color: var(--accent); font-weight: 600;
   }
+  .rule span .dot {
+    display: inline-block; width: 7px; height: 7px; border-radius: 50%;
+    margin-right: 5px; background: currentColor; vertical-align: middle;
+  }
+  /* The range the four lines span, as one shape. It is the point of showing
+     them together: the crude in a litre is not a figure, it is a band. */
+  .band {
+    position: absolute; bottom: 22px;
+    background: color-mix(in srgb, var(--accent) 18%, transparent);
+    border-radius: 2px; pointer-events: none;
+    opacity: 0; transition: opacity .45s ease;
+  }
+  .band.shown { opacity: 1; }
   .legend { display: flex; flex-wrap: wrap; gap: 18px; margin-top: 18px; font-size: 13px; color: var(--muted); }
   .swatch { display: inline-block; width: 22px; height: 10px; border-radius: 2px; vertical-align: middle; margin-right: 7px; }
 
@@ -478,15 +498,25 @@
       return;
     }
 
-    benchmark = have[0].key;
-    pick.innerHTML = have.map(function (one) {
+    /* "All" is offered first and is what the section is really about: the
+       crude in a litre is not one number, it is a range, and seeing the four
+       together says that better than switching between them. */
+    var spread = have.map(function (one) { return data.crude_usd_per_litre[one.key]; });
+    var options = ['<option value="ALL">All ' + have.length + ' — $' +
+      money(Math.min.apply(null, spread)) + ' to $' +
+      money(Math.max.apply(null, spread)) + ' / litre</option>'];
+
+    benchmark = 'ALL';
+    pick.innerHTML = options.concat(have.map(function (one) {
       return '<option value="' + one.key + '">' + one.label + ' — $' +
         money(data.benchmarks_usd_per_barrel[one.key]) + ' / barrel</option>';
-    }).join('');
+    })).join('');
     pick.value = benchmark;
 
     var explain = function () {
-      text(el('benchmark-says'), known(benchmark).says);
+      text(el('benchmark-says'), benchmark === 'ALL'
+        ? 'The same litre, priced against each seller in turn.'
+        : known(benchmark).says);
     };
     pick.addEventListener('change', function () {
       benchmark = pick.value;
@@ -496,9 +526,30 @@
     explain();
   }
 
+  /* Which reference lines the chart is drawing: one, or every benchmark the
+     run stored. Sorted cheapest first so the stacked labels read in the same
+     order as the lines they point at. */
+  function references() {
+    var keys = benchmark === 'ALL'
+      ? BENCHMARKS.map(function (one) { return one.key; })
+      : [benchmark];
+
+    return keys.map(function (key) {
+      return {
+        key: key,
+        label: known(key).label,
+        colour: swatchFor(known(key).token),
+        usd: data.crude_usd_per_litre[key]
+      };
+    }).filter(function (one) {
+      return typeof one.usd === 'number';
+    }).sort(function (a, b) { return a.usd - b.usd; });
+  }
+
   function bars() {
     var host = el('bars');
-    var crude = data.crude_usd_per_litre[benchmark];
+    var refs = references();
+    var dearest = refs.length ? refs[refs.length - 1].usd : 0;
 
     var rows = data.countries.filter(function (one) {
       var priced = one.prices[product];
@@ -510,9 +561,17 @@
       return;
     }
 
-    /* The scale is set by the dearest bar and the reference together, so the
-       dashed line is always on the chart even when no country is near it. */
-    var top = Math.max(rows[0].prices[product].usd, crude || 0) * 1.06;
+    /* The scale is set by the dearest bar and the dearest reference together,
+       so every line is on the chart even when no country is near them. */
+    var top = Math.max(rows[0].prices[product].usd, dearest) * 1.06;
+
+    /* Where a dollar figure lands inside a track. The track starts after the
+       148px name column and its 12px gap, and ends 84px + 12px short of the
+       right edge, so a line has to be placed against the track rather than
+       against the row that contains it. */
+    var at = function (usd) {
+      return 'calc(160px + (100% - 256px) * ' + (usd / top).toFixed(4) + ')';
+    };
 
     /* Built at zero width and grown to the figure a frame later, each row a
        little behind the one above it. The stagger runs top to bottom in the
@@ -541,23 +600,49 @@
       });
     }
 
-    if (crude) {
+    if (!refs.length) { return; }
+
+    var arriving = [];
+    var many = refs.length > 1;
+
+    /* The band behind the lines. It is the point of showing all of them: the
+       crude in a litre is not one figure but a range, and a shape says that
+       where four dashed lines alone would just look crowded. */
+    /* Room above the first bar for the stack, and the lines begin below it so
+       a dashed rule never runs through its own label. */
+    var headroom = refs.length * 17 + 6;
+    host.style.paddingTop = headroom + 'px';
+
+    if (many) {
+      var band = document.createElement('div');
+      band.className = 'band';
+      band.style.top = headroom + 'px';
+      band.style.left = at(refs[0].usd);
+      band.style.right = 'calc(96px + (100% - 256px) * ' +
+        (1 - refs[refs.length - 1].usd / top).toFixed(4) + ')';
+      host.appendChild(band);
+      arriving.push(band);
+    }
+
+    refs.forEach(function (one, position) {
       var rule = document.createElement('div');
       rule.className = 'rule';
-      /* The track starts after the 148px name column and its 12px gap, and
-         ends 84px + 12px short of the right edge. The line has to land inside
-         the track, so it is placed against the track and not against the row. */
-      rule.style.left = 'calc(160px + (100% - 256px) * ' + (crude / top).toFixed(4) + ')';
-      rule.innerHTML = '<span>' + known(benchmark).label + ' $' + money(crude) + '</span>';
-      host.style.paddingTop = '22px';
+      rule.style.top = headroom + 'px';
+      rule.style.left = at(one.usd);
+      rule.style.borderLeftColor = one.colour;
+      rule.innerHTML = '<span style="--lift:' + position + ';color:' + one.colour + '">' +
+        (many ? '<i class="dot"></i>' : '') + one.label + ' $' + money(one.usd) + '</span>';
       host.appendChild(rule);
+      arriving.push(rule);
+    });
 
-      /* The reference arrives once the bars have stopped moving. Drawn with
-         them, it reads as one more bar; drawn after, it reads as the line
-         they are being measured against, which is what it is. */
-      var wait = STILL ? 0 : 300 + Math.min(rows.length, 36) * 11;
-      window.setTimeout(function () { rule.classList.add('shown'); }, wait);
-    }
+    /* The references arrive once the bars have stopped moving. Drawn with
+       them they read as more bars; drawn after, they read as the lines the
+       bars are being measured against, which is what they are. */
+    var wait = STILL ? 0 : 300 + Math.min(rows.length, 36) * 11;
+    window.setTimeout(function () {
+      arriving.forEach(function (node) { node.classList.add('shown'); });
+    }, wait);
   }
 
   /* --- line plots ------------------------------------------------------ */
