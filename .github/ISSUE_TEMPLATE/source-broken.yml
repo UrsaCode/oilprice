@@ -1,0 +1,55 @@
+name: A source stopped working
+description: A scraper is failing, or a country has gone missing from a run
+title: '[source] '
+labels: ['source-broken']
+body:
+  - type: markdown
+    attributes:
+      value: |
+        This is the most common issue here and the most useful one to file.
+        Sites redesign; a keyword-driven parser survives most of that but not all.
+
+        A run marked `partial` with one country missing is exactly this, and it is
+        working as intended — the pipeline refuses to guess. What it needs is a fix
+        to the parser.
+
+  - type: input
+    id: country
+    attributes:
+      label: Country or source
+      description: The country code, or the source if it covers several — PK, or the EU Weekly Oil Bulletin.
+      placeholder: PK
+    validations:
+      required: true
+
+  - type: textarea
+    id: what
+    attributes:
+      label: What happens
+      description: The log line, the traceback, or simply which figures stopped appearing.
+      render: text
+    validations:
+      required: true
+
+  - type: textarea
+    id: markup
+    attributes:
+      label: The fragment that no longer parses
+      description: |
+        **This is the valuable part.** Paste the table, row, CSV line or PDF text
+        the parser now chokes on. Every parser test in this repository is a real
+        capture of a real page, so your fragment goes straight in as a fixture and
+        the fix ships with a test that would have caught the break.
+
+        A link to the page is useful too, but a link goes stale and a capture does not.
+      render: html
+    validations:
+      required: false
+
+  - type: input
+    id: when
+    attributes:
+      label: When did you first see it
+      placeholder: '2026-08-26, or the run id: 2026-08-26-AM'
+    validations:
+      required: false

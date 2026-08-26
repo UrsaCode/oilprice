@@ -1,0 +1,11 @@
+blank_issues_enabled: true
+contact_links:
+  - name: A figure looks wrong for my country
+    url: https://github.com/UrsaCode/oilprice/issues/new?template=source-broken.yml
+    about: Usually a parser reading the wrong cell. Please include the markup it read.
+  - name: Pakistani prices
+    url: https://eklitre.pk
+    about: Pakistan is read from ek litre, which publishes the notification and the archived page behind every figure.
+  - name: Something exploitable
+    url: https://github.com/UrsaCode/oilprice/security/advisories/new
+    about: Report it privately rather than in a public issue. See SECURITY.md for what counts.

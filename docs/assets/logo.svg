@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128" role="img" aria-label="oilprice">
+  <title>oilprice</title>
+  <style>
+    /* Base colours are mid-tones that stay legible on a white or a dark page,
+       so the mark survives a viewer that never applies the media query below.
+       The query only sharpens what is already readable. */
+    .drop { fill: #d97706; }
+    .halo { stroke: #ffffff; }
+    .step { stroke: #57606a; }
+    @media (prefers-color-scheme: dark) {
+      .drop { fill: #f59e0b; }
+      .halo { stroke: #0d1117; }
+      .step { stroke: #e6edf3; }
+    }
+  </style>
+
+  <path class="drop" d="M64 14 C64 14 102 58 102 82 A38 38 0 0 1 26 82 C26 58 64 14 64 14 Z"/>
+
+  <g fill="none" stroke-linecap="square" stroke-linejoin="miter">
+    <path class="halo" stroke-width="17" d="M2 96 H36 V78 H62 V90 H86 V58 H126"/>
+    <path class="step" stroke-width="9" d="M2 96 H36 V78 H62 V90 H86 V58 H126"/>
+  </g>
+</svg>

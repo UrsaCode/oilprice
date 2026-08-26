@@ -1,0 +1,95 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 450" width="1200" height="450" role="img" aria-label="Pipeline diagram: three kinds of source feed one run slot, which writes three stores">
+  <title>How a collection run works</title>
+  <desc>Benchmarks, exchange rates and pump prices are fetched into a single run slot, which writes SQLite, CSV and a JSON snapshot. A source that fails marks the run partial and never blocks the rest.</desc>
+  <style>
+    /* Boxes carry their own light fill, so the ink inside them is safe on any
+       page even where the dark-theme query never runs. Only the text that sits
+       on the bare page uses a mid-tone that works either way. */
+    .box { fill: #f6f8fa; stroke: #d0d7de; }
+    .hero { fill: #fff8ef; stroke: #d97706; }
+    .store { fill: #f6f8fa; stroke: #d0d7de; }
+    .title { fill: #24292f; }
+    .sub { fill: #57606a; }
+    .onpage { fill: #6e7781; }
+    .arrow { stroke: #8c959f; fill: none; }
+    .head { fill: #8c959f; }
+    @media (prefers-color-scheme: dark) {
+      .box { fill: #161b22; stroke: #30363d; }
+      .hero { fill: #1c1710; stroke: #f59e0b; }
+      .store { fill: #161b22; stroke: #30363d; }
+      .title { fill: #e6edf3; }
+      .sub { fill: #9198a1; }
+      .onpage { fill: #8b949e; }
+      .arrow { stroke: #6e7681; }
+      .head { fill: #6e7681; }
+    }
+    .t { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; }
+    .m { font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace; }
+  </style>
+
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path class="head" d="M0 0 L10 5 L0 10 z"/>
+    </marker>
+  </defs>
+
+  <text class="t onpage" x="40" y="34" font-size="17" font-weight="600" letter-spacing="1">SOURCES</text>
+  <text class="t onpage" x="520" y="34" font-size="17" font-weight="600" letter-spacing="1">ONE RUN</text>
+  <text class="t onpage" x="880" y="34" font-size="17" font-weight="600" letter-spacing="1">STORES</text>
+
+  <g>
+    <rect class="box" x="40" y="56" width="400" height="86" rx="10" stroke-width="1.5"/>
+    <text class="t title" x="62" y="88" font-size="20" font-weight="600">Benchmarks</text>
+    <text class="t sub" x="62" y="113" font-size="15">Yahoo Finance, then FRED, then the EIA series</text>
+    <text class="t sub" x="62" y="133" font-size="15">Brent and WTI, USD per barrel</text>
+
+    <rect class="box" x="40" y="164" width="400" height="86" rx="10" stroke-width="1.5"/>
+    <text class="t title" x="62" y="196" font-size="20" font-weight="600">Exchange rates</text>
+    <text class="t sub" x="62" y="221" font-size="15">open.er-api.com, frankfurter.app as fallback</text>
+    <text class="t sub" x="62" y="241" font-size="15">~160 currencies, captured at the same moment</text>
+
+    <rect class="box" x="40" y="272" width="400" height="86" rx="10" stroke-width="1.5"/>
+    <text class="t title" x="62" y="304" font-size="20" font-weight="600">Pump prices</text>
+    <text class="t sub" x="62" y="329" font-size="15">9 scrapers, roughly 35 countries</text>
+    <text class="t sub" x="62" y="349" font-size="15">ek litre, EIA, DESNZ, EC, ANP, CRE, BPC, PPAC</text>
+  </g>
+
+  <g class="arrow" stroke-width="2" marker-end="url(#a)">
+    <path d="M446 99 H500 Q516 99 516 130 V186"/>
+    <path d="M446 207 H516"/>
+    <path d="M446 315 H500 Q516 315 516 284 V228"/>
+  </g>
+
+  <rect class="hero" x="524" y="140" width="272" height="134" rx="12" stroke-width="2"/>
+  <text class="t title" x="548" y="176" font-size="20" font-weight="600">Run slot</text>
+  <text class="m sub" x="548" y="203" font-size="15">2026-08-26-AM</text>
+  <text class="t sub" x="548" y="228" font-size="15">local date, then AM or PM</text>
+  <text class="t sub" x="548" y="250" font-size="15">a repeat inside one slot is</text>
+  <text class="t sub" x="548" y="268" font-size="15">skipped, never duplicated</text>
+
+  <g class="arrow" stroke-width="2" marker-end="url(#a)">
+    <path d="M802 207 H842 Q858 207 858 176 V110"/>
+    <path d="M802 207 H878"/>
+    <path d="M802 207 H842 Q858 207 858 238 V304"/>
+  </g>
+
+  <g>
+    <rect class="store" x="884" y="56" width="276" height="80" rx="10" stroke-width="1.5"/>
+    <text class="t title" x="906" y="88" font-size="19" font-weight="600">SQLite</text>
+    <text class="m sub" x="906" y="112" font-size="14">data/oilprice.db</text>
+    <text class="t sub" x="906" y="130" font-size="14">queryable history, the primary store</text>
+
+    <rect class="store" x="884" y="164" width="276" height="80" rx="10" stroke-width="1.5"/>
+    <text class="t title" x="906" y="196" font-size="19" font-weight="600">CSV</text>
+    <text class="m sub" x="906" y="220" font-size="14">data/csv/*.csv</text>
+    <text class="t sub" x="906" y="238" font-size="14">append-only, diff-friendly</text>
+
+    <rect class="store" x="884" y="272" width="276" height="80" rx="10" stroke-width="1.5"/>
+    <text class="t title" x="906" y="304" font-size="19" font-weight="600">JSON</text>
+    <text class="m sub" x="906" y="328" font-size="14">data/snapshots/&lt;run&gt;.json</text>
+    <text class="t sub" x="906" y="346" font-size="14">one complete snapshot per run</text>
+  </g>
+
+  <text class="t onpage" x="40" y="404" font-size="16">A source that fails marks the run <tspan font-weight="600">partial</tspan> for its country and never blocks the rest, so a gap in the history stays a gap.</text>
+  <text class="t onpage" x="40" y="430" font-size="16">Nothing is inferred to fill one: the only derived figures are benchmark × FX, and Mexico&#8217;s national median, and both say so.</text>
+</svg>

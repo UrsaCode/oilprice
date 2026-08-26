@@ -1,0 +1,62 @@
+name: Pages
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'docs/**'
+      - 'tools/build_site.py'
+      - '.github/workflows/pages.yml'
+
+  # A collection commits new data with GITHUB_TOKEN, and a push made with that
+  # token deliberately does not trigger other workflows — otherwise the page
+  # would never see the data it exists to show. Waiting on the collection run
+  # itself is the supported way round that recursion guard.
+  workflow_run:
+    workflows: ['Collect oil prices']
+    types: [completed]
+
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# One deploy at a time, and never cancel one half-way: an interrupted deploy
+# leaves the published page in whatever state the upload reached.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      # summary.json is a projection of data/oilprice.db and is not committed,
+      # so it is built here from whatever the record holds at deploy time. The
+      # page therefore cannot show figures the repository does not carry.
+      - name: Build the summary the page reads
+        run: python tools/build_site.py
+
+      - uses: actions/configure-pages@v5
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: docs
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

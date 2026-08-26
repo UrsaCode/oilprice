@@ -1,0 +1,41 @@
+name: Something else is wrong
+description: A bug in the pipeline, the CLI, the stored data or the published page
+title: '[bug] '
+labels: ['bug']
+body:
+  - type: markdown
+    attributes:
+      value: |
+        For a scraper that has stopped reading its source, please use
+        **A source stopped working** instead — it asks for the one thing that fixes it fastest.
+
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: What you expected instead
+    validations:
+      required: true
+
+  - type: textarea
+    id: repro
+    attributes:
+      label: How to reproduce it
+      description: The command you ran, and its output.
+      render: shell
+    validations:
+      required: false
+
+  - type: input
+    id: version
+    attributes:
+      label: Python version and OS
+      placeholder: 3.12 on Ubuntu 24.04
+    validations:
+      required: false

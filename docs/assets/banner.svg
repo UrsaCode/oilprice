@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 280" width="1200" height="280" role="img" aria-label="oilprice — crude benchmarks, exchange rates and real pump prices, collected twice a day from public sources">
+  <title>oilprice</title>
+  <desc>Two series drawn apart: the stepped pump price above, the smooth crude benchmark below. The distance between them is what this project stores and never invents.</desc>
+  <style>
+    /* Mid-tones first, so the banner stays legible where the media query below
+       is never applied. The wordmark is the accent in both themes, because
+       amber holds its own on white and on near-black alike. */
+    .drop { fill: #d97706; }
+    .halo { stroke: #ffffff; }
+    .step { stroke: #57606a; }
+    .word { fill: #d97706; }
+    .lede { fill: #57606a; }
+    .quiet { fill: #8c959f; }
+    .crude-line { stroke: #8c959f; }
+    .pump-line { stroke: #d97706; }
+    @media (prefers-color-scheme: dark) {
+      .drop { fill: #f59e0b; }
+      .halo { stroke: #0d1117; }
+      .step { stroke: #e6edf3; }
+      .word { fill: #f59e0b; }
+      .lede { fill: #c9d1d9; }
+      .quiet { fill: #8b949e; }
+      .crude-line { stroke: #8b949e; }
+      .pump-line { stroke: #f59e0b; }
+    }
+    .t { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; }
+  </style>
+
+  <g transform="translate(56 60) scale(1.16)">
+    <path class="drop" d="M64 14 C64 14 102 58 102 82 A38 38 0 0 1 26 82 C26 58 64 14 64 14 Z"/>
+    <g fill="none" stroke-linecap="square">
+      <path class="halo" stroke-width="17" d="M2 96 H36 V78 H62 V90 H86 V58 H126"/>
+      <path class="step" stroke-width="9" d="M2 96 H36 V78 H62 V90 H86 V58 H126"/>
+    </g>
+  </g>
+
+  <text class="t word" x="250" y="146" font-size="76" font-weight="700" letter-spacing="-2">oilprice</text>
+  <text class="t lede" x="254" y="192" font-size="24">Crude, currencies, and what a litre really costs.</text>
+  <text class="t quiet" x="254" y="226" font-size="21">Twice a day, from public sources only.</text>
+
+  <g fill="none" stroke-width="4" stroke-linejoin="round">
+    <path class="pump-line" stroke-linecap="square" stroke-linejoin="miter" d="M880 132 H914 V116 H952 V124 H992 V102 H1034 V88 H1076 V96 H1116 V70 H1160"/>
+    <path class="crude-line" stroke-linecap="round" d="M880 184 C902 172 920 192 944 180 S984 164 1010 170 S1054 148 1082 158 S1132 140 1160 144"/>
+  </g>
+
+  <g stroke-width="4" stroke-linecap="round">
+    <line class="pump-line" x1="880" y1="222" x2="910" y2="222"/>
+    <line class="crude-line" x1="880" y1="252" x2="910" y2="252"/>
+  </g>
+  <text class="t quiet" x="922" y="228" font-size="19">what a litre costs</text>
+  <text class="t quiet" x="922" y="258" font-size="19">what the crude in it costs</text>
+</svg>

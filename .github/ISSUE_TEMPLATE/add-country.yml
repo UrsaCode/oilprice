@@ -1,0 +1,63 @@
+name: Add a country
+description: Propose a pump-price source for a country with no scraper
+title: '[country] '
+labels: ['new-country']
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Roughly 35 countries have a scraper. The blocker for the rest is almost
+        never code — it is finding a source that publishes a national figure, free,
+        without an API key, and reliably enough to read twice a day.
+
+        If you know one, that knowledge is the contribution. The parser is the easy part.
+
+  - type: input
+    id: country
+    attributes:
+      label: Country
+      placeholder: United Arab Emirates (AE)
+    validations:
+      required: true
+
+  - type: input
+    id: url
+    attributes:
+      label: Where the prices are published
+      description: A regulator, ministry, statistics office or national oil company — whoever actually publishes the figure.
+      placeholder: https://www.moei.gov.ae/...
+    validations:
+      required: true
+
+  - type: dropdown
+    id: format
+    attributes:
+      label: What format is it published in
+      options:
+        - HTML table
+        - CSV or spreadsheet
+        - PDF
+        - JSON or an open API
+        - Something else, described below
+    validations:
+      required: true
+
+  - type: textarea
+    id: caveats
+    attributes:
+      label: Anything odd about the source
+      description: |
+        Worth saying if any of these are true: prices are per gallon or per US gallon;
+        the figure is per-station rather than national; the site blocks datacentre IPs;
+        the page shows only the newest value with no date; the certificate chain is broken.
+        Each of those has already caught out one country here.
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: offer
+    attributes:
+      label: Optional
+      options:
+        - label: I would like to write the scraper myself
+          required: false

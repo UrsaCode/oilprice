@@ -1,4 +1,16 @@
-# oilprice
+<p align="center">
+  <img src="docs/assets/banner.svg" alt="oilprice — crude, currencies, and what a litre really costs" width="820">
+</p>
+
+<p align="center">
+  <a href="https://ursacode.github.io/oilprice/"><b>See the data &rarr;</b></a> &nbsp;·&nbsp;
+  <a href="https://github.com/UrsaCode/oilprice/actions/workflows/tests.yml"><img src="https://github.com/UrsaCode/oilprice/actions/workflows/tests.yml/badge.svg" alt="Tests"></a>
+  <a href="https://github.com/UrsaCode/oilprice/actions/workflows/collect.yml"><img src="https://github.com/UrsaCode/oilprice/actions/workflows/collect.yml/badge.svg" alt="Collection"></a>
+  <img src="https://img.shields.io/badge/python-3.12%20%7C%203.13-blue" alt="Python 3.12 and 3.13">
+  <a href="LICENSE"><img src="https://img.shields.io/badge/licence-MIT-green" alt="MIT licence"></a>
+</p>
+
+---
 
 **Crude benchmarks, exchange rates and real pump prices — collected twice a
 day and stored, from public sources only.**
@@ -7,6 +19,11 @@ No API keys, no paid feeds, no account. Point it at a machine or let GitHub
 Actions run it, and it accumulates a history you can query in SQL. Every
 figure carries the source it came from, so anything stored here can be
 traced back to whoever published it.
+
+The collected data is charted at **[ursacode.github.io/oilprice](https://ursacode.github.io/oilprice/)** —
+what a litre costs in every country reached, against what the crude in it
+costs, which is one figure for the whole world. The page is rebuilt after
+every collection.
 
 What it collects:
 
@@ -61,14 +78,19 @@ What it collects:
 
    Countries without a scraper can be entered manually.
 
-Everything is *stored only* — no UI, no analysis, no forecasting. Three
-formats are written on every run so the data is easy to consume later:
+Everything is *stored only* — no analysis, no forecasting, no blending of two
+publishers into one averaged figure. Three formats are written on every run so
+the data is easy to consume later:
 
 | Store | Path | Purpose |
 |---|---|---|
 | SQLite | `data/oilprice.db` | queryable history, primary store |
 | CSV | `data/csv/*.csv` | append-only, diff-friendly history |
 | JSON | `data/snapshots/<run>.json` | complete snapshot of each run |
+
+<p align="center">
+  <img src="docs/assets/pipeline.svg" alt="Three kinds of source feed one run slot, which writes SQLite, CSV and a JSON snapshot" width="920">
+</p>
 
 ## How "twice daily" works
 
@@ -166,6 +188,21 @@ SELECT run_id, price_per_litre FROM benchmark_local
 WHERE country_code='PK' AND benchmark='BRENT' ORDER BY run_id;
 ```
 
+## The published page
+
+`docs/` holds a static page charting whatever the database contains. It has no
+build step, no framework and no third-party script — it reads one generated
+file and draws the rest itself.
+
+```bash
+python tools/build_site.py            # writes docs/summary.json from the database
+python -m http.server -d docs 4173    # then open http://127.0.0.1:4173
+```
+
+`summary.json` is a projection and is never a source, so it is not committed:
+the Pages workflow builds it from `data/oilprice.db` at deploy time and the
+page therefore cannot show a figure the repository does not carry.
+
 ## Tests
 
 ```bash
@@ -200,6 +237,20 @@ politely: one page per run, per source, with retries backing off.
 
 Pakistani prices come from [ek litre](https://eklitre.pk), which publishes
 the same record as an open API.
+
+## Contributing
+
+The two most useful things anyone can do are **report a source that broke** and
+**name a source for a country with no scraper**. Both have issue templates, and
+[CONTRIBUTING.md](CONTRIBUTING.md) covers adding a scraper end to end.
+
+One rule governs the rest: **never invent a number.** An ambiguous or
+unreachable source must fail loudly. A run that fails for one country is marked
+`partial` and the others store cleanly; a run that guesses is worse than one
+that stops, because a guess is indistinguishable from a reading once it is in
+the database.
+
+See also [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md) and [SECURITY.md](SECURITY.md).
 
 ## Licence
 

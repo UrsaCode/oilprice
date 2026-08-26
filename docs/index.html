@@ -1,0 +1,631 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>oilprice — what a litre costs</title>
+<meta name="description" content="Crude benchmarks, exchange rates and real pump prices in ~35 countries, collected twice a day from public sources.">
+<link rel="icon" href="assets/logo.svg" type="image/svg+xml">
+<style>
+  /* One accent, two neutrals, and nothing else. The palette is the banner's,
+     so the page and the repository look like the same project. */
+  :root {
+    --accent: #d97706;
+    --accent-soft: #fff4e6;
+    --ink: #1f2328;
+    --muted: #59636e;
+    --faint: #818b98;
+    --surface: #ffffff;
+    --panel: #f6f8fa;
+    --border: #d1d9e0;
+    --grid: #e7ecf0;
+    --ok: #1a7f37;
+    --warn: #9a6700;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --accent: #f59e0b;
+      --accent-soft: #241a08;
+      --ink: #e6edf3;
+      --muted: #9198a1;
+      --faint: #6e7681;
+      --surface: #0d1117;
+      --panel: #151b23;
+      --border: #3d444d;
+      --grid: #262c36;
+      --ok: #3fb950;
+      --warn: #d29922;
+    }
+  }
+
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background: var(--surface);
+    color: var(--ink);
+    font: 16px/1.55 ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    font-feature-settings: "tnum";
+  }
+  .wrap { max-width: 1040px; margin: 0 auto; padding: 0 20px 72px; }
+  a { color: var(--accent); }
+
+  /* --- masthead ------------------------------------------------------- */
+  header { padding: 44px 0 28px; }
+  .brand { display: flex; align-items: center; gap: 16px; }
+  .brand svg { width: 52px; height: 52px; flex: none; }
+  h1 { margin: 0; font-size: 38px; letter-spacing: -1px; color: var(--accent); }
+  .strap { margin: 12px 0 0; color: var(--muted); font-size: 18px; }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
+  .chip {
+    font-size: 13px; padding: 4px 11px; border-radius: 999px;
+    border: 1px solid var(--border); color: var(--muted); background: var(--panel);
+  }
+  .chip b { color: var(--ink); font-weight: 600; }
+  .chip.ok b { color: var(--ok); }
+  .chip.partial b { color: var(--warn); }
+
+  /* --- sections ------------------------------------------------------- */
+  section { margin-top: 52px; }
+  h2 { font-size: 22px; margin: 0 0 6px; letter-spacing: -0.3px; }
+  .note { margin: 0 0 20px; color: var(--muted); font-size: 15px; max-width: 68ch; }
+  .controls { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-bottom: 20px; }
+  button, select {
+    font: inherit; font-size: 14px; padding: 6px 13px; border-radius: 7px;
+    border: 1px solid var(--border); background: var(--panel); color: var(--ink);
+    cursor: pointer;
+  }
+  button[aria-pressed="true"] {
+    background: var(--accent); border-color: var(--accent); color: #ffffff; font-weight: 600;
+  }
+  @media (prefers-color-scheme: dark) {
+    button[aria-pressed="true"] { color: #1c1206; }
+  }
+
+  /* --- the bar chart, as rows rather than as a drawing ----------------- */
+  .bars { position: relative; }
+  .bar-row {
+    display: grid; grid-template-columns: 148px 1fr 84px;
+    align-items: center; gap: 12px; padding: 3px 0;
+  }
+  .bar-name { font-size: 14px; color: var(--muted); text-align: right; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .bar-track { background: var(--panel); border-radius: 4px; height: 20px; position: relative; }
+  .bar-fill { background: var(--accent); height: 100%; border-radius: 4px; min-width: 2px; }
+  .bar-crude { background: color-mix(in srgb, var(--accent) 34%, transparent); }
+  .bar-val { font-size: 14px; font-variant-numeric: tabular-nums; color: var(--ink); }
+  .bar-sub { font-size: 12px; color: var(--faint); }
+  .rule {
+    position: absolute; top: 0; bottom: 22px; width: 0;
+    border-left: 2px dashed var(--accent); opacity: .85; pointer-events: none;
+  }
+  .rule span {
+    position: absolute; top: -20px; left: 6px; white-space: nowrap;
+    font-size: 12px; color: var(--accent); font-weight: 600;
+  }
+  .legend { display: flex; flex-wrap: wrap; gap: 18px; margin-top: 18px; font-size: 13px; color: var(--muted); }
+  .swatch { display: inline-block; width: 22px; height: 10px; border-radius: 2px; vertical-align: middle; margin-right: 7px; }
+
+  /* --- line charts ------------------------------------------------------ */
+  figure { margin: 0; }
+  .plot { width: 100%; height: auto; overflow: visible; display: block; }
+  .plot .axis { stroke: var(--grid); stroke-width: 1; }
+  .plot .tick { fill: var(--faint); font-size: 11px; }
+  .plot .ser { fill: none; stroke-width: 2.5; stroke-linejoin: round; stroke-linecap: round; }
+  .empty { color: var(--faint); font-size: 15px; padding: 24px 0; }
+
+  /* --- coverage table --------------------------------------------------- */
+  .scroll { overflow-x: auto; border: 1px solid var(--border); border-radius: 10px; }
+  table { border-collapse: collapse; width: 100%; font-size: 14px; }
+  th, td { text-align: left; padding: 9px 14px; border-bottom: 1px solid var(--border); white-space: nowrap; }
+  th { background: var(--panel); font-weight: 600; font-size: 13px; color: var(--muted); position: sticky; top: 0; }
+  tbody tr:last-child td { border-bottom: 0; }
+  td.num { text-align: right; font-variant-numeric: tabular-nums; }
+  code { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 12.5px; color: var(--muted); }
+
+  footer { margin-top: 64px; padding-top: 24px; border-top: 1px solid var(--border); color: var(--muted); font-size: 14px; }
+  footer p { max-width: 74ch; }
+
+  /* --- motion ------------------------------------------------------------
+     Every animation here runs once and then the page is still. Nothing loops:
+     a chart that keeps moving after it has arrived asks to be watched instead
+     of read, and this page exists to be read. Each one also carries meaning —
+     bars grow along the axis they are measured on, lines draw left to right in
+     the direction time runs, and the reference arrives after the bars it is
+     there to judge. The veil class is added by script, so a page whose script
+     never runs is not left invisible. */
+  .veil { opacity: 0; transform: translateY(16px); }
+  .veil.in {
+    opacity: 1; transform: none;
+    transition: opacity .55s ease, transform .55s cubic-bezier(.22, .9, .28, 1);
+  }
+  .bar-fill {
+    transition: width .8s cubic-bezier(.22, .9, .28, 1);
+    transition-delay: calc(var(--i, 0) * 11ms);
+  }
+  .rule { opacity: 0; transition: opacity .45s ease; }
+  .rule.shown { opacity: .85; }
+  .rule span { transform: translateY(4px); transition: transform .45s cubic-bezier(.22, .9, .28, 1); }
+  .rule.shown span { transform: none; }
+  .plot .ser { transition: stroke-dashoffset 1.2s cubic-bezier(.32, .78, .36, 1); }
+  .draw { stroke-dasharray: 200; stroke-dashoffset: 200; animation: draw 1s cubic-bezier(.4, 0, .2, 1) .2s forwards; }
+  @keyframes draw { to { stroke-dashoffset: 0; } }
+  button, select, .bar-fill { will-change: auto; }
+
+  /* Asked for less motion, given none. Every end state above is the state the
+     page holds here, so nothing is lost by turning the journey off. */
+  @media (prefers-reduced-motion: reduce) {
+    .veil, .veil.in, .bar-fill, .rule, .rule span, .plot .ser { transition: none !important; }
+    .veil { opacity: 1; transform: none; }
+    .rule { opacity: .85; }
+    .rule span { transform: none; }
+    .draw { animation: none; stroke-dashoffset: 0; }
+  }
+
+  @media (max-width: 620px) {
+    .bar-row { grid-template-columns: 96px 1fr 72px; gap: 8px; }
+    h1 { font-size: 30px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="brand">
+      <svg viewBox="0 0 128 128" aria-hidden="true">
+        <path fill="var(--accent)" d="M64 14 C64 14 102 58 102 82 A38 38 0 0 1 26 82 C26 58 64 14 64 14 Z"/>
+        <g fill="none" stroke-linecap="square">
+          <path stroke="var(--surface)" stroke-width="17" d="M2 96 H36 V78 H62 V90 H86 V58 H126"/>
+          <path class="draw" stroke="var(--ink)" stroke-width="9" d="M2 96 H36 V78 H62 V90 H86 V58 H126"/>
+        </g>
+      </svg>
+      <h1>oilprice</h1>
+    </div>
+    <p class="strap">Crude, currencies, and what a litre really costs — collected twice a day from public sources.</p>
+    <div class="chips" id="chips"></div>
+  </header>
+
+  <section>
+    <h2>What a litre costs</h2>
+    <p class="note">
+      Every country the scrapers reached in the latest run, converted to US dollars at the
+      exchange rate captured in that same run. The dashed line is what the crude in a litre
+      costs — one figure for the whole world, because a barrel of Brent costs the same
+      everywhere. Everything to the right of it is refining, freight, duty, levy and margin.
+    </p>
+    <div class="controls" id="product-buttons" role="group" aria-label="Product"></div>
+    <div class="bars" id="bars"></div>
+    <div class="legend">
+      <span><i class="swatch" style="background:var(--accent)"></i>pump price, USD per litre</span>
+      <span><i class="swatch" style="border:2px dashed var(--accent);height:0;background:none"></i>the crude in it</span>
+    </div>
+  </section>
+
+  <section>
+    <h2>Crude over time</h2>
+    <p class="note" id="crude-note"></p>
+    <figure><svg class="plot" id="crude-plot" viewBox="0 0 960 300" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Brent and WTI in US dollars per barrel, per collection run"></svg></figure>
+    <div class="legend" id="crude-legend"></div>
+  </section>
+
+  <section>
+    <h2>One country over time</h2>
+    <p class="note">
+      Pump prices in US dollars per litre, run by run. Each point uses the exchange rate
+      captured with it, never today&rsquo;s applied backwards — so a move in this line is a move
+      in the price or in the currency, and both are real.
+    </p>
+    <div class="controls">
+      <label for="country-pick" class="bar-sub">Country</label>
+      <select id="country-pick"></select>
+    </div>
+    <figure><svg class="plot" id="country-plot" viewBox="0 0 960 300" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Pump prices for the selected country in US dollars per litre"></svg></figure>
+    <div class="legend" id="country-legend"></div>
+  </section>
+
+  <section>
+    <h2>Coverage</h2>
+    <p class="note" id="coverage-note"></p>
+    <div class="scroll">
+      <table>
+        <thead><tr>
+          <th>Country</th><th>Petrol</th><th>Diesel</th><th>Local currency</th><th>Source</th>
+        </tr></thead>
+        <tbody id="coverage"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <footer>
+    <p id="honesty"></p>
+    <p>
+      <a href="https://github.com/UrsaCode/oilprice">Source and raw data on GitHub</a> ·
+      <a href="summary.json">the figures on this page as JSON</a> ·
+      Pakistani prices from <a href="https://eklitre.pk">ek litre</a>
+    </p>
+  </footer>
+
+</div>
+
+<script>
+(function () {
+  'use strict';
+
+  var money = function (value, places) {
+    return value === null || value === undefined ? '—' : value.toFixed(places === undefined ? 2 : places);
+  };
+  var el = function (id) { return document.getElementById(id); };
+  var text = function (node, value) { node.textContent = value; return node; };
+
+  /* A run id is "2026-08-26-AM". The date is the first ten characters and the
+     slot is what follows, which is all the axis ever needs. */
+  var runDate = function (run) { return run.slice(0, 10); };
+  var runSlot = function (run) { return run.slice(11); };
+
+  var data = null;
+  var product = 'petrol';
+
+  /* One question asked once, and every animation obeys the answer. */
+  var STILL = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* Let the browser paint the starting state before the ending one is set,
+     or the two collapse into a single frame and there is no transition at
+     all. Two frames rather than one, because a fresh subtree needs the first
+     to lay out. */
+  function afterPaint(work) {
+    if (STILL) { work(); return; }
+    requestAnimationFrame(function () { requestAnimationFrame(work); });
+  }
+
+  /* Reveal a section the first time it comes near the viewport, then stop
+     watching it: the entrance is an entrance, not something that replays
+     every time the reader scrolls back up. */
+  var reveal = (function () {
+    if (STILL || !window.IntersectionObserver) {
+      return { watch: function (node, onShown) { node.classList.add('in'); if (onShown) { onShown(); } } };
+    }
+    var jobs = new WeakMap();
+    var watcher = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) { return; }
+        watcher.unobserve(entry.target);
+        entry.target.classList.add('in');
+        var job = jobs.get(entry.target);
+        if (job) { job(); }
+      });
+    }, { rootMargin: '0px 0px -12% 0px', threshold: 0.06 });
+
+    return {
+      watch: function (node, onShown) {
+        if (onShown) { jobs.set(node, onShown); }
+        node.classList.add('veil');
+        watcher.observe(node);
+      }
+    };
+  })();
+
+  fetch('summary.json', { cache: 'no-cache' })
+    .then(function (answer) {
+      if (!answer.ok) { throw new Error('summary.json: ' + answer.status); }
+      return answer.json();
+    })
+    .then(function (payload) { data = payload; draw(); })
+    .catch(function (error) {
+      el('bars').innerHTML = '<p class="empty">Could not read summary.json — ' +
+        String(error.message) + '</p>';
+    });
+
+  function draw() {
+    chips();
+    productButtons();
+    bars();
+    crudePlot();
+    countryPicker();
+    coverage();
+    honesty();
+
+    /* Each section is revealed on approach; the two plots redraw their lines
+       at that moment rather than on load, so the stroke is actually seen
+       being drawn instead of finishing above the fold. */
+    var sections = document.querySelectorAll('section');
+    reveal.watch(sections[0]);
+    reveal.watch(sections[1], function () { drawLines(el('crude-plot')); });
+    reveal.watch(sections[2], function () { drawLines(el('country-plot')); });
+    reveal.watch(sections[3]);
+  }
+
+  /* Draw each series by retracting its own dash and letting it back out. The
+     length is measured per path, so a short line and a long one take the same
+     time and finish together. */
+  function drawLines(svg) {
+    if (STILL) { return; }
+    var paths = svg.querySelectorAll('.ser');
+    Array.prototype.forEach.call(paths, function (path) {
+      var length = path.getTotalLength();
+      if (!length) { return; }
+      path.style.transition = 'none';
+      path.style.strokeDasharray = length + ' ' + length;
+      path.style.strokeDashoffset = length;
+      afterPaint(function () {
+        path.style.transition = '';
+        path.style.strokeDashoffset = '0';
+      });
+    });
+  }
+
+  /* --- masthead facts ------------------------------------------------- */
+  function chips() {
+    var run = data.run;
+    var totals = data.totals;
+    var brent = data.benchmarks_usd_per_barrel.BRENT;
+    var parts = [
+      ['latest run', run.id, run.status, null],
+      ['status', run.status, run.status, null],
+      ['countries priced', String(totals.countries_priced), '', totals.countries_priced],
+      ['runs collected', String(totals.runs), '', totals.runs],
+      ['Brent', brent === undefined ? '—' : '$' + money(brent) + ' / barrel', '', null]
+    ];
+    el('chips').innerHTML = parts.map(function (one) {
+      return '<span class="chip ' + one[2] + '">' + one[0] + ' <b>' + one[1] + '</b></span>';
+    }).join('');
+
+    /* The two counts tick up to themselves. Only the counts: a run id counting
+       up would be four digits of nonsense on the way to one real date. */
+    var marks = el('chips').querySelectorAll('b');
+    parts.forEach(function (one, position) {
+      if (one[3] !== null) { countUp(marks[position], one[3]); }
+    });
+  }
+
+  function countUp(node, target) {
+    if (STILL || target <= 1) { return; }
+    var span = 700, started = null;
+    node.textContent = '0';
+    var tick = function (now) {
+      if (started === null) { started = now; }
+      var through = Math.min(1, (now - started) / span);
+      /* Eased out, so it slows into the figure rather than snapping at it. */
+      var eased = 1 - Math.pow(1 - through, 3);
+      node.textContent = String(Math.round(target * eased));
+      if (through < 1) { requestAnimationFrame(tick); }
+    };
+    requestAnimationFrame(tick);
+  }
+
+  /* --- what a litre costs --------------------------------------------- */
+  function productButtons() {
+    var host = el('product-buttons');
+    host.innerHTML = '';
+    data.headline_products.forEach(function (name) {
+      var button = document.createElement('button');
+      button.type = 'button';
+      button.setAttribute('aria-pressed', String(name === product));
+      text(button, name);
+      button.addEventListener('click', function () {
+        product = name;
+        productButtons();
+        bars();
+      });
+      host.appendChild(button);
+    });
+  }
+
+  function bars() {
+    var host = el('bars');
+    var crude = data.crude_usd_per_litre.BRENT;
+
+    var rows = data.countries.filter(function (one) {
+      var priced = one.prices[product];
+      return priced && priced.usd !== null && priced.usd !== undefined;
+    }).sort(function (a, b) { return b.prices[product].usd - a.prices[product].usd; });
+
+    if (!rows.length) {
+      host.innerHTML = '<p class="empty">No country reported ' + product + ' in this run.</p>';
+      return;
+    }
+
+    /* The scale is set by the dearest bar and the reference together, so the
+       dashed line is always on the chart even when no country is near it. */
+    var top = Math.max(rows[0].prices[product].usd, crude || 0) * 1.06;
+
+    /* Built at zero width and grown to the figure a frame later, each row a
+       little behind the one above it. The stagger runs top to bottom in the
+       sorted order, so the eye is carried down the ranking rather than shown
+       thirty-five bars arriving at once. */
+    host.innerHTML = rows.map(function (one, position) {
+      var usd = one.prices[product].usd;
+      var local = one.prices[product].local;
+      var width = (100 * usd / top).toFixed(2) + '%';
+      return '<div class="bar-row">' +
+        '<div class="bar-name" title="' + one.name + '">' + one.name + '</div>' +
+        '<div class="bar-track"><div class="bar-fill" style="--i:' + position +
+          ';width:' + (STILL ? width : '0') + '" data-w="' + width + '"></div></div>' +
+        '<div class="bar-val">$' + money(usd) +
+          '<div class="bar-sub">' + money(local, local < 10 ? 2 : 1) + ' ' + one.currency + '</div>' +
+        '</div>' +
+      '</div>';
+    }).join('');
+
+    if (!STILL) {
+      var fills = host.querySelectorAll('.bar-fill');
+      afterPaint(function () {
+        Array.prototype.forEach.call(fills, function (fill) {
+          fill.style.width = fill.dataset.w;
+        });
+      });
+    }
+
+    if (crude) {
+      var rule = document.createElement('div');
+      rule.className = 'rule';
+      /* The track starts after the 148px name column and its 12px gap, and
+         ends 84px + 12px short of the right edge. The line has to land inside
+         the track, so it is placed against the track and not against the row. */
+      rule.style.left = 'calc(160px + (100% - 256px) * ' + (crude / top).toFixed(4) + ')';
+      rule.innerHTML = '<span>crude $' + money(crude) + '</span>';
+      host.style.paddingTop = '22px';
+      host.appendChild(rule);
+
+      /* The reference arrives once the bars have stopped moving. Drawn with
+         them, it reads as one more bar; drawn after, it reads as the line
+         they are being measured against, which is what it is. */
+      var wait = STILL ? 0 : 300 + Math.min(rows.length, 36) * 11;
+      window.setTimeout(function () { rule.classList.add('shown'); }, wait);
+    }
+  }
+
+  /* --- line plots ------------------------------------------------------ */
+  var PLOT = { w: 960, h: 300, left: 54, right: 14, top: 18, bottom: 34 };
+
+  function plot(svg, runs, series, formatter) {
+    var live = series.filter(function (one) {
+      return one.values.some(function (v) { return v !== null && v !== undefined; });
+    });
+    if (!runs.length || !live.length) {
+      svg.innerHTML = '<text x="12" y="30" class="tick">Nothing collected yet.</text>';
+      return [];
+    }
+
+    var all = [];
+    live.forEach(function (one) {
+      one.values.forEach(function (v) { if (v !== null && v !== undefined) { all.push(v); } });
+    });
+    var low = Math.min.apply(null, all);
+    var high = Math.max.apply(null, all);
+    /* A flat series would divide by zero and a nearly flat one would draw its
+       own noise as a mountain, so the band never collapses below a tenth. */
+    var pad = Math.max((high - low) * 0.18, Math.abs(high) * 0.02, 0.01);
+    low -= pad; high += pad;
+
+    var innerW = PLOT.w - PLOT.left - PLOT.right;
+    var innerH = PLOT.h - PLOT.top - PLOT.bottom;
+    var x = function (i) {
+      return PLOT.left + (runs.length === 1 ? innerW / 2 : innerW * i / (runs.length - 1));
+    };
+    var y = function (v) { return PLOT.top + innerH * (1 - (v - low) / (high - low)); };
+
+    var out = [];
+    for (var g = 0; g <= 4; g++) {
+      var value = low + (high - low) * g / 4;
+      var gy = y(value);
+      out.push('<line class="axis" x1="' + PLOT.left + '" y1="' + gy.toFixed(1) +
+        '" x2="' + (PLOT.w - PLOT.right) + '" y2="' + gy.toFixed(1) + '"/>');
+      out.push('<text class="tick" x="' + (PLOT.left - 8) + '" y="' + (gy + 4).toFixed(1) +
+        '" text-anchor="end">' + formatter(value) + '</text>');
+    }
+
+    /* At most six date labels, whatever the run count, so they never collide. */
+    var step = Math.max(1, Math.ceil(runs.length / 6));
+    for (var i = 0; i < runs.length; i += step) {
+      out.push('<text class="tick" x="' + x(i).toFixed(1) + '" y="' + (PLOT.h - 10) +
+        '" text-anchor="middle">' + runDate(runs[i]).slice(5) + '</text>');
+    }
+
+    live.forEach(function (one) {
+      /* A gap is a break in the line and never a segment drawn straight
+         through it: a run that collected nothing is not a slow change. */
+      var d = '', pen = false;
+      one.values.forEach(function (v, i) {
+        if (v === null || v === undefined) { pen = false; return; }
+        d += (pen ? ' L' : ' M') + x(i).toFixed(1) + ' ' + y(v).toFixed(1);
+        pen = true;
+      });
+      out.push('<path class="ser" d="' + d.trim() + '" stroke="' + one.colour + '"/>');
+    });
+
+    svg.innerHTML = out.join('');
+    return live;
+  }
+
+  function legend(host, series) {
+    host.innerHTML = series.map(function (one) {
+      return '<span><i class="swatch" style="background:' + one.colour + '"></i>' + one.label + '</span>';
+    }).join('');
+  }
+
+  var INK = getComputedStyle(document.documentElement).getPropertyValue('--muted').trim() || '#59636e';
+  var ACCENT = getComputedStyle(document.documentElement).getPropertyValue('--accent').trim() || '#d97706';
+
+  function crudePlot() {
+    var runs = data.history.runs;
+    var marks = data.history.benchmarks;
+    var series = [
+      { label: 'Brent', values: marks.BRENT || [], colour: ACCENT },
+      { label: 'WTI', values: marks.WTI || [], colour: INK }
+    ].filter(function (one) { return one.values.length; });
+
+    var live = plot(el('crude-plot'), runs, series, function (v) { return '$' + v.toFixed(0); });
+    legend(el('crude-legend'), live);
+    text(el('crude-note'),
+      'US dollars per barrel, one point per collection run — ' + runs.length +
+      ' runs from ' + runDate(runs[0]) + ' to ' + runDate(runs[runs.length - 1]) +
+      '. Two points a day, so this is a short record and reads like one.');
+  }
+
+  function countryPicker() {
+    var pick = el('country-pick');
+    var have = data.history.countries;
+    var options = data.countries.filter(function (one) { return have[one.code]; });
+
+    pick.innerHTML = options.map(function (one) {
+      return '<option value="' + one.code + '">' + one.name + '</option>';
+    }).join('');
+
+    var preferred = options.some(function (one) { return one.code === 'PK'; }) ? 'PK'
+      : (options.length ? options[0].code : '');
+    pick.value = preferred;
+    pick.addEventListener('change', function () { countryPlot(pick.value); });
+    if (preferred) { countryPlot(preferred); }
+  }
+
+  function countryPlot(code) {
+    var runs = data.history.runs;
+    var products = data.history.countries[code] || {};
+    var series = [
+      { label: 'petrol', values: products.petrol || [], colour: ACCENT },
+      { label: 'diesel', values: products.diesel || [], colour: INK }
+    ].filter(function (one) { return one.values.length; });
+
+    var live = plot(el('country-plot'), runs, series, function (v) { return '$' + v.toFixed(2); });
+    legend(el('country-legend'), live);
+    /* Redrawn on every change of country, because picking a new one is the
+       moment its shape is worth watching arrive. Harmless before the section
+       is in view: the reveal simply draws it again. */
+    drawLines(el('country-plot'));
+  }
+
+  /* --- coverage --------------------------------------------------------- */
+  function coverage() {
+    el('coverage').innerHTML = data.countries.map(function (one) {
+      var cell = function (name) {
+        var priced = one.prices[name];
+        if (!priced) { return '<td class="num">—</td>'; }
+        return '<td class="num">' + money(priced.local, priced.local < 10 ? 3 : 2) + '</td>';
+      };
+      return '<tr><td>' + one.name + ' <code>' + one.code + '</code></td>' +
+        cell('petrol') + cell('diesel') +
+        '<td>' + one.currency + '</td><td><code>' + one.source + '</code></td></tr>';
+    }).join('');
+
+    text(el('coverage-note'),
+      'Local currency per litre, exactly as the source published it. ' +
+      data.totals.countries_priced + ' countries carried a pump price in the latest run, ' +
+      'across ' + data.totals.products.length + ' products from ' +
+      data.totals.sources.length + ' sources. A dash is a product that country does not ' +
+      'report, not a zero.');
+  }
+
+  function honesty() {
+    text(el('honesty'),
+      'Every pump price here is what a publisher published; nothing on this page is ' +
+      'a forecast or an estimate. Two figures are derived and both say so: the dollar ' +
+      'column is the stored price divided by the exchange rate captured in the same run, ' +
+      'and Mexico is a median across reporting stations because its regulator publishes ' +
+      'only per-station prices. A source that fails marks its run partial and leaves a ' +
+      'gap, which stays a gap. Built from run ' + data.run.id + ', generated ' +
+      data.generated_utc.replace('T', ' ') + '.');
+  }
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,53 @@
+name: Tests
+
+# The collection workflow commits to data/ twice a day. Running the suite on
+# each of those is sixty pointless runs a month, so pushes that only touch
+# stored data are ignored — nothing under data/ can change a parser.
+on:
+  push:
+    branches: [main]
+    paths-ignore:
+      - 'data/**'
+      - '**.md'
+      - 'docs/**'
+  pull_request:
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+concurrency:
+  group: tests-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ['3.12', '3.13']
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: pip
+
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+          pip install pytest
+
+      # The suite mocks every fetcher, so it needs no network and no source
+      # site has to be touched to prove a parser still reads what it claims.
+      - name: Run tests
+        run: python -m pytest tests/ -v
+
+      # Cheap smoke test the suite does not cover: that the package is
+      # importable and its command table is intact. A broken __main__ would
+      # otherwise only show up on a scheduled collection run, hours later.
+      - name: The CLI still starts
+        run: python -m oilprice --help
