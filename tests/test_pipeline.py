@@ -249,6 +249,145 @@ def test_light_diesel_not_classified_as_diesel():
     assert pakistan._classify("JP-1") is None
 
 
+# --- Pakistan (ek litre) -----------------------------------------------
+
+EKLITRE_PAYLOAD = {
+    "version": 3,
+    "source": "https://psopk.com/fuel-prices/pol/archives",
+    "columns": ["effective_date", "petrol", "diesel", "kerosene",
+                "light_diesel", "snapshot"],
+    "notifications": [
+        ["2026-08-22", 341.59, 368.29, 303.50, 269.69, 1],
+        ["2026-08-26", 343.10, 371.80, 303.50, 269.69, 3],
+        ["2026-08-25", 341.98, 370.69, 303.50, 269.69, 2],
+    ],
+    "contradicted": [],
+    "disputed": [],
+}
+
+
+def _eklitre_response(payload):
+    class Resp:
+        @staticmethod
+        def json():
+            return payload
+    return lambda url, **kwargs: Resp()
+
+
+def test_pakistan_reads_eklitre_notification(monkeypatch):
+    """All four products come from the latest-dated notification."""
+    monkeypatch.setattr(
+        pakistan.http, "get", _eklitre_response(EKLITRE_PAYLOAD))
+    prices = {p.product: p for p in pakistan._from_eklitre()}
+
+    assert set(prices) == {"petrol", "diesel", "kerosene", "light_diesel"}
+    assert prices["petrol"].price == 343.10
+    assert prices["diesel"].price == 371.80
+    assert prices["kerosene"].price == 303.50
+    assert prices["light_diesel"].price == 269.69
+    assert all(p.currency == "PKR" and p.country_code == "PK"
+               for p in prices.values())
+    # The effective date is what distinguishes this source from the
+    # retail pages, so it travels in the stored source string.
+    assert all(p.source == "eklitre.pk (notified 2026-08-26)"
+               for p in prices.values())
+
+
+def test_pakistan_eklitre_picks_newest_by_date_not_position(monkeypatch):
+    """The fixture's rows are deliberately out of order."""
+    dates = [row[0] for row in EKLITRE_PAYLOAD["notifications"]]
+    assert dates[-1] != max(dates), "fixture must not be date-ordered"
+
+    monkeypatch.setattr(
+        pakistan.http, "get", _eklitre_response(EKLITRE_PAYLOAD))
+    assert pakistan._from_eklitre()[0].source.endswith("2026-08-26)")
+
+
+def test_pakistan_eklitre_reads_columns_by_name(monkeypatch):
+    """A column added upstream must not shift what each product reads."""
+    payload = {
+        "columns": ["effective_date", "petrol", "hobd", "diesel",
+                    "kerosene", "light_diesel", "snapshot"],
+        "notifications": [["2026-09-01", 343.10, 999.99, 371.80,
+                           303.50, 269.69, 3]],
+    }
+    monkeypatch.setattr(pakistan.http, "get", _eklitre_response(payload))
+    prices = {p.product: p for p in pakistan._from_eklitre()}
+    assert prices["diesel"].price == 371.80
+    assert 999.99 not in {p.price for p in prices.values()}
+
+
+def test_pakistan_eklitre_skips_products_not_notified(monkeypatch):
+    """A null is a product with no figure for that date, not a zero."""
+    payload = {
+        "columns": ["effective_date", "petrol", "diesel", "kerosene",
+                    "light_diesel", "snapshot"],
+        "notifications": [["2026-09-01", 343.10, 371.80, None, None, 3]],
+    }
+    monkeypatch.setattr(pakistan.http, "get", _eklitre_response(payload))
+    prices = {p.product: p for p in pakistan._from_eklitre()}
+    assert set(prices) == {"petrol", "diesel"}
+
+
+def test_pakistan_eklitre_rejects_empty_and_shapeless_payloads(monkeypatch):
+    for payload in (
+        {"columns": ["effective_date", "petrol"], "notifications": []},
+        {"notifications": [["2026-09-01", 343.10]]},
+        {"columns": ["petrol", "diesel"],
+         "notifications": [[343.10, 371.80]]},        # no effective_date
+        {"columns": ["effective_date", "kerosene"],
+         "notifications": [["2026-09-01", 303.50]]},  # no petrol or diesel
+    ):
+        monkeypatch.setattr(pakistan.http, "get", _eklitre_response(payload))
+        with pytest.raises(ValueError):
+            pakistan._from_eklitre()
+
+
+def test_pakistan_falls_back_to_scraping_when_eklitre_is_down(monkeypatch):
+    """A failed primary source must not fail the country."""
+    pso_html = """
+    <table>
+      <tr><th>Product Name</th><th>Rs./Litre</th></tr>
+      <tr><td>PREMIER EURO 5</td><td>Rs.325.43/Ltr</td></tr>
+      <tr><td>HI-CETANE DIESEL EURO 5</td><td>Rs.383.95/Ltr</td></tr>
+    </table>
+    """
+
+    def fake_get(url, **kwargs):
+        if url == pakistan.EKLITRE_URL:
+            raise RuntimeError("connection refused")
+
+        class Resp:
+            text = pso_html
+        return Resp()
+
+    monkeypatch.setattr(pakistan.http, "get", fake_get)
+    prices = {p.product: p for p in pakistan.fetch()}
+    assert prices["petrol"].price == 325.43
+    assert prices["petrol"].source == "psopk.com"
+
+
+def test_pakistan_fetch_prefers_eklitre(monkeypatch):
+    """When the record answers, the retail pages are never requested."""
+    asked = []
+
+    def fake_get(url, **kwargs):
+        asked.append(url)
+
+        class Resp:
+            text = ""
+
+            @staticmethod
+            def json():
+                return EKLITRE_PAYLOAD
+        return Resp()
+
+    monkeypatch.setattr(pakistan.http, "get", fake_get)
+    prices = pakistan.fetch()
+    assert asked == [pakistan.EKLITRE_URL]
+    assert len(prices) == 4
+
+
 # --- United States (EIA) -----------------------------------------------
 
 EIA_HTML = """

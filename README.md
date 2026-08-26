@@ -1,6 +1,14 @@
 # oilprice
 
-Twice-daily collection and storage of oil prices:
+**Crude benchmarks, exchange rates and real pump prices — collected twice a
+day and stored, from public sources only.**
+
+No API keys, no paid feeds, no account. Point it at a machine or let GitHub
+Actions run it, and it accumulates a history you can query in SQL. Every
+figure carries the source it came from, so anything stored here can be
+traced back to whoever published it.
+
+What it collects:
 
 1. **International benchmarks** — Brent and WTI crude in USD per barrel.
    Sources tried in order, no API keys needed: Yahoo Finance, then FRED
@@ -16,7 +24,7 @@ Twice-daily collection and storage of oil prices:
 
    | Source | Countries | Products | Currency |
    |---|---|---|---|
-   | PSO, hamariweb | Pakistan | petrol, diesel, kerosene, light diesel | PKR |
+   | [ek litre](https://eklitre.pk) | Pakistan | petrol, diesel, kerosene, light diesel | PKR |
    | EIA | United States | petrol, diesel | USD |
    | gov.uk (DESNZ) | United Kingdom | petrol, diesel | GBP |
    | EC Weekly Oil Bulletin | 27 EU member states | petrol, diesel, heating oil, LPG | EUR |
@@ -25,6 +33,15 @@ Twice-daily collection and storage of oil prices:
    | CRE open data | Mexico | petrol, premium, diesel | MXN |
    | BPC | Bangladesh | petrol, octane, diesel, light diesel, kerosene, furnace oil | BDT |
    | PPAC | India | petrol, diesel (Delhi reference) | INR |
+
+   Pakistan is read from [ek litre](https://eklitre.pk), a public record of
+   Pakistani fuel prices that keeps every OGRA notification since 2006
+   beside the archived page each figure was read from. Its `/v1/prices`
+   endpoint is the only Pakistani source here that states an **effective
+   date** alongside the price, so a run knows whether it is storing today's
+   notification or a fortnight-old one still in force; that date travels
+   into the `source` column. PSO's own fuel-price page and hamariweb remain
+   as fallbacks if the record cannot be reached.
 
    The Commission publishes the bulletin in euro for *every* member state,
    including those outside the eurozone, so those rows are stored as EUR
@@ -44,7 +61,7 @@ Twice-daily collection and storage of oil prices:
 
    Countries without a scraper can be entered manually.
 
-Everything is *stored only* (as requested) — no UI, no analysis. Three
+Everything is *stored only* — no UI, no analysis, no forecasting. Three
 formats are written on every run so the data is easy to consume later:
 
 | Store | Path | Purpose |
@@ -74,9 +91,9 @@ python -m oilprice show --country PK  # + benchmark in PKR
 ## Scheduling options (pick one)
 
 **A. GitHub Actions (recommended, no server needed).**
-Already configured in `.github/workflows/collect.yml`: runs at 09:00 and
-21:00 PKT, collects, and commits the new data back to this repository.
-It activates once this branch's workflow file is on the default branch.
+Configured in `.github/workflows/collect.yml`: runs at 09:00 and 21:00 PKT,
+collects, and commits the new data back to the repository. Fork this repo
+and the workflow starts on its own schedule; it needs no secrets.
 
 **B. Built-in scheduler** (keeps a process running):
 
@@ -156,4 +173,35 @@ pip install pytest
 python -m pytest tests/ -v
 ```
 
-Tests run fully offline (network fetchers are mocked).
+Tests run fully offline (network fetchers are mocked), so a parser can be
+proved against captured markup without touching any source site.
+
+## Scope, and what this is not
+
+It stores. It does not interpret. There is no forecasting, no "fair price"
+calculation, no blending of two publishers into one averaged figure — where
+two sources disagree, whichever one was read is named in `source` and the
+other is not silently mixed in. Derived numbers exist in exactly two
+places and both say so: `benchmark_local` (benchmark × FX, which is *not* a
+pump price) and Mexico's national median.
+
+The data is only as good as what the publishers publish. Sources go down,
+change their markup, and occasionally publish a figure they later correct.
+A failing source marks the run `partial` for that country and never blocks
+the rest, which means a gap in the history is a gap and not a guess.
+
+## Sources and attribution
+
+Every figure here comes from a public source, listed in the tables above and
+named in each fetcher's module docstring. The underlying prices are the
+publishers' — OGRA, EIA, DESNZ, the European Commission, ANP, CRE, BPC,
+PPAC and the rest — and their own terms govern reuse. Requests are made
+politely: one page per run, per source, with retries backing off.
+
+Pakistani prices come from [ek litre](https://eklitre.pk), which publishes
+the same record as an open API.
+
+## Licence
+
+MIT — see [LICENSE](LICENSE). That covers the code in this repository. It
+does not, and cannot, relicense the source data.

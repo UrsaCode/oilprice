@@ -1,23 +1,33 @@
 """Pakistan local pump prices (PKR per litre).
 
-Official prices are set by OGRA and published by retailers. We scrape the
-Pakistan State Oil (PSO) fuel-price page first and fall back to hamariweb's
-petroleum price page. Scrapers are keyword-driven rather than tied to exact
-page markup, and handle both table orientations in use — PSO lists one
-product per row, hamariweb puts products in the header with one row per
-date. If a site changes beyond recognition the fetch fails loudly and the
-pipeline records the run as partial instead of storing wrong numbers.
+Pakistani prices are set by OGRA and notified fortnightly; the notified
+figure is the pump price. Three sources are tried in order.
+
+**ek litre (https://eklitre.pk) is the primary source.** It is a public
+record of Pakistani fuel prices that keeps every OGRA notification since
+2006 together with the archived page each figure was read from, and serves
+them as JSON. That makes it the only Pakistani source here that states an
+*effective date* alongside the price, so a run knows whether it is storing
+today's notification or a fortnight-old one still in force. Its
+``/v1/prices`` endpoint carries all four products this fetcher stores.
+
+The two retail pages remain as fallbacks: Pakistan State Oil's fuel-price
+page, then hamariweb's petroleum price page. Both are scraped
+keyword-driven rather than tied to exact markup, and handle either table
+orientation in use — PSO lists one product per row, hamariweb puts
+products in the header with one row per date. Neither states an effective
+date, so a price from them is dated only by the moment it was fetched.
 
 OGRA publishes the authoritative notifications at
 https://www.ogra.org.pk/notified-petroleum-prices, but only as linked PDFs,
-so it is not scraped here.
+which is the work ek litre already does.
 
 Prices can also be entered manually:  python -m oilprice add-local ...
 """
 
 import logging
 import re
-from datetime import datetime, timezone
+from datetime import date, datetime, timedelta, timezone
 
 from bs4 import BeautifulSoup
 
@@ -26,8 +36,17 @@ from . import http
 
 log = logging.getLogger(__name__)
 
+EKLITRE_URL = "https://eklitre.pk/v1/prices"
 PSO_URL = "https://psopk.com/en/fuels/fuel-prices"
 HAMARIWEB_URL = "https://hamariweb.com/finance/petroleum_prices/"
+
+# How far back to ask ek litre for notifications. Prices are notified at
+# least monthly, so a window this wide always contains one; asking for the
+# whole twenty-year series to read its last row would be wasteful.
+EKLITRE_WINDOW_DAYS = 120
+
+# ek litre's own column names for the products stored here.
+EKLITRE_PRODUCTS = ("petrol", "diesel", "kerosene", "light_diesel")
 
 # Keywords (lowercase) that identify each product in scraped text.
 PRODUCT_KEYWORDS = {
@@ -80,6 +99,69 @@ def _price(product: str, value: float, source: str) -> LocalPrice:
         currency="PKR", fetched_utc=_now_utc(), source=source,
     )
 
+
+# --- ek litre -----------------------------------------------------------
+
+def _newest_notification(payload: dict) -> tuple[list[str], list]:
+    """The latest-dated row of ``/v1/prices``, with its column names.
+
+    Rows are arrays under a stated ``columns`` header, so the header is
+    read rather than assumed: a column added upstream would otherwise
+    shift every position and make each product read as its neighbour.
+    Rows arrive oldest first, but the newest is picked by date rather than
+    by position, so ordering is never something this fetcher relies on.
+    """
+    columns = payload.get("columns")
+    rows = payload.get("notifications")
+    if not columns or not rows:
+        raise ValueError("ek litre returned no notifications")
+    if "effective_date" not in columns:
+        raise ValueError("ek litre payload has no effective_date column")
+
+    when = columns.index("effective_date")
+    return columns, max(rows, key=lambda row: row[when])
+
+
+def _from_eklitre() -> list[LocalPrice]:
+    """Read the newest OGRA notification ek litre holds.
+
+    The marks ek litre serves beside the series — ``contradicted``,
+    ``disputed`` — are deliberately not consulted. They flag readings two
+    publishers state differently, and the figure in the row is what was
+    notified either way; a run that dropped a marked row would be storing
+    a different price from the one at the pump.
+    """
+    start = date.today() - timedelta(days=EKLITRE_WINDOW_DAYS)
+    payload = http.get(
+        EKLITRE_URL,
+        params={"from": start.isoformat()},
+        headers={"Accept": "application/json"},
+    ).json()
+
+    columns, row = _newest_notification(payload)
+    effective = row[columns.index("effective_date")]
+    source = "eklitre.pk (notified " + str(effective) + ")"
+
+    found = []
+    for product in EKLITRE_PRODUCTS:
+        if product not in columns:
+            continue
+        value = row[columns.index(product)]
+        if not isinstance(value, (int, float)) or isinstance(value, bool):
+            continue          # not notified for this date
+        if not MIN_PRICE <= float(value) <= MAX_PRICE:
+            log.warning("ek litre %s price %s out of bounds", product, value)
+            continue
+        found.append(_price(product, float(value), source))
+
+    if not any(p.product in ("petrol", "diesel") for p in found):
+        raise ValueError(
+            "ek litre notification " + str(effective) + " carries no fuel prices"
+        )
+    return found
+
+
+# --- retail page scrapers -----------------------------------------------
 
 def _parse_row_oriented(soup, source: str) -> dict[str, LocalPrice]:
     """One product per row: label in the first cell, price alongside it."""
@@ -144,9 +226,14 @@ def _scrape_tables(url: str, source: str) -> list[LocalPrice]:
 
 def fetch() -> list[LocalPrice]:
     """Return current Pakistani pump prices, trying each source in order."""
-    for url, source in ((PSO_URL, "psopk.com"), (HAMARIWEB_URL, "hamariweb.com")):
+    sources = (
+        ("eklitre.pk", _from_eklitre),
+        ("psopk.com", lambda: _scrape_tables(PSO_URL, "psopk.com")),
+        ("hamariweb.com", lambda: _scrape_tables(HAMARIWEB_URL, "hamariweb.com")),
+    )
+    for name, read in sources:
         try:
-            return _scrape_tables(url, source)
+            return read()
         except Exception as exc:
-            log.warning("Pakistan scrape from %s failed: %s", source, exc)
+            log.warning("Pakistan fetch from %s failed: %s", name, exc)
     raise RuntimeError("All Pakistan pump-price sources failed")
