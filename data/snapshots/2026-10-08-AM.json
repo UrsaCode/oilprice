@@ -1,0 +1,6013 @@
+{
+  "run_id": "2026-10-08-AM",
+  "fetched_utc": "2026-10-07T20:50:55+00:00",
+  "international_usd_per_barrel": {
+    "BRENT": 101.12,
+    "WTI": 89.04,
+    "DUBAI": 93.3
+  },
+  "fx_usd_rates": {
+    "source": "open.er-api.com",
+    "rates": {
+      "USD": 1,
+      "AED": 3.6725,
+      "AFN": 64.6389,
+      "ALL": 81.732585,
+      "AMD": 363.107748,
+      "ANG": 1.79,
+      "AOA": 926.61105,
+      "ARS": 1520.3002,
+      "AUD": 1.43284,
+      "AWG": 1.79,
+      "AZN": 1.698042,
+      "BAM": 1.738236,
+      "BBD": 2,
+      "BDT": 122.834725,
+      "BGN": 1.738236,
+      "BHD": 0.376,
+      "BIF": 3000.839101,
+      "BMD": 1,
+      "BND": 1.277772,
+      "BOB": 11.989057,
+      "BRL": 4.980405,
+      "BSD": 1,
+      "BTN": 96.466709,
+      "BWP": 14.246163,
+      "BYN": 3.070244,
+      "BZD": 2,
+      "CAD": 1.422126,
+      "CDF": 2310.952504,
+      "CHF": 0.831851,
+      "CLF": 0.024596,
+      "CLP": 972.195333,
+      "CNH": 6.702566,
+      "CNY": 6.711932,
+      "COP": 3199.575723,
+      "CRC": 456.932315,
+      "CUP": 24,
+      "CVE": 97.997567,
+      "CZK": 21.681505,
+      "DJF": 177.721,
+      "DKK": 6.641523,
+      "DOP": 59.959231,
+      "DZD": 134.395631,
+      "EGP": 52.305619,
+      "ERN": 15,
+      "ETB": 161.306149,
+      "EUR": 0.888741,
+      "FJD": 2.230447,
+      "FKP": 0.753983,
+      "FOK": 6.64151,
+      "GBP": 0.753989,
+      "GEL": 2.600162,
+      "GGP": 0.753983,
+      "GHS": 11.622419,
+      "GIP": 0.753983,
+      "GMD": 74.41109,
+      "GNF": 8795.384184,
+      "GTQ": 7.624027,
+      "GYD": 209.199022,
+      "HKD": 7.848006,
+      "HNL": 26.784612,
+      "HRK": 6.696256,
+      "HTG": 130.865023,
+      "HUF": 324.740914,
+      "IDR": 17901.959777,
+      "ILS": 3.04477,
+      "IMP": 0.753983,
+      "INR": 96.46757,
+      "IQD": 1311.257157,
+      "IRR": 1719543.096782,
+      "ISK": 121.776702,
+      "JEP": 0.753983,
+      "JMD": 158.511549,
+      "JOD": 0.709,
+      "JPY": 158.145386,
+      "KES": 129.556657,
+      "KGS": 87.469994,
+      "KHR": 4054.616501,
+      "KID": 1.432888,
+      "KMF": 437.234323,
+      "KRW": 1338.924224,
+      "KWD": 0.309159,
+      "KYD": 0.833333,
+      "KZT": 451.727739,
+      "LAK": 22253.961643,
+      "LBP": 89500,
+      "LKR": 330.774169,
+      "LRD": 170.519968,
+      "LSL": 16.53412,
+      "LYD": 6.42947,
+      "MAD": 9.963782,
+      "MDL": 17.86162,
+      "MGA": 4448.633171,
+      "MKD": 54.280014,
+      "MMK": 2094.983097,
+      "MNT": 3616.808305,
+      "MOP": 8.083461,
+      "MRU": 40.111108,
+      "MUR": 47.507349,
+      "MVR": 15.429903,
+      "MWK": 1745.634545,
+      "MXN": 17.978414,
+      "MYR": 4.085363,
+      "MZN": 63.826558,
+      "NAD": 16.53412,
+      "NGN": 1328.1192,
+      "NIO": 36.716332,
+      "NOK": 9.559685,
+      "NPR": 154.346734,
+      "NZD": 1.778822,
+      "OMR": 0.384497,
+      "PAB": 1,
+      "PEN": 3.437169,
+      "PGK": 4.475318,
+      "PHP": 62.790787,
+      "PKR": 276.741533,
+      "PLN": 3.883966,
+      "PYG": 5825.063625,
+      "QAR": 3.64,
+      "RON": 4.750636,
+      "RSD": 104.365605,
+      "RUB": 84.948588,
+      "RWF": 1478.41889,
+      "SAR": 3.75,
+      "SBD": 8.014736,
+      "SCR": 14.593718,
+      "SDG": 449.44214,
+      "SEK": 9.993947,
+      "SGD": 1.27776,
+      "SHP": 0.753983,
+      "SLE": 24.654462,
+      "SLL": 24654.462165,
+      "SOS": 571.702839,
+      "SRD": 37.734073,
+      "SSP": 5651.660944,
+      "STN": 21.774275,
+      "SYP": 121.537533,
+      "SZL": 16.53412,
+      "THB": 33.613874,
+      "TJS": 9.226184,
+      "TMT": 3.500031,
+      "TND": 2.975208,
+      "TOP": 2.387931,
+      "TRY": 49.192482,
+      "TTD": 6.756535,
+      "TVD": 1.432888,
+      "TWD": 31.800995,
+      "TZS": 2645.675989,
+      "UAH": 44.990111,
+      "UGX": 3920.309756,
+      "UYU": 40.313088,
+      "UZS": 11804.062926,
+      "VES": 873.867,
+      "VND": 25935.897512,
+      "VUV": 119.746109,
+      "WST": 2.747952,
+      "XAF": 582.979097,
+      "XCD": 2.7,
+      "XCG": 1.79,
+      "XDR": 0.737629,
+      "XOF": 582.979097,
+      "XPF": 106.055826,
+      "YER": 235.87403,
+      "ZAR": 16.534158,
+      "ZMW": 19.706552,
+      "ZWG": 26.7583,
+      "ZWL": 26.7583
+    }
+  },
+  "local_prices": [
+    {
+      "country_code": "PK",
+      "product": "petrol",
+      "price": 394.83,
+      "currency": "PKR",
+      "fetched_utc": "2026-10-07T20:51:03+00:00",
+      "source": "eklitre.pk (notified 2026-10-07)",
+      "unit": "litre"
+    },
+    {
+      "country_code": "PK",
+      "product": "diesel",
+      "price": 395.85,
+      "currency": "PKR",
+      "fetched_utc": "2026-10-07T20:51:03+00:00",
+      "source": "eklitre.pk (notified 2026-10-07)",
+      "unit": "litre"
+    },
+    {
+      "country_code": "PK",
+      "product": "kerosene",
+      "price": 329.54,
+      "currency": "PKR",
+      "fetched_utc": "2026-10-07T20:51:03+00:00",
+      "source": "eklitre.pk (notified 2026-10-07)",
+      "unit": "litre"
+    },
+    {
+      "country_code": "PK",
+      "product": "light_diesel",
+      "price": 272.29,
+      "currency": "PKR",
+      "fetched_utc": "2026-10-07T20:51:03+00:00",
+      "source": "eklitre.pk (notified 2026-10-07)",
+      "unit": "litre"
+    },
+    {
+      "country_code": "US",
+      "product": "petrol",
+      "price": 1.150205,
+      "currency": "USD",
+      "fetched_utc": "2026-10-07T20:51:13+00:00",
+      "source": "eia.gov",
+      "unit": "litre"
+    },
+    {
+      "country_code": "US",
+      "product": "diesel",
+      "price": 1.637603,
+      "currency": "USD",
+      "fetched_utc": "2026-10-07T20:51:13+00:00",
+      "source": "eia.gov",
+      "unit": "litre"
+    },
+    {
+      "country_code": "GB",
+      "product": "petrol",
+      "price": 1.7488,
+      "currency": "GBP",
+      "fetched_utc": "2026-10-07T20:51:14+00:00",
+      "source": "gov.uk",
+      "unit": "litre"
+    },
+    {
+      "country_code": "GB",
+      "product": "diesel",
+      "price": 1.9952,
+      "currency": "GBP",
+      "fetched_utc": "2026-10-07T20:51:14+00:00",
+      "source": "gov.uk",
+      "unit": "litre"
+    },
+    {
+      "country_code": "AT",
+      "product": "petrol",
+      "price": 1.837,
+      "currency": "EUR",
+      "fetched_utc": "2026-10-07T20:51:15+00:00",
+      "source": "energy.ec.europa.eu",
+      "unit": "litre"
+    },
+    {
+      "country_code": "AT",
+      "product": "diesel",
+      "price": 2.138,
+      "currency": "EUR",
+      "fetched_utc": "2026-10-07T20:51:15+00:00",
+      "source": "energy.ec.europa.eu",
+      "unit": "litre"
+    },
+    {
+      "country_code": "AT",
+      "product": "heating_oil",
+      "price": 1.79999,
+      "currency": "EUR",
+      "fetched_utc": "2026-10-07T20:51:15+00:00",
+      "source": "energy.ec.europa.eu",
+      "unit": "litre"
+    },
+    {
+      "country_code": "BE",
+      "product": "petrol",
+      "price": 1.95853,
+      "currency": "EUR",
+      "fetched_utc": "2026-10-07T20:51:15+00:00",
+      "source": "energy.ec.europa.eu",
+      "unit": "litre"
+    },
+    {
+      "country_code": "BE",
+      "product": "diesel",
+      "price": 2.34878,
+      "currency": "EUR",
+      "fetched_utc": "2026-10-07T20:51:15+00:00",
+      "source": "energy.ec.europa.eu",
+      "unit": "litre"
+    },
+    {
+      "country_code": "BE",
+      "product": "heating_oil",
+      "price": 1.5334,
+      "currency": "EUR",
+      "fetched_utc": "2026-10-07T20:51:15+00:00",
+      "source": "energy.ec.europa.eu",
+      "unit": "litre"
+    },
+    {
+      "country_code": "BE",
+      "product": "lpg",
+      "price": 0.982,
+      "currency": "EUR",
+      "fetched_utc": "2026-10-07T20:51:15+00:00",
+      "source": "energy.ec.europa.eu",
+      "unit": "litre"
+    },
+    {
+      "country_code": "BG",
+      "product": "petrol",
+      "price": 1.6628,
+      "currency": "EUR",
+      "fetched_utc": "2026-10-07T20:51:15+00:00",
+      "source": "energy.ec.europa.eu",
+      "unit": "litre"
+    },
+    {
+      "country_code": "BG",
+      "product": "diesel",
+      "price": 1.8929,
+      "currency": "EUR",
+      "fetched_utc": "2026-10-07T20:51:15+00:00",
+      "source": "energy.ec.europa.eu",
+      "unit": "litre"
+    },
+    {
+      "country_code": "BG",
+      "product": "lpg",
+      "price": 0.6329,
+      "currency": "EUR",
+      "fetched_utc": "2026-10-07T20:51:15+00:00",
+      "source": "energy.ec.europa.eu",
+      "unit": "litre"
+    },
+    {
+      "country_code": "HR",
+      "product": "petrol",
+      "price": 1.8265,
+      "currency": "EUR",
+      "fetched_utc": "2026-10-07T20:51:15+00:00",
+      "source": "energy.ec.europa.eu",
+      "unit": "litre"
+    },
+    {
+      "country_code": "HR",
+      "product": "diesel",
+      "price": 1.98388,
+      "currency": "EUR",
+      "fetched_utc": "2026-10-07T20:51:15+00:00",
+      "source": "energy.ec.europa.eu",
+      "unit": "litre"
+    },
+    {
+      "country_code": "HR",
+      "product": "heating_oil",
+      "price": 1.67,
+      "currency": "EUR",
+      "fetched_utc": "2026-10-07T20:51:15+00:00",
+      "source": "energy.ec.europa.eu",
+      "unit": "litre"
+    },
+    {
+      "country_code": "HR",
+      "product": "lpg",
+      "price": 0.892,
+      "currency": "EUR",
+      "fetched_utc": "2026-10-07T20:51:15+00:00",
+      "source": "energy.ec.europa.eu",
+      "unit": "litre"
+    },
+    {
+      "country_code": "CY",
+      "product": "petrol",
+      "price": 1.74373,
+      "currency": "EUR",
+      "fetched_utc": "2026-10-07T20:51:15+00:00",
+      "source": "energy.ec.europa.eu",
+      "unit": "litre"
+    },
+    {
+      "country_code": "CY",
+      "product": "diesel",
+      "price": 2.02991,
+      "currency": "EUR",
+      "fetched_utc": "2026-10-07T20:51:15+00:00",
+      "source": "energy.ec.europa.eu",
+      "unit": "litre"
+    },
+    {
+      "country_code": "CY",
+      "product": "heating_oil",
+      "price": 1.6711,
+      "currency": "EUR",
+      "fetched_utc": "2026-10-07T20:51:15+00:00",
+      "source": "energy.ec.europa.eu",
+      "unit": "litre"
+    },
+    {
+      "country_code": "CZ",
+      "product": "petrol",
+      "price": 1.846704,
+      "currency": "EUR",
+      "fetched_utc": "2026-10-07T20:51:15+00:00",
+      "source": "energy.ec.europa.eu",
+      "unit": "litre"
+    },
+    {
+      "country_code": "CZ",
+      "product": "diesel",
+      "price": 1.952118,
+      "currency": "EUR",
+      "fetched_utc": "2026-10-07T20:51:15+00:00",
+      "source": "energy.ec.europa.eu",
+      "unit": "litre"
+    },
+    {
+      "country_code": "CZ",
+      "product": "heating_oil",
+      "price": 1.495093,
+      "currency": "EUR",
+      "fetched_utc": "2026-10-07T20:51:15+00:00",
+      "source": "energy.ec.europa.eu",
+      "unit": "litre"
+    },
+    {
+      "country_code": "CZ",
+      "product": "lpg",
+      "price": 0.889516,
+      "currency": "EUR",
+      "fetched_utc": "2026-10-07T20:51:15+00:00",
+      "source": "energy.ec.europa.eu",
+      "unit": "litre"
+    },
+    {
+      "country_code": "DK",
+      "product": "petrol",
+      "price": 2.604857,
+      "currency": "EUR",
+      "fetched_utc": "2026-10-07T20:51:15+00:00",
+      "source": "energy.ec.europa.eu",
+      "unit": "litre"
+    },
+    {
+      "country_code": "DK",
+      "product": "diesel",
+      "price": 2.488461,
+      "currency": "EUR",
+      "fetched_utc": "2026-10-07T20:51:15+00:00",
+      "source": "energy.ec.europa.eu",
+      "unit": "litre"
+    },
+    {
+      "country_code": "DK",
+      "product": "heating_oil",
+      "price": 2.449528,
+      "currency": "EUR",
+      "fetched_utc": "2026-10-07T20:51:15+00:00",
+      "source": "energy.ec.europa.eu",
+      "unit": "litre"
+    },
+    {
+      "country_code": "EE",
+      "product": "petrol",
+      "price": 1.945,
+      "currency": "EUR",
+      "fetched_utc": "2026-10-07T20:51:15+00:00",
+      "source": "energy.ec.europa.eu",
+      "unit": "litre"
+    },
+    {
+      "country_code": "EE",
+      "product": "diesel",
+      "price": 2.096,
+      "currency": "EUR",
+      "fetched_utc": "2026-10-07T20:51:15+00:00",
+      "source": "energy.ec.europa.eu",
+      "unit": "litre"
+    },
+    {
+      "country_code": "EE",
+      "product": "heating_oil",
+      "price": 1.715,
+      "currency": "EUR",
+      "fetched_utc": "2026-10-07T20:51:15+00:00",
+      "source": "energy.ec.europa.eu",
+      "unit": "litre"
+    },
+    {
+      "country_code": "EE",
+      "product": "lpg",
+      "price": 0.986,
+      "currency": "EUR",
+      "fetched_utc": "2026-10-07T20:51:15+00:00",
+      "source": "energy.ec.europa.eu",
+      "unit": "litre"
+    },
+    {
+      "country_code": "FI",
+      "product": "petrol",
+      "price": 2.370095,
+      "currency": "EUR",
+      "fetched_utc": "2026-10-07T20:51:15+00:00",
+      "source": "energy.ec.europa.eu",
+      "unit": "litre"
+    },
+    {
+      "country_code": "FI",
+      "product": "diesel",
+      "price": 2.552913,
+      "currency": "EUR",
+      "fetched_utc": "2026-10-07T20:51:15+00:00",
+      "source": "energy.ec.europa.eu",
+      "unit": "litre"
+    },
+    {
+      "country_code": "FI",
+      "product": "heating_oil",
+      "price": 2.048234,
+      "currency": "EUR",
+      "fetched_utc": "2026-10-07T20:51:15+00:00",
+      "source": "energy.ec.europa.eu",
+      "unit": "litre"
+    },
+    {
+      "country_code": "FR",
+      "product": "petrol",
+      "price": 2.21171,
+      "currency": "EUR",
+      "fetched_utc": "2026-10-07T20:51:15+00:00",
+      "source": "energy.ec.europa.eu",
+      "unit": "litre"
+    },
+    {
+      "country_code": "FR",
+      "product": "diesel",
+      "price": 2.35548,
+      "currency": "EUR",
+      "fetched_utc": "2026-10-07T20:51:15+00:00",
+      "source": "energy.ec.europa.eu",
+      "unit": "litre"
+    },
+    {
+      "country_code": "FR",
+      "product": "heating_oil",
+      "price": 1.90708,
+      "currency": "EUR",
+      "fetched_utc": "2026-10-07T20:51:15+00:00",
+      "source": "energy.ec.europa.eu",
+      "unit": "litre"
+    },
+    {
+      "country_code": "FR",
+      "product": "lpg",
+      "price": 1.01394,
+      "currency": "EUR",
+      "fetched_utc": "2026-10-07T20:51:15+00:00",
+      "source": "energy.ec.europa.eu",
+      "unit": "litre"
+    },
+    {
+      "country_code": "DE",
+      "product": "petrol",
+      "price": 2.137,
+      "currency": "EUR",
+      "fetched_utc": "2026-10-07T20:51:15+00:00",
+      "source": "energy.ec.europa.eu",
+      "unit": "litre"
+    },
+    {
+      "country_code": "DE",
+      "product": "diesel",
+      "price": 2.244,
+      "currency": "EUR",
+      "fetched_utc": "2026-10-07T20:51:15+00:00",
+      "source": "energy.ec.europa.eu",
+      "unit": "litre"
+    },
+    {
+      "country_code": "DE",
+      "product": "heating_oil",
+      "price": 1.6974,
+      "currency": "EUR",
+      "fetched_utc": "2026-10-07T20:51:15+00:00",
+      "source": "energy.ec.europa.eu",
+      "unit": "litre"
+    },
+    {
+      "country_code": "DE",
+      "product": "lpg",
+      "price": 1.109,
+      "currency": "EUR",
+      "fetched_utc": "2026-10-07T20:51:15+00:00",
+      "source": "energy.ec.europa.eu",
+      "unit": "litre"
+    },
+    {
+      "country_code": "GR",
+      "product": "petrol",
+      "price": 2.203,
+      "currency": "EUR",
+      "fetched_utc": "2026-10-07T20:51:15+00:00",
+      "source": "energy.ec.europa.eu",
+      "unit": "litre"
+    },
+    {
+      "country_code": "GR",
+      "product": "diesel",
+      "price": 2.166,
+      "currency": "EUR",
+      "fetched_utc": "2026-10-07T20:51:15+00:00",
+      "source": "energy.ec.europa.eu",
+      "unit": "litre"
+    },
+    {
+      "country_code": "HU",
+      "product": "petrol",
+      "price": 1.725568,
+      "currency": "EUR",
+      "fetched_utc": "2026-10-07T20:51:15+00:00",
+      "source": "energy.ec.europa.eu",
+      "unit": "litre"
+    },
+    {
+      "country_code": "HU",
+      "product": "diesel",
+      "price": 1.92807,
+      "currency": "EUR",
+      "fetched_utc": "2026-10-07T20:51:15+00:00",
+      "source": "energy.ec.europa.eu",
+      "unit": "litre"
+    },
+    {
+      "country_code": "HU",
+      "product": "heating_oil",
+      "price": 1.92807,
+      "currency": "EUR",
+      "fetched_utc": "2026-10-07T20:51:15+00:00",
+      "source": "energy.ec.europa.eu",
+      "unit": "litre"
+    },
+    {
+      "country_code": "HU",
+      "product": "lpg",
+      "price": 0.98392,
+      "currency": "EUR",
+      "fetched_utc": "2026-10-07T20:51:15+00:00",
+      "source": "energy.ec.europa.eu",
+      "unit": "litre"
+    },
+    {
+      "country_code": "IE",
+      "product": "petrol",
+      "price": 1.9827,
+      "currency": "EUR",
+      "fetched_utc": "2026-10-07T20:51:15+00:00",
+      "source": "energy.ec.europa.eu",
+      "unit": "litre"
+    },
+    {
+      "country_code": "IE",
+      "product": "diesel",
+      "price": 2.1637,
+      "currency": "EUR",
+      "fetched_utc": "2026-10-07T20:51:15+00:00",
+      "source": "energy.ec.europa.eu",
+      "unit": "litre"
+    },
+    {
+      "country_code": "IE",
+      "product": "heating_oil",
+      "price": 1.48725,
+      "currency": "EUR",
+      "fetched_utc": "2026-10-07T20:51:15+00:00",
+      "source": "energy.ec.europa.eu",
+      "unit": "litre"
+    },
+    {
+      "country_code": "IT",
+      "product": "petrol",
+      "price": 2.0727,
+      "currency": "EUR",
+      "fetched_utc": "2026-10-07T20:51:15+00:00",
+      "source": "energy.ec.europa.eu",
+      "unit": "litre"
+    },
+    {
+      "country_code": "IT",
+      "product": "diesel",
+      "price": 2.27346,
+      "currency": "EUR",
+      "fetched_utc": "2026-10-07T20:51:15+00:00",
+      "source": "energy.ec.europa.eu",
+      "unit": "litre"
+    },
+    {
+      "country_code": "IT",
+      "product": "heating_oil",
+      "price": 2.0631,
+      "currency": "EUR",
+      "fetched_utc": "2026-10-07T20:51:15+00:00",
+      "source": "energy.ec.europa.eu",
+      "unit": "litre"
+    },
+    {
+      "country_code": "IT",
+      "product": "lpg",
+      "price": 0.77059,
+      "currency": "EUR",
+      "fetched_utc": "2026-10-07T20:51:15+00:00",
+      "source": "energy.ec.europa.eu",
+      "unit": "litre"
+    },
+    {
+      "country_code": "LV",
+      "product": "petrol",
+      "price": 1.9624,
+      "currency": "EUR",
+      "fetched_utc": "2026-10-07T20:51:15+00:00",
+      "source": "energy.ec.europa.eu",
+      "unit": "litre"
+    },
+    {
+      "country_code": "LV",
+      "product": "diesel",
+      "price": 2.12033,
+      "currency": "EUR",
+      "fetched_utc": "2026-10-07T20:51:15+00:00",
+      "source": "energy.ec.europa.eu",
+      "unit": "litre"
+    },
+    {
+      "country_code": "LV",
+      "product": "heating_oil",
+      "price": 1.88438,
+      "currency": "EUR",
+      "fetched_utc": "2026-10-07T20:51:15+00:00",
+      "source": "energy.ec.europa.eu",
+      "unit": "litre"
+    },
+    {
+      "country_code": "LV",
+      "product": "lpg",
+      "price": 0.94825,
+      "currency": "EUR",
+      "fetched_utc": "2026-10-07T20:51:15+00:00",
+      "source": "energy.ec.europa.eu",
+      "unit": "litre"
+    },
+    {
+      "country_code": "LT",
+      "product": "petrol",
+      "price": 1.93798,
+      "currency": "EUR",
+      "fetched_utc": "2026-10-07T20:51:15+00:00",
+      "source": "energy.ec.europa.eu",
+      "unit": "litre"
+    },
+    {
+      "country_code": "LT",
+      "product": "diesel",
+      "price": 2.24074,
+      "currency": "EUR",
+      "fetched_utc": "2026-10-07T20:51:15+00:00",
+      "source": "energy.ec.europa.eu",
+      "unit": "litre"
+    },
+    {
+      "country_code": "LT",
+      "product": "heating_oil",
+      "price": 1.5749,
+      "currency": "EUR",
+      "fetched_utc": "2026-10-07T20:51:15+00:00",
+      "source": "energy.ec.europa.eu",
+      "unit": "litre"
+    },
+    {
+      "country_code": "LT",
+      "product": "lpg",
+      "price": 0.82168,
+      "currency": "EUR",
+      "fetched_utc": "2026-10-07T20:51:15+00:00",
+      "source": "energy.ec.europa.eu",
+      "unit": "litre"
+    },
+    {
+      "country_code": "LU",
+      "product": "petrol",
+      "price": 1.837,
+      "currency": "EUR",
+      "fetched_utc": "2026-10-07T20:51:15+00:00",
+      "source": "energy.ec.europa.eu",
+      "unit": "litre"
+    },
+    {
+      "country_code": "LU",
+      "product": "diesel",
+      "price": 2.057,
+      "currency": "EUR",
+      "fetched_utc": "2026-10-07T20:51:15+00:00",
+      "source": "energy.ec.europa.eu",
+      "unit": "litre"
+    },
+    {
+      "country_code": "LU",
+      "product": "heating_oil",
+      "price": 1.539,
+      "currency": "EUR",
+      "fetched_utc": "2026-10-07T20:51:15+00:00",
+      "source": "energy.ec.europa.eu",
+      "unit": "litre"
+    },
+    {
+      "country_code": "LU",
+      "product": "lpg",
+      "price": 0.83,
+      "currency": "EUR",
+      "fetched_utc": "2026-10-07T20:51:15+00:00",
+      "source": "energy.ec.europa.eu",
+      "unit": "litre"
+    },
+    {
+      "country_code": "MT",
+      "product": "petrol",
+      "price": 1.34,
+      "currency": "EUR",
+      "fetched_utc": "2026-10-07T20:51:15+00:00",
+      "source": "energy.ec.europa.eu",
+      "unit": "litre"
+    },
+    {
+      "country_code": "MT",
+      "product": "diesel",
+      "price": 1.21,
+      "currency": "EUR",
+      "fetched_utc": "2026-10-07T20:51:15+00:00",
+      "source": "energy.ec.europa.eu",
+      "unit": "litre"
+    },
+    {
+      "country_code": "MT",
+      "product": "heating_oil",
+      "price": 1.0,
+      "currency": "EUR",
+      "fetched_utc": "2026-10-07T20:51:15+00:00",
+      "source": "energy.ec.europa.eu",
+      "unit": "litre"
+    },
+    {
+      "country_code": "NL",
+      "product": "petrol",
+      "price": 2.43183,
+      "currency": "EUR",
+      "fetched_utc": "2026-10-07T20:51:15+00:00",
+      "source": "energy.ec.europa.eu",
+      "unit": "litre"
+    },
+    {
+      "country_code": "NL",
+      "product": "diesel",
+      "price": 2.50606,
+      "currency": "EUR",
+      "fetched_utc": "2026-10-07T20:51:15+00:00",
+      "source": "energy.ec.europa.eu",
+      "unit": "litre"
+    },
+    {
+      "country_code": "NL",
+      "product": "lpg",
+      "price": 0.95474,
+      "currency": "EUR",
+      "fetched_utc": "2026-10-07T20:51:15+00:00",
+      "source": "energy.ec.europa.eu",
+      "unit": "litre"
+    },
+    {
+      "country_code": "PL",
+      "product": "petrol",
+      "price": 1.519593,
+      "currency": "EUR",
+      "fetched_utc": "2026-10-07T20:51:15+00:00",
+      "source": "energy.ec.europa.eu",
+      "unit": "litre"
+    },
+    {
+      "country_code": "PL",
+      "product": "diesel",
+      "price": 1.764455,
+      "currency": "EUR",
+      "fetched_utc": "2026-10-07T20:51:15+00:00",
+      "source": "energy.ec.europa.eu",
+      "unit": "litre"
+    },
+    {
+      "country_code": "PL",
+      "product": "heating_oil",
+      "price": 1.662772,
+      "currency": "EUR",
+      "fetched_utc": "2026-10-07T20:51:15+00:00",
+      "source": "energy.ec.europa.eu",
+      "unit": "litre"
+    },
+    {
+      "country_code": "PL",
+      "product": "lpg",
+      "price": 0.740057,
+      "currency": "EUR",
+      "fetched_utc": "2026-10-07T20:51:15+00:00",
+      "source": "energy.ec.europa.eu",
+      "unit": "litre"
+    },
+    {
+      "country_code": "PT",
+      "product": "petrol",
+      "price": 2.081,
+      "currency": "EUR",
+      "fetched_utc": "2026-10-07T20:51:15+00:00",
+      "source": "energy.ec.europa.eu",
+      "unit": "litre"
+    },
+    {
+      "country_code": "PT",
+      "product": "diesel",
+      "price": 2.155,
+      "currency": "EUR",
+      "fetched_utc": "2026-10-07T20:51:15+00:00",
+      "source": "energy.ec.europa.eu",
+      "unit": "litre"
+    },
+    {
+      "country_code": "PT",
+      "product": "heating_oil",
+      "price": 2.204,
+      "currency": "EUR",
+      "fetched_utc": "2026-10-07T20:51:15+00:00",
+      "source": "energy.ec.europa.eu",
+      "unit": "litre"
+    },
+    {
+      "country_code": "PT",
+      "product": "lpg",
+      "price": 0.922,
+      "currency": "EUR",
+      "fetched_utc": "2026-10-07T20:51:15+00:00",
+      "source": "energy.ec.europa.eu",
+      "unit": "litre"
+    },
+    {
+      "country_code": "RO",
+      "product": "petrol",
+      "price": 2.116916,
+      "currency": "EUR",
+      "fetched_utc": "2026-10-07T20:51:15+00:00",
+      "source": "energy.ec.europa.eu",
+      "unit": "litre"
+    },
+    {
+      "country_code": "RO",
+      "product": "diesel",
+      "price": 2.049587,
+      "currency": "EUR",
+      "fetched_utc": "2026-10-07T20:51:15+00:00",
+      "source": "energy.ec.europa.eu",
+      "unit": "litre"
+    },
+    {
+      "country_code": "RO",
+      "product": "heating_oil",
+      "price": 1.589204,
+      "currency": "EUR",
+      "fetched_utc": "2026-10-07T20:51:15+00:00",
+      "source": "energy.ec.europa.eu",
+      "unit": "litre"
+    },
+    {
+      "country_code": "RO",
+      "product": "lpg",
+      "price": 1.088764,
+      "currency": "EUR",
+      "fetched_utc": "2026-10-07T20:51:15+00:00",
+      "source": "energy.ec.europa.eu",
+      "unit": "litre"
+    },
+    {
+      "country_code": "SK",
+      "product": "petrol",
+      "price": 1.845,
+      "currency": "EUR",
+      "fetched_utc": "2026-10-07T20:51:15+00:00",
+      "source": "energy.ec.europa.eu",
+      "unit": "litre"
+    },
+    {
+      "country_code": "SK",
+      "product": "diesel",
+      "price": 1.972,
+      "currency": "EUR",
+      "fetched_utc": "2026-10-07T20:51:15+00:00",
+      "source": "energy.ec.europa.eu",
+      "unit": "litre"
+    },
+    {
+      "country_code": "SK",
+      "product": "lpg",
+      "price": 0.818,
+      "currency": "EUR",
+      "fetched_utc": "2026-10-07T20:51:15+00:00",
+      "source": "energy.ec.europa.eu",
+      "unit": "litre"
+    },
+    {
+      "country_code": "SI",
+      "product": "petrol",
+      "price": 1.76309,
+      "currency": "EUR",
+      "fetched_utc": "2026-10-07T20:51:15+00:00",
+      "source": "energy.ec.europa.eu",
+      "unit": "litre"
+    },
+    {
+      "country_code": "SI",
+      "product": "diesel",
+      "price": 1.98149,
+      "currency": "EUR",
+      "fetched_utc": "2026-10-07T20:51:15+00:00",
+      "source": "energy.ec.europa.eu",
+      "unit": "litre"
+    },
+    {
+      "country_code": "SI",
+      "product": "heating_oil",
+      "price": 1.62887,
+      "currency": "EUR",
+      "fetched_utc": "2026-10-07T20:51:15+00:00",
+      "source": "energy.ec.europa.eu",
+      "unit": "litre"
+    },
+    {
+      "country_code": "SI",
+      "product": "lpg",
+      "price": 0.98372,
+      "currency": "EUR",
+      "fetched_utc": "2026-10-07T20:51:15+00:00",
+      "source": "energy.ec.europa.eu",
+      "unit": "litre"
+    },
+    {
+      "country_code": "ES",
+      "product": "petrol",
+      "price": 1.849098,
+      "currency": "EUR",
+      "fetched_utc": "2026-10-07T20:51:15+00:00",
+      "source": "energy.ec.europa.eu",
+      "unit": "litre"
+    },
+    {
+      "country_code": "ES",
+      "product": "diesel",
+      "price": 1.917639,
+      "currency": "EUR",
+      "fetched_utc": "2026-10-07T20:51:15+00:00",
+      "source": "energy.ec.europa.eu",
+      "unit": "litre"
+    },
+    {
+      "country_code": "ES",
+      "product": "heating_oil",
+      "price": 1.495339,
+      "currency": "EUR",
+      "fetched_utc": "2026-10-07T20:51:15+00:00",
+      "source": "energy.ec.europa.eu",
+      "unit": "litre"
+    },
+    {
+      "country_code": "ES",
+      "product": "lpg",
+      "price": 1.099657,
+      "currency": "EUR",
+      "fetched_utc": "2026-10-07T20:51:15+00:00",
+      "source": "energy.ec.europa.eu",
+      "unit": "litre"
+    },
+    {
+      "country_code": "SE",
+      "product": "petrol",
+      "price": 1.589336,
+      "currency": "EUR",
+      "fetched_utc": "2026-10-07T20:51:15+00:00",
+      "source": "energy.ec.europa.eu",
+      "unit": "litre"
+    },
+    {
+      "country_code": "SE",
+      "product": "diesel",
+      "price": 2.117929,
+      "currency": "EUR",
+      "fetched_utc": "2026-10-07T20:51:15+00:00",
+      "source": "energy.ec.europa.eu",
+      "unit": "litre"
+    },
+    {
+      "country_code": "SE",
+      "product": "heating_oil",
+      "price": 1.917965,
+      "currency": "EUR",
+      "fetched_utc": "2026-10-07T20:51:15+00:00",
+      "source": "energy.ec.europa.eu",
+      "unit": "litre"
+    },
+    {
+      "country_code": "BR",
+      "product": "ethanol",
+      "price": 4.13,
+      "currency": "BRL",
+      "fetched_utc": "2026-10-07T20:51:18+00:00",
+      "source": "gov.br/anp",
+      "unit": "litre"
+    },
+    {
+      "country_code": "BR",
+      "product": "petrol_premium",
+      "price": 6.72,
+      "currency": "BRL",
+      "fetched_utc": "2026-10-07T20:51:18+00:00",
+      "source": "gov.br/anp",
+      "unit": "litre"
+    },
+    {
+      "country_code": "BR",
+      "product": "petrol",
+      "price": 6.55,
+      "currency": "BRL",
+      "fetched_utc": "2026-10-07T20:51:18+00:00",
+      "source": "gov.br/anp",
+      "unit": "litre"
+    },
+    {
+      "country_code": "BR",
+      "product": "diesel",
+      "price": 6.9,
+      "currency": "BRL",
+      "fetched_utc": "2026-10-07T20:51:18+00:00",
+      "source": "gov.br/anp",
+      "unit": "litre"
+    },
+    {
+      "country_code": "BR",
+      "product": "diesel_s10",
+      "price": 7.35,
+      "currency": "BRL",
+      "fetched_utc": "2026-10-07T20:51:18+00:00",
+      "source": "gov.br/anp",
+      "unit": "litre"
+    },
+    {
+      "country_code": "EG",
+      "product": "kerosene",
+      "price": 20.5,
+      "currency": "EGP",
+      "fetched_utc": "2026-10-07T20:51:21+00:00",
+      "source": "petroleum.gov.eg",
+      "unit": "litre"
+    },
+    {
+      "country_code": "EG",
+      "product": "diesel",
+      "price": 20.5,
+      "currency": "EGP",
+      "fetched_utc": "2026-10-07T20:51:21+00:00",
+      "source": "petroleum.gov.eg",
+      "unit": "litre"
+    },
+    {
+      "country_code": "EG",
+      "product": "petrol_80",
+      "price": 20.75,
+      "currency": "EGP",
+      "fetched_utc": "2026-10-07T20:51:21+00:00",
+      "source": "petroleum.gov.eg",
+      "unit": "litre"
+    },
+    {
+      "country_code": "EG",
+      "product": "petrol_95",
+      "price": 24.0,
+      "currency": "EGP",
+      "fetched_utc": "2026-10-07T20:51:21+00:00",
+      "source": "petroleum.gov.eg",
+      "unit": "litre"
+    },
+    {
+      "country_code": "EG",
+      "product": "petrol_92",
+      "price": 22.25,
+      "currency": "EGP",
+      "fetched_utc": "2026-10-07T20:51:21+00:00",
+      "source": "petroleum.gov.eg",
+      "unit": "litre"
+    },
+    {
+      "country_code": "MX",
+      "product": "petrol",
+      "price": 23.99,
+      "currency": "MXN",
+      "fetched_utc": "2026-10-07T20:51:22+00:00",
+      "source": "cre.gob.mx (median of 13773 stations)",
+      "unit": "litre"
+    },
+    {
+      "country_code": "MX",
+      "product": "petrol_premium",
+      "price": 28.79,
+      "currency": "MXN",
+      "fetched_utc": "2026-10-07T20:51:22+00:00",
+      "source": "cre.gob.mx (median of 12994 stations)",
+      "unit": "litre"
+    },
+    {
+      "country_code": "MX",
+      "product": "diesel",
+      "price": 27.0,
+      "currency": "MXN",
+      "fetched_utc": "2026-10-07T20:51:22+00:00",
+      "source": "cre.gob.mx (median of 10629 stations)",
+      "unit": "litre"
+    },
+    {
+      "country_code": "BD",
+      "product": "diesel",
+      "price": 135.0,
+      "currency": "BDT",
+      "fetched_utc": "2026-10-07T20:51:24+00:00",
+      "source": "bpc.gov.bd",
+      "unit": "litre"
+    },
+    {
+      "country_code": "BD",
+      "product": "kerosene",
+      "price": 155.0,
+      "currency": "BDT",
+      "fetched_utc": "2026-10-07T20:51:24+00:00",
+      "source": "bpc.gov.bd",
+      "unit": "litre"
+    },
+    {
+      "country_code": "BD",
+      "product": "petrol_premium",
+      "price": 165.0,
+      "currency": "BDT",
+      "fetched_utc": "2026-10-07T20:51:24+00:00",
+      "source": "bpc.gov.bd",
+      "unit": "litre"
+    },
+    {
+      "country_code": "BD",
+      "product": "petrol",
+      "price": 160.0,
+      "currency": "BDT",
+      "fetched_utc": "2026-10-07T20:51:24+00:00",
+      "source": "bpc.gov.bd",
+      "unit": "litre"
+    },
+    {
+      "country_code": "BD",
+      "product": "light_diesel",
+      "price": 130.0,
+      "currency": "BDT",
+      "fetched_utc": "2026-10-07T20:51:24+00:00",
+      "source": "bpc.gov.bd",
+      "unit": "litre"
+    },
+    {
+      "country_code": "BD",
+      "product": "furnace_oil",
+      "price": 108.78,
+      "currency": "BDT",
+      "fetched_utc": "2026-10-07T20:51:24+00:00",
+      "source": "bpc.gov.bd",
+      "unit": "litre"
+    },
+    {
+      "country_code": "IN",
+      "product": "petrol",
+      "price": 102.12,
+      "currency": "INR",
+      "fetched_utc": "2026-10-07T20:51:30+00:00",
+      "source": "ppac.gov.in (Delhi)",
+      "unit": "litre"
+    },
+    {
+      "country_code": "IN",
+      "product": "diesel",
+      "price": 95.2,
+      "currency": "INR",
+      "fetched_utc": "2026-10-07T20:51:30+00:00",
+      "source": "ppac.gov.in (Delhi)",
+      "unit": "litre"
+    }
+  ],
+  "benchmark_in_local_currency": [
+    {
+      "country": "AF",
+      "name": "Afghanistan",
+      "currency": "AFN",
+      "benchmark": "BRENT",
+      "per_barrel": 6536.2856,
+      "per_litre": 41.1121
+    },
+    {
+      "country": "AF",
+      "name": "Afghanistan",
+      "currency": "AFN",
+      "benchmark": "WTI",
+      "per_barrel": 5755.4477,
+      "per_litre": 36.2007
+    },
+    {
+      "country": "AF",
+      "name": "Afghanistan",
+      "currency": "AFN",
+      "benchmark": "DUBAI",
+      "per_barrel": 6030.8094,
+      "per_litre": 37.9327
+    },
+    {
+      "country": "AL",
+      "name": "Albania",
+      "currency": "ALL",
+      "benchmark": "BRENT",
+      "per_barrel": 8264.799,
+      "per_litre": 51.9841
+    },
+    {
+      "country": "AL",
+      "name": "Albania",
+      "currency": "ALL",
+      "benchmark": "WTI",
+      "per_barrel": 7277.4694,
+      "per_litre": 45.774
+    },
+    {
+      "country": "AL",
+      "name": "Albania",
+      "currency": "ALL",
+      "benchmark": "DUBAI",
+      "per_barrel": 7625.6502,
+      "per_litre": 47.964
+    },
+    {
+      "country": "DZ",
+      "name": "Algeria",
+      "currency": "DZD",
+      "benchmark": "BRENT",
+      "per_barrel": 13590.0862,
+      "per_litre": 85.4792
+    },
+    {
+      "country": "DZ",
+      "name": "Algeria",
+      "currency": "DZD",
+      "benchmark": "WTI",
+      "per_barrel": 11966.587,
+      "per_litre": 75.2677
+    },
+    {
+      "country": "DZ",
+      "name": "Algeria",
+      "currency": "DZD",
+      "benchmark": "DUBAI",
+      "per_barrel": 12539.1124,
+      "per_litre": 78.8688
+    },
+    {
+      "country": "AD",
+      "name": "Andorra",
+      "currency": "EUR",
+      "benchmark": "BRENT",
+      "per_barrel": 89.8695,
+      "per_litre": 0.5653
+    },
+    {
+      "country": "AD",
+      "name": "Andorra",
+      "currency": "EUR",
+      "benchmark": "WTI",
+      "per_barrel": 79.1335,
+      "per_litre": 0.4977
+    },
+    {
+      "country": "AD",
+      "name": "Andorra",
+      "currency": "EUR",
+      "benchmark": "DUBAI",
+      "per_barrel": 82.9195,
+      "per_litre": 0.5215
+    },
+    {
+      "country": "AO",
+      "name": "Angola",
+      "currency": "AOA",
+      "benchmark": "BRENT",
+      "per_barrel": 93698.9094,
+      "per_litre": 589.3495
+    },
+    {
+      "country": "AO",
+      "name": "Angola",
+      "currency": "AOA",
+      "benchmark": "WTI",
+      "per_barrel": 82505.4479,
+      "per_litre": 518.9446
+    },
+    {
+      "country": "AO",
+      "name": "Angola",
+      "currency": "AOA",
+      "benchmark": "DUBAI",
+      "per_barrel": 86452.811,
+      "per_litre": 543.7728
+    },
+    {
+      "country": "AG",
+      "name": "Antigua and Barbuda",
+      "currency": "XCD",
+      "benchmark": "BRENT",
+      "per_barrel": 273.024,
+      "per_litre": 1.7173
+    },
+    {
+      "country": "AG",
+      "name": "Antigua and Barbuda",
+      "currency": "XCD",
+      "benchmark": "WTI",
+      "per_barrel": 240.408,
+      "per_litre": 1.5121
+    },
+    {
+      "country": "AG",
+      "name": "Antigua and Barbuda",
+      "currency": "XCD",
+      "benchmark": "DUBAI",
+      "per_barrel": 251.91,
+      "per_litre": 1.5845
+    },
+    {
+      "country": "AR",
+      "name": "Argentina",
+      "currency": "ARS",
+      "benchmark": "BRENT",
+      "per_barrel": 153732.7562,
+      "per_litre": 966.9517
+    },
+    {
+      "country": "AR",
+      "name": "Argentina",
+      "currency": "ARS",
+      "benchmark": "WTI",
+      "per_barrel": 135367.5298,
+      "per_litre": 851.4377
+    },
+    {
+      "country": "AR",
+      "name": "Argentina",
+      "currency": "ARS",
+      "benchmark": "DUBAI",
+      "per_barrel": 141844.0087,
+      "per_litre": 892.1736
+    },
+    {
+      "country": "AM",
+      "name": "Armenia",
+      "currency": "AMD",
+      "benchmark": "BRENT",
+      "per_barrel": 36717.4555,
+      "per_litre": 230.9463
+    },
+    {
+      "country": "AM",
+      "name": "Armenia",
+      "currency": "AMD",
+      "benchmark": "WTI",
+      "per_barrel": 32331.1139,
+      "per_litre": 203.357
+    },
+    {
+      "country": "AM",
+      "name": "Armenia",
+      "currency": "AMD",
+      "benchmark": "DUBAI",
+      "per_barrel": 33877.9529,
+      "per_litre": 213.0863
+    },
+    {
+      "country": "AU",
+      "name": "Australia",
+      "currency": "AUD",
+      "benchmark": "BRENT",
+      "per_barrel": 144.8888,
+      "per_litre": 0.9113
+    },
+    {
+      "country": "AU",
+      "name": "Australia",
+      "currency": "AUD",
+      "benchmark": "WTI",
+      "per_barrel": 127.5801,
+      "per_litre": 0.8025
+    },
+    {
+      "country": "AU",
+      "name": "Australia",
+      "currency": "AUD",
+      "benchmark": "DUBAI",
+      "per_barrel": 133.684,
+      "per_litre": 0.8408
+    },
+    {
+      "country": "AT",
+      "name": "Austria",
+      "currency": "EUR",
+      "benchmark": "BRENT",
+      "per_barrel": 89.8695,
+      "per_litre": 0.5653
+    },
+    {
+      "country": "AT",
+      "name": "Austria",
+      "currency": "EUR",
+      "benchmark": "WTI",
+      "per_barrel": 79.1335,
+      "per_litre": 0.4977
+    },
+    {
+      "country": "AT",
+      "name": "Austria",
+      "currency": "EUR",
+      "benchmark": "DUBAI",
+      "per_barrel": 82.9195,
+      "per_litre": 0.5215
+    },
+    {
+      "country": "AZ",
+      "name": "Azerbaijan",
+      "currency": "AZN",
+      "benchmark": "BRENT",
+      "per_barrel": 171.706,
+      "per_litre": 1.08
+    },
+    {
+      "country": "AZ",
+      "name": "Azerbaijan",
+      "currency": "AZN",
+      "benchmark": "WTI",
+      "per_barrel": 151.1937,
+      "per_litre": 0.951
+    },
+    {
+      "country": "AZ",
+      "name": "Azerbaijan",
+      "currency": "AZN",
+      "benchmark": "DUBAI",
+      "per_barrel": 158.4273,
+      "per_litre": 0.9965
+    },
+    {
+      "country": "BS",
+      "name": "Bahamas",
+      "currency": "BSD",
+      "benchmark": "BRENT",
+      "per_barrel": 101.12,
+      "per_litre": 0.636
+    },
+    {
+      "country": "BS",
+      "name": "Bahamas",
+      "currency": "BSD",
+      "benchmark": "WTI",
+      "per_barrel": 89.04,
+      "per_litre": 0.56
+    },
+    {
+      "country": "BS",
+      "name": "Bahamas",
+      "currency": "BSD",
+      "benchmark": "DUBAI",
+      "per_barrel": 93.3,
+      "per_litre": 0.5868
+    },
+    {
+      "country": "BH",
+      "name": "Bahrain",
+      "currency": "BHD",
+      "benchmark": "BRENT",
+      "per_barrel": 38.0211,
+      "per_litre": 0.2391
+    },
+    {
+      "country": "BH",
+      "name": "Bahrain",
+      "currency": "BHD",
+      "benchmark": "WTI",
+      "per_barrel": 33.479,
+      "per_litre": 0.2106
+    },
+    {
+      "country": "BH",
+      "name": "Bahrain",
+      "currency": "BHD",
+      "benchmark": "DUBAI",
+      "per_barrel": 35.0808,
+      "per_litre": 0.2207
+    },
+    {
+      "country": "BD",
+      "name": "Bangladesh",
+      "currency": "BDT",
+      "benchmark": "BRENT",
+      "per_barrel": 12421.0474,
+      "per_litre": 78.1262
+    },
+    {
+      "country": "BD",
+      "name": "Bangladesh",
+      "currency": "BDT",
+      "benchmark": "WTI",
+      "per_barrel": 10937.2039,
+      "per_litre": 68.7931
+    },
+    {
+      "country": "BD",
+      "name": "Bangladesh",
+      "currency": "BDT",
+      "benchmark": "DUBAI",
+      "per_barrel": 11460.4798,
+      "per_litre": 72.0844
+    },
+    {
+      "country": "BB",
+      "name": "Barbados",
+      "currency": "BBD",
+      "benchmark": "BRENT",
+      "per_barrel": 202.24,
+      "per_litre": 1.2721
+    },
+    {
+      "country": "BB",
+      "name": "Barbados",
+      "currency": "BBD",
+      "benchmark": "WTI",
+      "per_barrel": 178.08,
+      "per_litre": 1.1201
+    },
+    {
+      "country": "BB",
+      "name": "Barbados",
+      "currency": "BBD",
+      "benchmark": "DUBAI",
+      "per_barrel": 186.6,
+      "per_litre": 1.1737
+    },
+    {
+      "country": "BY",
+      "name": "Belarus",
+      "currency": "BYN",
+      "benchmark": "BRENT",
+      "per_barrel": 310.4631,
+      "per_litre": 1.9528
+    },
+    {
+      "country": "BY",
+      "name": "Belarus",
+      "currency": "BYN",
+      "benchmark": "WTI",
+      "per_barrel": 273.3745,
+      "per_litre": 1.7195
+    },
+    {
+      "country": "BY",
+      "name": "Belarus",
+      "currency": "BYN",
+      "benchmark": "DUBAI",
+      "per_barrel": 286.4538,
+      "per_litre": 1.8017
+    },
+    {
+      "country": "BE",
+      "name": "Belgium",
+      "currency": "EUR",
+      "benchmark": "BRENT",
+      "per_barrel": 89.8695,
+      "per_litre": 0.5653
+    },
+    {
+      "country": "BE",
+      "name": "Belgium",
+      "currency": "EUR",
+      "benchmark": "WTI",
+      "per_barrel": 79.1335,
+      "per_litre": 0.4977
+    },
+    {
+      "country": "BE",
+      "name": "Belgium",
+      "currency": "EUR",
+      "benchmark": "DUBAI",
+      "per_barrel": 82.9195,
+      "per_litre": 0.5215
+    },
+    {
+      "country": "BZ",
+      "name": "Belize",
+      "currency": "BZD",
+      "benchmark": "BRENT",
+      "per_barrel": 202.24,
+      "per_litre": 1.2721
+    },
+    {
+      "country": "BZ",
+      "name": "Belize",
+      "currency": "BZD",
+      "benchmark": "WTI",
+      "per_barrel": 178.08,
+      "per_litre": 1.1201
+    },
+    {
+      "country": "BZ",
+      "name": "Belize",
+      "currency": "BZD",
+      "benchmark": "DUBAI",
+      "per_barrel": 186.6,
+      "per_litre": 1.1737
+    },
+    {
+      "country": "BJ",
+      "name": "Benin",
+      "currency": "XOF",
+      "benchmark": "BRENT",
+      "per_barrel": 58950.8463,
+      "per_litre": 370.7904
+    },
+    {
+      "country": "BJ",
+      "name": "Benin",
+      "currency": "XOF",
+      "benchmark": "WTI",
+      "per_barrel": 51908.4588,
+      "per_litre": 326.495
+    },
+    {
+      "country": "BJ",
+      "name": "Benin",
+      "currency": "XOF",
+      "benchmark": "DUBAI",
+      "per_barrel": 54391.9498,
+      "per_litre": 342.1157
+    },
+    {
+      "country": "BT",
+      "name": "Bhutan",
+      "currency": "BTN",
+      "benchmark": "BRENT",
+      "per_barrel": 9754.7136,
+      "per_litre": 61.3554
+    },
+    {
+      "country": "BT",
+      "name": "Bhutan",
+      "currency": "BTN",
+      "benchmark": "WTI",
+      "per_barrel": 8589.3958,
+      "per_litre": 54.0258
+    },
+    {
+      "country": "BT",
+      "name": "Bhutan",
+      "currency": "BTN",
+      "benchmark": "DUBAI",
+      "per_barrel": 9000.3439,
+      "per_litre": 56.6106
+    },
+    {
+      "country": "BO",
+      "name": "Bolivia",
+      "currency": "BOB",
+      "benchmark": "BRENT",
+      "per_barrel": 1212.3334,
+      "per_litre": 7.6254
+    },
+    {
+      "country": "BO",
+      "name": "Bolivia",
+      "currency": "BOB",
+      "benchmark": "WTI",
+      "per_barrel": 1067.5056,
+      "per_litre": 6.7144
+    },
+    {
+      "country": "BO",
+      "name": "Bolivia",
+      "currency": "BOB",
+      "benchmark": "DUBAI",
+      "per_barrel": 1118.579,
+      "per_litre": 7.0357
+    },
+    {
+      "country": "BA",
+      "name": "Bosnia and Herzegovina",
+      "currency": "BAM",
+      "benchmark": "BRENT",
+      "per_barrel": 175.7704,
+      "per_litre": 1.1056
+    },
+    {
+      "country": "BA",
+      "name": "Bosnia and Herzegovina",
+      "currency": "BAM",
+      "benchmark": "WTI",
+      "per_barrel": 154.7725,
+      "per_litre": 0.9735
+    },
+    {
+      "country": "BA",
+      "name": "Bosnia and Herzegovina",
+      "currency": "BAM",
+      "benchmark": "DUBAI",
+      "per_barrel": 162.1774,
+      "per_litre": 1.0201
+    },
+    {
+      "country": "BW",
+      "name": "Botswana",
+      "currency": "BWP",
+      "benchmark": "BRENT",
+      "per_barrel": 1440.572,
+      "per_litre": 9.0609
+    },
+    {
+      "country": "BW",
+      "name": "Botswana",
+      "currency": "BWP",
+      "benchmark": "WTI",
+      "per_barrel": 1268.4784,
+      "per_litre": 7.9785
+    },
+    {
+      "country": "BW",
+      "name": "Botswana",
+      "currency": "BWP",
+      "benchmark": "DUBAI",
+      "per_barrel": 1329.167,
+      "per_litre": 8.3602
+    },
+    {
+      "country": "BR",
+      "name": "Brazil",
+      "currency": "BRL",
+      "benchmark": "BRENT",
+      "per_barrel": 503.6186,
+      "per_litre": 3.1677
+    },
+    {
+      "country": "BR",
+      "name": "Brazil",
+      "currency": "BRL",
+      "benchmark": "WTI",
+      "per_barrel": 443.4553,
+      "per_litre": 2.7893
+    },
+    {
+      "country": "BR",
+      "name": "Brazil",
+      "currency": "BRL",
+      "benchmark": "DUBAI",
+      "per_barrel": 464.6718,
+      "per_litre": 2.9227
+    },
+    {
+      "country": "BN",
+      "name": "Brunei",
+      "currency": "BND",
+      "benchmark": "BRENT",
+      "per_barrel": 129.2083,
+      "per_litre": 0.8127
+    },
+    {
+      "country": "BN",
+      "name": "Brunei",
+      "currency": "BND",
+      "benchmark": "WTI",
+      "per_barrel": 113.7728,
+      "per_litre": 0.7156
+    },
+    {
+      "country": "BN",
+      "name": "Brunei",
+      "currency": "BND",
+      "benchmark": "DUBAI",
+      "per_barrel": 119.2161,
+      "per_litre": 0.7498
+    },
+    {
+      "country": "BG",
+      "name": "Bulgaria",
+      "currency": "BGN",
+      "benchmark": "BRENT",
+      "per_barrel": 175.7704,
+      "per_litre": 1.1056
+    },
+    {
+      "country": "BG",
+      "name": "Bulgaria",
+      "currency": "BGN",
+      "benchmark": "WTI",
+      "per_barrel": 154.7725,
+      "per_litre": 0.9735
+    },
+    {
+      "country": "BG",
+      "name": "Bulgaria",
+      "currency": "BGN",
+      "benchmark": "DUBAI",
+      "per_barrel": 162.1774,
+      "per_litre": 1.0201
+    },
+    {
+      "country": "BF",
+      "name": "Burkina Faso",
+      "currency": "XOF",
+      "benchmark": "BRENT",
+      "per_barrel": 58950.8463,
+      "per_litre": 370.7904
+    },
+    {
+      "country": "BF",
+      "name": "Burkina Faso",
+      "currency": "XOF",
+      "benchmark": "WTI",
+      "per_barrel": 51908.4588,
+      "per_litre": 326.495
+    },
+    {
+      "country": "BF",
+      "name": "Burkina Faso",
+      "currency": "XOF",
+      "benchmark": "DUBAI",
+      "per_barrel": 54391.9498,
+      "per_litre": 342.1157
+    },
+    {
+      "country": "BI",
+      "name": "Burundi",
+      "currency": "BIF",
+      "benchmark": "BRENT",
+      "per_barrel": 303444.8499,
+      "per_litre": 1908.6142
+    },
+    {
+      "country": "BI",
+      "name": "Burundi",
+      "currency": "BIF",
+      "benchmark": "WTI",
+      "per_barrel": 267194.7136,
+      "per_litre": 1680.6073
+    },
+    {
+      "country": "BI",
+      "name": "Burundi",
+      "currency": "BIF",
+      "benchmark": "DUBAI",
+      "per_barrel": 279978.2881,
+      "per_litre": 1761.0137
+    },
+    {
+      "country": "CV",
+      "name": "Cabo Verde",
+      "currency": "CVE",
+      "benchmark": "BRENT",
+      "per_barrel": 9909.514,
+      "per_litre": 62.3291
+    },
+    {
+      "country": "CV",
+      "name": "Cabo Verde",
+      "currency": "CVE",
+      "benchmark": "WTI",
+      "per_barrel": 8725.7034,
+      "per_litre": 54.8831
+    },
+    {
+      "country": "CV",
+      "name": "Cabo Verde",
+      "currency": "CVE",
+      "benchmark": "DUBAI",
+      "per_barrel": 9143.173,
+      "per_litre": 57.5089
+    },
+    {
+      "country": "KH",
+      "name": "Cambodia",
+      "currency": "KHR",
+      "benchmark": "BRENT",
+      "per_barrel": 410002.8206,
+      "per_litre": 2578.8449
+    },
+    {
+      "country": "KH",
+      "name": "Cambodia",
+      "currency": "KHR",
+      "benchmark": "WTI",
+      "per_barrel": 361023.0532,
+      "per_litre": 2270.7709
+    },
+    {
+      "country": "KH",
+      "name": "Cambodia",
+      "currency": "KHR",
+      "benchmark": "DUBAI",
+      "per_barrel": 378295.7195,
+      "per_litre": 2379.4129
+    },
+    {
+      "country": "CM",
+      "name": "Cameroon",
+      "currency": "XAF",
+      "benchmark": "BRENT",
+      "per_barrel": 58950.8463,
+      "per_litre": 370.7904
+    },
+    {
+      "country": "CM",
+      "name": "Cameroon",
+      "currency": "XAF",
+      "benchmark": "WTI",
+      "per_barrel": 51908.4588,
+      "per_litre": 326.495
+    },
+    {
+      "country": "CM",
+      "name": "Cameroon",
+      "currency": "XAF",
+      "benchmark": "DUBAI",
+      "per_barrel": 54391.9498,
+      "per_litre": 342.1157
+    },
+    {
+      "country": "CA",
+      "name": "Canada",
+      "currency": "CAD",
+      "benchmark": "BRENT",
+      "per_barrel": 143.8054,
+      "per_litre": 0.9045
+    },
+    {
+      "country": "CA",
+      "name": "Canada",
+      "currency": "CAD",
+      "benchmark": "WTI",
+      "per_barrel": 126.6261,
+      "per_litre": 0.7965
+    },
+    {
+      "country": "CA",
+      "name": "Canada",
+      "currency": "CAD",
+      "benchmark": "DUBAI",
+      "per_barrel": 132.6844,
+      "per_litre": 0.8346
+    },
+    {
+      "country": "CF",
+      "name": "Central African Republic",
+      "currency": "XAF",
+      "benchmark": "BRENT",
+      "per_barrel": 58950.8463,
+      "per_litre": 370.7904
+    },
+    {
+      "country": "CF",
+      "name": "Central African Republic",
+      "currency": "XAF",
+      "benchmark": "WTI",
+      "per_barrel": 51908.4588,
+      "per_litre": 326.495
+    },
+    {
+      "country": "CF",
+      "name": "Central African Republic",
+      "currency": "XAF",
+      "benchmark": "DUBAI",
+      "per_barrel": 54391.9498,
+      "per_litre": 342.1157
+    },
+    {
+      "country": "TD",
+      "name": "Chad",
+      "currency": "XAF",
+      "benchmark": "BRENT",
+      "per_barrel": 58950.8463,
+      "per_litre": 370.7904
+    },
+    {
+      "country": "TD",
+      "name": "Chad",
+      "currency": "XAF",
+      "benchmark": "WTI",
+      "per_barrel": 51908.4588,
+      "per_litre": 326.495
+    },
+    {
+      "country": "TD",
+      "name": "Chad",
+      "currency": "XAF",
+      "benchmark": "DUBAI",
+      "per_barrel": 54391.9498,
+      "per_litre": 342.1157
+    },
+    {
+      "country": "CL",
+      "name": "Chile",
+      "currency": "CLP",
+      "benchmark": "BRENT",
+      "per_barrel": 98308.3921,
+      "per_litre": 618.3423
+    },
+    {
+      "country": "CL",
+      "name": "Chile",
+      "currency": "CLP",
+      "benchmark": "WTI",
+      "per_barrel": 86564.2725,
+      "per_litre": 544.4739
+    },
+    {
+      "country": "CL",
+      "name": "Chile",
+      "currency": "CLP",
+      "benchmark": "DUBAI",
+      "per_barrel": 90705.8246,
+      "per_litre": 570.5235
+    },
+    {
+      "country": "CN",
+      "name": "China",
+      "currency": "CNY",
+      "benchmark": "BRENT",
+      "per_barrel": 678.7106,
+      "per_litre": 4.269
+    },
+    {
+      "country": "CN",
+      "name": "China",
+      "currency": "CNY",
+      "benchmark": "WTI",
+      "per_barrel": 597.6304,
+      "per_litre": 3.759
+    },
+    {
+      "country": "CN",
+      "name": "China",
+      "currency": "CNY",
+      "benchmark": "DUBAI",
+      "per_barrel": 626.2233,
+      "per_litre": 3.9388
+    },
+    {
+      "country": "CO",
+      "name": "Colombia",
+      "currency": "COP",
+      "benchmark": "BRENT",
+      "per_barrel": 323541.0971,
+      "per_litre": 2035.0161
+    },
+    {
+      "country": "CO",
+      "name": "Colombia",
+      "currency": "COP",
+      "benchmark": "WTI",
+      "per_barrel": 284890.2224,
+      "per_litre": 1791.9089
+    },
+    {
+      "country": "CO",
+      "name": "Colombia",
+      "currency": "COP",
+      "benchmark": "DUBAI",
+      "per_barrel": 298520.415,
+      "per_litre": 1877.6404
+    },
+    {
+      "country": "KM",
+      "name": "Comoros",
+      "currency": "KMF",
+      "benchmark": "BRENT",
+      "per_barrel": 44213.1347,
+      "per_litre": 278.0928
+    },
+    {
+      "country": "KM",
+      "name": "Comoros",
+      "currency": "KMF",
+      "benchmark": "WTI",
+      "per_barrel": 38931.3441,
+      "per_litre": 244.8712
+    },
+    {
+      "country": "KM",
+      "name": "Comoros",
+      "currency": "KMF",
+      "benchmark": "DUBAI",
+      "per_barrel": 40793.9623,
+      "per_litre": 256.5868
+    },
+    {
+      "country": "CG",
+      "name": "Congo (Republic)",
+      "currency": "XAF",
+      "benchmark": "BRENT",
+      "per_barrel": 58950.8463,
+      "per_litre": 370.7904
+    },
+    {
+      "country": "CG",
+      "name": "Congo (Republic)",
+      "currency": "XAF",
+      "benchmark": "WTI",
+      "per_barrel": 51908.4588,
+      "per_litre": 326.495
+    },
+    {
+      "country": "CG",
+      "name": "Congo (Republic)",
+      "currency": "XAF",
+      "benchmark": "DUBAI",
+      "per_barrel": 54391.9498,
+      "per_litre": 342.1157
+    },
+    {
+      "country": "CD",
+      "name": "Congo (DRC)",
+      "currency": "CDF",
+      "benchmark": "BRENT",
+      "per_barrel": 233683.5172,
+      "per_litre": 1469.8278
+    },
+    {
+      "country": "CD",
+      "name": "Congo (DRC)",
+      "currency": "CDF",
+      "benchmark": "WTI",
+      "per_barrel": 205767.211,
+      "per_litre": 1294.2392
+    },
+    {
+      "country": "CD",
+      "name": "Congo (DRC)",
+      "currency": "CDF",
+      "benchmark": "DUBAI",
+      "per_barrel": 215611.8686,
+      "per_litre": 1356.1604
+    },
+    {
+      "country": "CR",
+      "name": "Costa Rica",
+      "currency": "CRC",
+      "benchmark": "BRENT",
+      "per_barrel": 46204.9957,
+      "per_litre": 290.6212
+    },
+    {
+      "country": "CR",
+      "name": "Costa Rica",
+      "currency": "CRC",
+      "benchmark": "WTI",
+      "per_barrel": 40685.2533,
+      "per_litre": 255.903
+    },
+    {
+      "country": "CR",
+      "name": "Costa Rica",
+      "currency": "CRC",
+      "benchmark": "DUBAI",
+      "per_barrel": 42631.785,
+      "per_litre": 268.1464
+    },
+    {
+      "country": "CI",
+      "name": "Cote d'Ivoire",
+      "currency": "XOF",
+      "benchmark": "BRENT",
+      "per_barrel": 58950.8463,
+      "per_litre": 370.7904
+    },
+    {
+      "country": "CI",
+      "name": "Cote d'Ivoire",
+      "currency": "XOF",
+      "benchmark": "WTI",
+      "per_barrel": 51908.4588,
+      "per_litre": 326.495
+    },
+    {
+      "country": "CI",
+      "name": "Cote d'Ivoire",
+      "currency": "XOF",
+      "benchmark": "DUBAI",
+      "per_barrel": 54391.9498,
+      "per_litre": 342.1157
+    },
+    {
+      "country": "HR",
+      "name": "Croatia",
+      "currency": "EUR",
+      "benchmark": "BRENT",
+      "per_barrel": 89.8695,
+      "per_litre": 0.5653
+    },
+    {
+      "country": "HR",
+      "name": "Croatia",
+      "currency": "EUR",
+      "benchmark": "WTI",
+      "per_barrel": 79.1335,
+      "per_litre": 0.4977
+    },
+    {
+      "country": "HR",
+      "name": "Croatia",
+      "currency": "EUR",
+      "benchmark": "DUBAI",
+      "per_barrel": 82.9195,
+      "per_litre": 0.5215
+    },
+    {
+      "country": "CU",
+      "name": "Cuba",
+      "currency": "CUP",
+      "benchmark": "BRENT",
+      "per_barrel": 2426.88,
+      "per_litre": 15.2646
+    },
+    {
+      "country": "CU",
+      "name": "Cuba",
+      "currency": "CUP",
+      "benchmark": "WTI",
+      "per_barrel": 2136.96,
+      "per_litre": 13.4411
+    },
+    {
+      "country": "CU",
+      "name": "Cuba",
+      "currency": "CUP",
+      "benchmark": "DUBAI",
+      "per_barrel": 2239.2,
+      "per_litre": 14.0842
+    },
+    {
+      "country": "CY",
+      "name": "Cyprus",
+      "currency": "EUR",
+      "benchmark": "BRENT",
+      "per_barrel": 89.8695,
+      "per_litre": 0.5653
+    },
+    {
+      "country": "CY",
+      "name": "Cyprus",
+      "currency": "EUR",
+      "benchmark": "WTI",
+      "per_barrel": 79.1335,
+      "per_litre": 0.4977
+    },
+    {
+      "country": "CY",
+      "name": "Cyprus",
+      "currency": "EUR",
+      "benchmark": "DUBAI",
+      "per_barrel": 82.9195,
+      "per_litre": 0.5215
+    },
+    {
+      "country": "CZ",
+      "name": "Czechia",
+      "currency": "CZK",
+      "benchmark": "BRENT",
+      "per_barrel": 2192.4338,
+      "per_litre": 13.79
+    },
+    {
+      "country": "CZ",
+      "name": "Czechia",
+      "currency": "CZK",
+      "benchmark": "WTI",
+      "per_barrel": 1930.5212,
+      "per_litre": 12.1426
+    },
+    {
+      "country": "CZ",
+      "name": "Czechia",
+      "currency": "CZK",
+      "benchmark": "DUBAI",
+      "per_barrel": 2022.8844,
+      "per_litre": 12.7236
+    },
+    {
+      "country": "DK",
+      "name": "Denmark",
+      "currency": "DKK",
+      "benchmark": "BRENT",
+      "per_barrel": 671.5908,
+      "per_litre": 4.2242
+    },
+    {
+      "country": "DK",
+      "name": "Denmark",
+      "currency": "DKK",
+      "benchmark": "WTI",
+      "per_barrel": 591.3612,
+      "per_litre": 3.7196
+    },
+    {
+      "country": "DK",
+      "name": "Denmark",
+      "currency": "DKK",
+      "benchmark": "DUBAI",
+      "per_barrel": 619.6541,
+      "per_litre": 3.8975
+    },
+    {
+      "country": "DJ",
+      "name": "Djibouti",
+      "currency": "DJF",
+      "benchmark": "BRENT",
+      "per_barrel": 17971.1475,
+      "per_litre": 113.0353
+    },
+    {
+      "country": "DJ",
+      "name": "Djibouti",
+      "currency": "DJF",
+      "benchmark": "WTI",
+      "per_barrel": 15824.2778,
+      "per_litre": 99.5319
+    },
+    {
+      "country": "DJ",
+      "name": "Djibouti",
+      "currency": "DJF",
+      "benchmark": "DUBAI",
+      "per_barrel": 16581.3693,
+      "per_litre": 104.2939
+    },
+    {
+      "country": "DM",
+      "name": "Dominica",
+      "currency": "XCD",
+      "benchmark": "BRENT",
+      "per_barrel": 273.024,
+      "per_litre": 1.7173
+    },
+    {
+      "country": "DM",
+      "name": "Dominica",
+      "currency": "XCD",
+      "benchmark": "WTI",
+      "per_barrel": 240.408,
+      "per_litre": 1.5121
+    },
+    {
+      "country": "DM",
+      "name": "Dominica",
+      "currency": "XCD",
+      "benchmark": "DUBAI",
+      "per_barrel": 251.91,
+      "per_litre": 1.5845
+    },
+    {
+      "country": "DO",
+      "name": "Dominican Republic",
+      "currency": "DOP",
+      "benchmark": "BRENT",
+      "per_barrel": 6063.0774,
+      "per_litre": 38.1357
+    },
+    {
+      "country": "DO",
+      "name": "Dominican Republic",
+      "currency": "DOP",
+      "benchmark": "WTI",
+      "per_barrel": 5338.7699,
+      "per_litre": 33.5799
+    },
+    {
+      "country": "DO",
+      "name": "Dominican Republic",
+      "currency": "DOP",
+      "benchmark": "DUBAI",
+      "per_barrel": 5594.1963,
+      "per_litre": 35.1865
+    },
+    {
+      "country": "EC",
+      "name": "Ecuador",
+      "currency": "USD",
+      "benchmark": "BRENT",
+      "per_barrel": 101.12,
+      "per_litre": 0.636
+    },
+    {
+      "country": "EC",
+      "name": "Ecuador",
+      "currency": "USD",
+      "benchmark": "WTI",
+      "per_barrel": 89.04,
+      "per_litre": 0.56
+    },
+    {
+      "country": "EC",
+      "name": "Ecuador",
+      "currency": "USD",
+      "benchmark": "DUBAI",
+      "per_barrel": 93.3,
+      "per_litre": 0.5868
+    },
+    {
+      "country": "EG",
+      "name": "Egypt",
+      "currency": "EGP",
+      "benchmark": "BRENT",
+      "per_barrel": 5289.1442,
+      "per_litre": 33.2678
+    },
+    {
+      "country": "EG",
+      "name": "Egypt",
+      "currency": "EGP",
+      "benchmark": "WTI",
+      "per_barrel": 4657.2923,
+      "per_litre": 29.2935
+    },
+    {
+      "country": "EG",
+      "name": "Egypt",
+      "currency": "EGP",
+      "benchmark": "DUBAI",
+      "per_barrel": 4880.1143,
+      "per_litre": 30.6951
+    },
+    {
+      "country": "SV",
+      "name": "El Salvador",
+      "currency": "USD",
+      "benchmark": "BRENT",
+      "per_barrel": 101.12,
+      "per_litre": 0.636
+    },
+    {
+      "country": "SV",
+      "name": "El Salvador",
+      "currency": "USD",
+      "benchmark": "WTI",
+      "per_barrel": 89.04,
+      "per_litre": 0.56
+    },
+    {
+      "country": "SV",
+      "name": "El Salvador",
+      "currency": "USD",
+      "benchmark": "DUBAI",
+      "per_barrel": 93.3,
+      "per_litre": 0.5868
+    },
+    {
+      "country": "GQ",
+      "name": "Equatorial Guinea",
+      "currency": "XAF",
+      "benchmark": "BRENT",
+      "per_barrel": 58950.8463,
+      "per_litre": 370.7904
+    },
+    {
+      "country": "GQ",
+      "name": "Equatorial Guinea",
+      "currency": "XAF",
+      "benchmark": "WTI",
+      "per_barrel": 51908.4588,
+      "per_litre": 326.495
+    },
+    {
+      "country": "GQ",
+      "name": "Equatorial Guinea",
+      "currency": "XAF",
+      "benchmark": "DUBAI",
+      "per_barrel": 54391.9498,
+      "per_litre": 342.1157
+    },
+    {
+      "country": "ER",
+      "name": "Eritrea",
+      "currency": "ERN",
+      "benchmark": "BRENT",
+      "per_barrel": 1516.8,
+      "per_litre": 9.5404
+    },
+    {
+      "country": "ER",
+      "name": "Eritrea",
+      "currency": "ERN",
+      "benchmark": "WTI",
+      "per_barrel": 1335.6,
+      "per_litre": 8.4007
+    },
+    {
+      "country": "ER",
+      "name": "Eritrea",
+      "currency": "ERN",
+      "benchmark": "DUBAI",
+      "per_barrel": 1399.5,
+      "per_litre": 8.8026
+    },
+    {
+      "country": "EE",
+      "name": "Estonia",
+      "currency": "EUR",
+      "benchmark": "BRENT",
+      "per_barrel": 89.8695,
+      "per_litre": 0.5653
+    },
+    {
+      "country": "EE",
+      "name": "Estonia",
+      "currency": "EUR",
+      "benchmark": "WTI",
+      "per_barrel": 79.1335,
+      "per_litre": 0.4977
+    },
+    {
+      "country": "EE",
+      "name": "Estonia",
+      "currency": "EUR",
+      "benchmark": "DUBAI",
+      "per_barrel": 82.9195,
+      "per_litre": 0.5215
+    },
+    {
+      "country": "SZ",
+      "name": "Eswatini",
+      "currency": "SZL",
+      "benchmark": "BRENT",
+      "per_barrel": 1671.9302,
+      "per_litre": 10.5161
+    },
+    {
+      "country": "SZ",
+      "name": "Eswatini",
+      "currency": "SZL",
+      "benchmark": "WTI",
+      "per_barrel": 1472.198,
+      "per_litre": 9.2599
+    },
+    {
+      "country": "SZ",
+      "name": "Eswatini",
+      "currency": "SZL",
+      "benchmark": "DUBAI",
+      "per_barrel": 1542.6334,
+      "per_litre": 9.7029
+    },
+    {
+      "country": "ET",
+      "name": "Ethiopia",
+      "currency": "ETB",
+      "benchmark": "BRENT",
+      "per_barrel": 16311.2778,
+      "per_litre": 102.595
+    },
+    {
+      "country": "ET",
+      "name": "Ethiopia",
+      "currency": "ETB",
+      "benchmark": "WTI",
+      "per_barrel": 14362.6995,
+      "per_litre": 90.3388
+    },
+    {
+      "country": "ET",
+      "name": "Ethiopia",
+      "currency": "ETB",
+      "benchmark": "DUBAI",
+      "per_barrel": 15049.8637,
+      "per_litre": 94.661
+    },
+    {
+      "country": "FJ",
+      "name": "Fiji",
+      "currency": "FJD",
+      "benchmark": "BRENT",
+      "per_barrel": 225.5428,
+      "per_litre": 1.4186
+    },
+    {
+      "country": "FJ",
+      "name": "Fiji",
+      "currency": "FJD",
+      "benchmark": "WTI",
+      "per_barrel": 198.599,
+      "per_litre": 1.2492
+    },
+    {
+      "country": "FJ",
+      "name": "Fiji",
+      "currency": "FJD",
+      "benchmark": "DUBAI",
+      "per_barrel": 208.1007,
+      "per_litre": 1.3089
+    },
+    {
+      "country": "FI",
+      "name": "Finland",
+      "currency": "EUR",
+      "benchmark": "BRENT",
+      "per_barrel": 89.8695,
+      "per_litre": 0.5653
+    },
+    {
+      "country": "FI",
+      "name": "Finland",
+      "currency": "EUR",
+      "benchmark": "WTI",
+      "per_barrel": 79.1335,
+      "per_litre": 0.4977
+    },
+    {
+      "country": "FI",
+      "name": "Finland",
+      "currency": "EUR",
+      "benchmark": "DUBAI",
+      "per_barrel": 82.9195,
+      "per_litre": 0.5215
+    },
+    {
+      "country": "FR",
+      "name": "France",
+      "currency": "EUR",
+      "benchmark": "BRENT",
+      "per_barrel": 89.8695,
+      "per_litre": 0.5653
+    },
+    {
+      "country": "FR",
+      "name": "France",
+      "currency": "EUR",
+      "benchmark": "WTI",
+      "per_barrel": 79.1335,
+      "per_litre": 0.4977
+    },
+    {
+      "country": "FR",
+      "name": "France",
+      "currency": "EUR",
+      "benchmark": "DUBAI",
+      "per_barrel": 82.9195,
+      "per_litre": 0.5215
+    },
+    {
+      "country": "GA",
+      "name": "Gabon",
+      "currency": "XAF",
+      "benchmark": "BRENT",
+      "per_barrel": 58950.8463,
+      "per_litre": 370.7904
+    },
+    {
+      "country": "GA",
+      "name": "Gabon",
+      "currency": "XAF",
+      "benchmark": "WTI",
+      "per_barrel": 51908.4588,
+      "per_litre": 326.495
+    },
+    {
+      "country": "GA",
+      "name": "Gabon",
+      "currency": "XAF",
+      "benchmark": "DUBAI",
+      "per_barrel": 54391.9498,
+      "per_litre": 342.1157
+    },
+    {
+      "country": "GM",
+      "name": "Gambia",
+      "currency": "GMD",
+      "benchmark": "BRENT",
+      "per_barrel": 7524.4494,
+      "per_litre": 47.3275
+    },
+    {
+      "country": "GM",
+      "name": "Gambia",
+      "currency": "GMD",
+      "benchmark": "WTI",
+      "per_barrel": 6625.5635,
+      "per_litre": 41.6736
+    },
+    {
+      "country": "GM",
+      "name": "Gambia",
+      "currency": "GMD",
+      "benchmark": "DUBAI",
+      "per_barrel": 6942.5547,
+      "per_litre": 43.6674
+    },
+    {
+      "country": "GE",
+      "name": "Georgia",
+      "currency": "GEL",
+      "benchmark": "BRENT",
+      "per_barrel": 262.9284,
+      "per_litre": 1.6538
+    },
+    {
+      "country": "GE",
+      "name": "Georgia",
+      "currency": "GEL",
+      "benchmark": "WTI",
+      "per_barrel": 231.5184,
+      "per_litre": 1.4562
+    },
+    {
+      "country": "GE",
+      "name": "Georgia",
+      "currency": "GEL",
+      "benchmark": "DUBAI",
+      "per_barrel": 242.5951,
+      "per_litre": 1.5259
+    },
+    {
+      "country": "DE",
+      "name": "Germany",
+      "currency": "EUR",
+      "benchmark": "BRENT",
+      "per_barrel": 89.8695,
+      "per_litre": 0.5653
+    },
+    {
+      "country": "DE",
+      "name": "Germany",
+      "currency": "EUR",
+      "benchmark": "WTI",
+      "per_barrel": 79.1335,
+      "per_litre": 0.4977
+    },
+    {
+      "country": "DE",
+      "name": "Germany",
+      "currency": "EUR",
+      "benchmark": "DUBAI",
+      "per_barrel": 82.9195,
+      "per_litre": 0.5215
+    },
+    {
+      "country": "GH",
+      "name": "Ghana",
+      "currency": "GHS",
+      "benchmark": "BRENT",
+      "per_barrel": 1175.259,
+      "per_litre": 7.3922
+    },
+    {
+      "country": "GH",
+      "name": "Ghana",
+      "currency": "GHS",
+      "benchmark": "WTI",
+      "per_barrel": 1034.8602,
+      "per_litre": 6.5091
+    },
+    {
+      "country": "GH",
+      "name": "Ghana",
+      "currency": "GHS",
+      "benchmark": "DUBAI",
+      "per_barrel": 1084.3717,
+      "per_litre": 6.8205
+    },
+    {
+      "country": "GR",
+      "name": "Greece",
+      "currency": "EUR",
+      "benchmark": "BRENT",
+      "per_barrel": 89.8695,
+      "per_litre": 0.5653
+    },
+    {
+      "country": "GR",
+      "name": "Greece",
+      "currency": "EUR",
+      "benchmark": "WTI",
+      "per_barrel": 79.1335,
+      "per_litre": 0.4977
+    },
+    {
+      "country": "GR",
+      "name": "Greece",
+      "currency": "EUR",
+      "benchmark": "DUBAI",
+      "per_barrel": 82.9195,
+      "per_litre": 0.5215
+    },
+    {
+      "country": "GD",
+      "name": "Grenada",
+      "currency": "XCD",
+      "benchmark": "BRENT",
+      "per_barrel": 273.024,
+      "per_litre": 1.7173
+    },
+    {
+      "country": "GD",
+      "name": "Grenada",
+      "currency": "XCD",
+      "benchmark": "WTI",
+      "per_barrel": 240.408,
+      "per_litre": 1.5121
+    },
+    {
+      "country": "GD",
+      "name": "Grenada",
+      "currency": "XCD",
+      "benchmark": "DUBAI",
+      "per_barrel": 251.91,
+      "per_litre": 1.5845
+    },
+    {
+      "country": "GT",
+      "name": "Guatemala",
+      "currency": "GTQ",
+      "benchmark": "BRENT",
+      "per_barrel": 770.9416,
+      "per_litre": 4.8491
+    },
+    {
+      "country": "GT",
+      "name": "Guatemala",
+      "currency": "GTQ",
+      "benchmark": "WTI",
+      "per_barrel": 678.8434,
+      "per_litre": 4.2698
+    },
+    {
+      "country": "GT",
+      "name": "Guatemala",
+      "currency": "GTQ",
+      "benchmark": "DUBAI",
+      "per_barrel": 711.3217,
+      "per_litre": 4.4741
+    },
+    {
+      "country": "GN",
+      "name": "Guinea",
+      "currency": "GNF",
+      "benchmark": "BRENT",
+      "per_barrel": 889389.2487,
+      "per_litre": 5594.1005
+    },
+    {
+      "country": "GN",
+      "name": "Guinea",
+      "currency": "GNF",
+      "benchmark": "WTI",
+      "per_barrel": 783141.0077,
+      "per_litre": 4925.8179
+    },
+    {
+      "country": "GN",
+      "name": "Guinea",
+      "currency": "GNF",
+      "benchmark": "DUBAI",
+      "per_barrel": 820609.3444,
+      "per_litre": 5161.4871
+    },
+    {
+      "country": "GW",
+      "name": "Guinea-Bissau",
+      "currency": "XOF",
+      "benchmark": "BRENT",
+      "per_barrel": 58950.8463,
+      "per_litre": 370.7904
+    },
+    {
+      "country": "GW",
+      "name": "Guinea-Bissau",
+      "currency": "XOF",
+      "benchmark": "WTI",
+      "per_barrel": 51908.4588,
+      "per_litre": 326.495
+    },
+    {
+      "country": "GW",
+      "name": "Guinea-Bissau",
+      "currency": "XOF",
+      "benchmark": "DUBAI",
+      "per_barrel": 54391.9498,
+      "per_litre": 342.1157
+    },
+    {
+      "country": "GY",
+      "name": "Guyana",
+      "currency": "GYD",
+      "benchmark": "BRENT",
+      "per_barrel": 21154.2051,
+      "per_litre": 133.0562
+    },
+    {
+      "country": "GY",
+      "name": "Guyana",
+      "currency": "GYD",
+      "benchmark": "WTI",
+      "per_barrel": 18627.0809,
+      "per_litre": 117.161
+    },
+    {
+      "country": "GY",
+      "name": "Guyana",
+      "currency": "GYD",
+      "benchmark": "DUBAI",
+      "per_barrel": 19518.2688,
+      "per_litre": 122.7664
+    },
+    {
+      "country": "HT",
+      "name": "Haiti",
+      "currency": "HTG",
+      "benchmark": "BRENT",
+      "per_barrel": 13233.0711,
+      "per_litre": 83.2337
+    },
+    {
+      "country": "HT",
+      "name": "Haiti",
+      "currency": "HTG",
+      "benchmark": "WTI",
+      "per_barrel": 11652.2216,
+      "per_litre": 73.2904
+    },
+    {
+      "country": "HT",
+      "name": "Haiti",
+      "currency": "HTG",
+      "benchmark": "DUBAI",
+      "per_barrel": 12209.7066,
+      "per_litre": 76.7969
+    },
+    {
+      "country": "HN",
+      "name": "Honduras",
+      "currency": "HNL",
+      "benchmark": "BRENT",
+      "per_barrel": 2708.46,
+      "per_litre": 17.0357
+    },
+    {
+      "country": "HN",
+      "name": "Honduras",
+      "currency": "HNL",
+      "benchmark": "WTI",
+      "per_barrel": 2384.9019,
+      "per_litre": 15.0006
+    },
+    {
+      "country": "HN",
+      "name": "Honduras",
+      "currency": "HNL",
+      "benchmark": "DUBAI",
+      "per_barrel": 2499.0043,
+      "per_litre": 15.7183
+    },
+    {
+      "country": "HK",
+      "name": "Hong Kong",
+      "currency": "HKD",
+      "benchmark": "BRENT",
+      "per_barrel": 793.5904,
+      "per_litre": 4.9915
+    },
+    {
+      "country": "HK",
+      "name": "Hong Kong",
+      "currency": "HKD",
+      "benchmark": "WTI",
+      "per_barrel": 698.7865,
+      "per_litre": 4.3952
+    },
+    {
+      "country": "HK",
+      "name": "Hong Kong",
+      "currency": "HKD",
+      "benchmark": "DUBAI",
+      "per_barrel": 732.219,
+      "per_litre": 4.6055
+    },
+    {
+      "country": "HU",
+      "name": "Hungary",
+      "currency": "HUF",
+      "benchmark": "BRENT",
+      "per_barrel": 32837.8012,
+      "per_litre": 206.5439
+    },
+    {
+      "country": "HU",
+      "name": "Hungary",
+      "currency": "HUF",
+      "benchmark": "WTI",
+      "per_barrel": 28914.931,
+      "per_litre": 181.8698
+    },
+    {
+      "country": "HU",
+      "name": "Hungary",
+      "currency": "HUF",
+      "benchmark": "DUBAI",
+      "per_barrel": 30298.3273,
+      "per_litre": 190.5711
+    },
+    {
+      "country": "IS",
+      "name": "Iceland",
+      "currency": "ISK",
+      "benchmark": "BRENT",
+      "per_barrel": 12314.0601,
+      "per_litre": 77.4533
+    },
+    {
+      "country": "IS",
+      "name": "Iceland",
+      "currency": "ISK",
+      "benchmark": "WTI",
+      "per_barrel": 10842.9975,
+      "per_litre": 68.2005
+    },
+    {
+      "country": "IS",
+      "name": "Iceland",
+      "currency": "ISK",
+      "benchmark": "DUBAI",
+      "per_barrel": 11361.7663,
+      "per_litre": 71.4635
+    },
+    {
+      "country": "IN",
+      "name": "India",
+      "currency": "INR",
+      "benchmark": "BRENT",
+      "per_barrel": 9754.8007,
+      "per_litre": 61.356
+    },
+    {
+      "country": "IN",
+      "name": "India",
+      "currency": "INR",
+      "benchmark": "WTI",
+      "per_barrel": 8589.4724,
+      "per_litre": 54.0263
+    },
+    {
+      "country": "IN",
+      "name": "India",
+      "currency": "INR",
+      "benchmark": "DUBAI",
+      "per_barrel": 9000.4243,
+      "per_litre": 56.6111
+    },
+    {
+      "country": "ID",
+      "name": "Indonesia",
+      "currency": "IDR",
+      "benchmark": "BRENT",
+      "per_barrel": 1810246.1727,
+      "per_litre": 11386.127
+    },
+    {
+      "country": "ID",
+      "name": "Indonesia",
+      "currency": "IDR",
+      "benchmark": "WTI",
+      "per_barrel": 1593990.4985,
+      "per_litre": 10025.9172
+    },
+    {
+      "country": "ID",
+      "name": "Indonesia",
+      "currency": "IDR",
+      "benchmark": "DUBAI",
+      "per_barrel": 1670252.8472,
+      "per_litre": 10505.5938
+    },
+    {
+      "country": "IR",
+      "name": "Iran",
+      "currency": "IRR",
+      "benchmark": "BRENT",
+      "per_barrel": 173880197.9466,
+      "per_litre": 1093675.5706
+    },
+    {
+      "country": "IR",
+      "name": "Iran",
+      "currency": "IRR",
+      "benchmark": "WTI",
+      "per_barrel": 153108117.3375,
+      "per_litre": 963022.8719
+    },
+    {
+      "country": "IR",
+      "name": "Iran",
+      "currency": "IRR",
+      "benchmark": "DUBAI",
+      "per_barrel": 160433370.9298,
+      "per_litre": 1009097.4163
+    },
+    {
+      "country": "IQ",
+      "name": "Iraq",
+      "currency": "IQD",
+      "benchmark": "BRENT",
+      "per_barrel": 132594.3237,
+      "per_litre": 833.9948
+    },
+    {
+      "country": "IQ",
+      "name": "Iraq",
+      "currency": "IQD",
+      "benchmark": "WTI",
+      "per_barrel": 116754.3373,
+      "per_litre": 734.3641
+    },
+    {
+      "country": "IQ",
+      "name": "Iraq",
+      "currency": "IQD",
+      "benchmark": "DUBAI",
+      "per_barrel": 122340.2927,
+      "per_litre": 769.4987
+    },
+    {
+      "country": "IE",
+      "name": "Ireland",
+      "currency": "EUR",
+      "benchmark": "BRENT",
+      "per_barrel": 89.8695,
+      "per_litre": 0.5653
+    },
+    {
+      "country": "IE",
+      "name": "Ireland",
+      "currency": "EUR",
+      "benchmark": "WTI",
+      "per_barrel": 79.1335,
+      "per_litre": 0.4977
+    },
+    {
+      "country": "IE",
+      "name": "Ireland",
+      "currency": "EUR",
+      "benchmark": "DUBAI",
+      "per_barrel": 82.9195,
+      "per_litre": 0.5215
+    },
+    {
+      "country": "IL",
+      "name": "Israel",
+      "currency": "ILS",
+      "benchmark": "BRENT",
+      "per_barrel": 307.8871,
+      "per_litre": 1.9366
+    },
+    {
+      "country": "IL",
+      "name": "Israel",
+      "currency": "ILS",
+      "benchmark": "WTI",
+      "per_barrel": 271.1063,
+      "per_litre": 1.7052
+    },
+    {
+      "country": "IL",
+      "name": "Israel",
+      "currency": "ILS",
+      "benchmark": "DUBAI",
+      "per_barrel": 284.077,
+      "per_litre": 1.7868
+    },
+    {
+      "country": "IT",
+      "name": "Italy",
+      "currency": "EUR",
+      "benchmark": "BRENT",
+      "per_barrel": 89.8695,
+      "per_litre": 0.5653
+    },
+    {
+      "country": "IT",
+      "name": "Italy",
+      "currency": "EUR",
+      "benchmark": "WTI",
+      "per_barrel": 79.1335,
+      "per_litre": 0.4977
+    },
+    {
+      "country": "IT",
+      "name": "Italy",
+      "currency": "EUR",
+      "benchmark": "DUBAI",
+      "per_barrel": 82.9195,
+      "per_litre": 0.5215
+    },
+    {
+      "country": "JM",
+      "name": "Jamaica",
+      "currency": "JMD",
+      "benchmark": "BRENT",
+      "per_barrel": 16028.6878,
+      "per_litre": 100.8176
+    },
+    {
+      "country": "JM",
+      "name": "Jamaica",
+      "currency": "JMD",
+      "benchmark": "WTI",
+      "per_barrel": 14113.8683,
+      "per_litre": 88.7737
+    },
+    {
+      "country": "JM",
+      "name": "Jamaica",
+      "currency": "JMD",
+      "benchmark": "DUBAI",
+      "per_barrel": 14789.1275,
+      "per_litre": 93.021
+    },
+    {
+      "country": "JP",
+      "name": "Japan",
+      "currency": "JPY",
+      "benchmark": "BRENT",
+      "per_barrel": 15991.6614,
+      "per_litre": 100.5847
+    },
+    {
+      "country": "JP",
+      "name": "Japan",
+      "currency": "JPY",
+      "benchmark": "WTI",
+      "per_barrel": 14081.2652,
+      "per_litre": 88.5687
+    },
+    {
+      "country": "JP",
+      "name": "Japan",
+      "currency": "JPY",
+      "benchmark": "DUBAI",
+      "per_barrel": 14754.9645,
+      "per_litre": 92.8061
+    },
+    {
+      "country": "JO",
+      "name": "Jordan",
+      "currency": "JOD",
+      "benchmark": "BRENT",
+      "per_barrel": 71.6941,
+      "per_litre": 0.4509
+    },
+    {
+      "country": "JO",
+      "name": "Jordan",
+      "currency": "JOD",
+      "benchmark": "WTI",
+      "per_barrel": 63.1294,
+      "per_litre": 0.3971
+    },
+    {
+      "country": "JO",
+      "name": "Jordan",
+      "currency": "JOD",
+      "benchmark": "DUBAI",
+      "per_barrel": 66.1497,
+      "per_litre": 0.4161
+    },
+    {
+      "country": "KZ",
+      "name": "Kazakhstan",
+      "currency": "KZT",
+      "benchmark": "BRENT",
+      "per_barrel": 45678.709,
+      "per_litre": 287.311
+    },
+    {
+      "country": "KZ",
+      "name": "Kazakhstan",
+      "currency": "KZT",
+      "benchmark": "WTI",
+      "per_barrel": 40221.8379,
+      "per_litre": 252.9882
+    },
+    {
+      "country": "KZ",
+      "name": "Kazakhstan",
+      "currency": "KZT",
+      "benchmark": "DUBAI",
+      "per_barrel": 42146.198,
+      "per_litre": 265.0921
+    },
+    {
+      "country": "KE",
+      "name": "Kenya",
+      "currency": "KES",
+      "benchmark": "BRENT",
+      "per_barrel": 13100.7692,
+      "per_litre": 82.4015
+    },
+    {
+      "country": "KE",
+      "name": "Kenya",
+      "currency": "KES",
+      "benchmark": "WTI",
+      "per_barrel": 11535.7247,
+      "per_litre": 72.5577
+    },
+    {
+      "country": "KE",
+      "name": "Kenya",
+      "currency": "KES",
+      "benchmark": "DUBAI",
+      "per_barrel": 12087.6361,
+      "per_litre": 76.0291
+    },
+    {
+      "country": "KI",
+      "name": "Kiribati",
+      "currency": "AUD",
+      "benchmark": "BRENT",
+      "per_barrel": 144.8888,
+      "per_litre": 0.9113
+    },
+    {
+      "country": "KI",
+      "name": "Kiribati",
+      "currency": "AUD",
+      "benchmark": "WTI",
+      "per_barrel": 127.5801,
+      "per_litre": 0.8025
+    },
+    {
+      "country": "KI",
+      "name": "Kiribati",
+      "currency": "AUD",
+      "benchmark": "DUBAI",
+      "per_barrel": 133.684,
+      "per_litre": 0.8408
+    },
+    {
+      "country": "KW",
+      "name": "Kuwait",
+      "currency": "KWD",
+      "benchmark": "BRENT",
+      "per_barrel": 31.2622,
+      "per_litre": 0.1966
+    },
+    {
+      "country": "KW",
+      "name": "Kuwait",
+      "currency": "KWD",
+      "benchmark": "WTI",
+      "per_barrel": 27.5275,
+      "per_litre": 0.1731
+    },
+    {
+      "country": "KW",
+      "name": "Kuwait",
+      "currency": "KWD",
+      "benchmark": "DUBAI",
+      "per_barrel": 28.8445,
+      "per_litre": 0.1814
+    },
+    {
+      "country": "KG",
+      "name": "Kyrgyzstan",
+      "currency": "KGS",
+      "benchmark": "BRENT",
+      "per_barrel": 8844.9658,
+      "per_litre": 55.6333
+    },
+    {
+      "country": "KG",
+      "name": "Kyrgyzstan",
+      "currency": "KGS",
+      "benchmark": "WTI",
+      "per_barrel": 7788.3283,
+      "per_litre": 48.9872
+    },
+    {
+      "country": "KG",
+      "name": "Kyrgyzstan",
+      "currency": "KGS",
+      "benchmark": "DUBAI",
+      "per_barrel": 8160.9504,
+      "per_litre": 51.3309
+    },
+    {
+      "country": "LA",
+      "name": "Laos",
+      "currency": "LAK",
+      "benchmark": "BRENT",
+      "per_barrel": 2250320.6013,
+      "per_litre": 14154.117
+    },
+    {
+      "country": "LA",
+      "name": "Laos",
+      "currency": "LAK",
+      "benchmark": "WTI",
+      "per_barrel": 1981492.7447,
+      "per_litre": 12463.2375
+    },
+    {
+      "country": "LA",
+      "name": "Laos",
+      "currency": "LAK",
+      "benchmark": "DUBAI",
+      "per_barrel": 2076294.6213,
+      "per_litre": 13059.5245
+    },
+    {
+      "country": "LV",
+      "name": "Latvia",
+      "currency": "EUR",
+      "benchmark": "BRENT",
+      "per_barrel": 89.8695,
+      "per_litre": 0.5653
+    },
+    {
+      "country": "LV",
+      "name": "Latvia",
+      "currency": "EUR",
+      "benchmark": "WTI",
+      "per_barrel": 79.1335,
+      "per_litre": 0.4977
+    },
+    {
+      "country": "LV",
+      "name": "Latvia",
+      "currency": "EUR",
+      "benchmark": "DUBAI",
+      "per_barrel": 82.9195,
+      "per_litre": 0.5215
+    },
+    {
+      "country": "LB",
+      "name": "Lebanon",
+      "currency": "LBP",
+      "benchmark": "BRENT",
+      "per_barrel": 9050240.0,
+      "per_litre": 56924.4026
+    },
+    {
+      "country": "LB",
+      "name": "Lebanon",
+      "currency": "LBP",
+      "benchmark": "WTI",
+      "per_barrel": 7969080.0,
+      "per_litre": 50124.0982
+    },
+    {
+      "country": "LB",
+      "name": "Lebanon",
+      "currency": "LBP",
+      "benchmark": "DUBAI",
+      "per_barrel": 8350350.0,
+      "per_litre": 52522.2188
+    },
+    {
+      "country": "LS",
+      "name": "Lesotho",
+      "currency": "LSL",
+      "benchmark": "BRENT",
+      "per_barrel": 1671.9302,
+      "per_litre": 10.5161
+    },
+    {
+      "country": "LS",
+      "name": "Lesotho",
+      "currency": "LSL",
+      "benchmark": "WTI",
+      "per_barrel": 1472.198,
+      "per_litre": 9.2599
+    },
+    {
+      "country": "LS",
+      "name": "Lesotho",
+      "currency": "LSL",
+      "benchmark": "DUBAI",
+      "per_barrel": 1542.6334,
+      "per_litre": 9.7029
+    },
+    {
+      "country": "LR",
+      "name": "Liberia",
+      "currency": "LRD",
+      "benchmark": "BRENT",
+      "per_barrel": 17242.9792,
+      "per_litre": 108.4553
+    },
+    {
+      "country": "LR",
+      "name": "Liberia",
+      "currency": "LRD",
+      "benchmark": "WTI",
+      "per_barrel": 15183.098,
+      "per_litre": 95.499
+    },
+    {
+      "country": "LR",
+      "name": "Liberia",
+      "currency": "LRD",
+      "benchmark": "DUBAI",
+      "per_barrel": 15909.513,
+      "per_litre": 100.068
+    },
+    {
+      "country": "LY",
+      "name": "Libya",
+      "currency": "LYD",
+      "benchmark": "BRENT",
+      "per_barrel": 650.148,
+      "per_litre": 4.0893
+    },
+    {
+      "country": "LY",
+      "name": "Libya",
+      "currency": "LYD",
+      "benchmark": "WTI",
+      "per_barrel": 572.48,
+      "per_litre": 3.6008
+    },
+    {
+      "country": "LY",
+      "name": "Libya",
+      "currency": "LYD",
+      "benchmark": "DUBAI",
+      "per_barrel": 599.8696,
+      "per_litre": 3.7731
+    },
+    {
+      "country": "LI",
+      "name": "Liechtenstein",
+      "currency": "CHF",
+      "benchmark": "BRENT",
+      "per_barrel": 84.1168,
+      "per_litre": 0.5291
+    },
+    {
+      "country": "LI",
+      "name": "Liechtenstein",
+      "currency": "CHF",
+      "benchmark": "WTI",
+      "per_barrel": 74.068,
+      "per_litre": 0.4659
+    },
+    {
+      "country": "LI",
+      "name": "Liechtenstein",
+      "currency": "CHF",
+      "benchmark": "DUBAI",
+      "per_barrel": 77.6117,
+      "per_litre": 0.4882
+    },
+    {
+      "country": "LT",
+      "name": "Lithuania",
+      "currency": "EUR",
+      "benchmark": "BRENT",
+      "per_barrel": 89.8695,
+      "per_litre": 0.5653
+    },
+    {
+      "country": "LT",
+      "name": "Lithuania",
+      "currency": "EUR",
+      "benchmark": "WTI",
+      "per_barrel": 79.1335,
+      "per_litre": 0.4977
+    },
+    {
+      "country": "LT",
+      "name": "Lithuania",
+      "currency": "EUR",
+      "benchmark": "DUBAI",
+      "per_barrel": 82.9195,
+      "per_litre": 0.5215
+    },
+    {
+      "country": "LU",
+      "name": "Luxembourg",
+      "currency": "EUR",
+      "benchmark": "BRENT",
+      "per_barrel": 89.8695,
+      "per_litre": 0.5653
+    },
+    {
+      "country": "LU",
+      "name": "Luxembourg",
+      "currency": "EUR",
+      "benchmark": "WTI",
+      "per_barrel": 79.1335,
+      "per_litre": 0.4977
+    },
+    {
+      "country": "LU",
+      "name": "Luxembourg",
+      "currency": "EUR",
+      "benchmark": "DUBAI",
+      "per_barrel": 82.9195,
+      "per_litre": 0.5215
+    },
+    {
+      "country": "MO",
+      "name": "Macao",
+      "currency": "MOP",
+      "benchmark": "BRENT",
+      "per_barrel": 817.3996,
+      "per_litre": 5.1413
+    },
+    {
+      "country": "MO",
+      "name": "Macao",
+      "currency": "MOP",
+      "benchmark": "WTI",
+      "per_barrel": 719.7514,
+      "per_litre": 4.5271
+    },
+    {
+      "country": "MO",
+      "name": "Macao",
+      "currency": "MOP",
+      "benchmark": "DUBAI",
+      "per_barrel": 754.1869,
+      "per_litre": 4.7437
+    },
+    {
+      "country": "MG",
+      "name": "Madagascar",
+      "currency": "MGA",
+      "benchmark": "BRENT",
+      "per_barrel": 449845.7863,
+      "per_litre": 2829.4501
+    },
+    {
+      "country": "MG",
+      "name": "Madagascar",
+      "currency": "MGA",
+      "benchmark": "WTI",
+      "per_barrel": 396106.2975,
+      "per_litre": 2491.4383
+    },
+    {
+      "country": "MG",
+      "name": "Madagascar",
+      "currency": "MGA",
+      "benchmark": "DUBAI",
+      "per_barrel": 415057.4749,
+      "per_litre": 2610.6378
+    },
+    {
+      "country": "MW",
+      "name": "Malawi",
+      "currency": "MWK",
+      "benchmark": "BRENT",
+      "per_barrel": 176518.5652,
+      "per_litre": 1110.2704
+    },
+    {
+      "country": "MW",
+      "name": "Malawi",
+      "currency": "MWK",
+      "benchmark": "WTI",
+      "per_barrel": 155431.2999,
+      "per_litre": 977.6353
+    },
+    {
+      "country": "MW",
+      "name": "Malawi",
+      "currency": "MWK",
+      "benchmark": "DUBAI",
+      "per_barrel": 162867.703,
+      "per_litre": 1024.4089
+    },
+    {
+      "country": "MY",
+      "name": "Malaysia",
+      "currency": "MYR",
+      "benchmark": "BRENT",
+      "per_barrel": 413.1119,
+      "per_litre": 2.5984
+    },
+    {
+      "country": "MY",
+      "name": "Malaysia",
+      "currency": "MYR",
+      "benchmark": "WTI",
+      "per_barrel": 363.7607,
+      "per_litre": 2.288
+    },
+    {
+      "country": "MY",
+      "name": "Malaysia",
+      "currency": "MYR",
+      "benchmark": "DUBAI",
+      "per_barrel": 381.1644,
+      "per_litre": 2.3975
+    },
+    {
+      "country": "MV",
+      "name": "Maldives",
+      "currency": "MVR",
+      "benchmark": "BRENT",
+      "per_barrel": 1560.2718,
+      "per_litre": 9.8138
+    },
+    {
+      "country": "MV",
+      "name": "Maldives",
+      "currency": "MVR",
+      "benchmark": "WTI",
+      "per_barrel": 1373.8786,
+      "per_litre": 8.6415
+    },
+    {
+      "country": "MV",
+      "name": "Maldives",
+      "currency": "MVR",
+      "benchmark": "DUBAI",
+      "per_barrel": 1439.6099,
+      "per_litre": 9.0549
+    },
+    {
+      "country": "ML",
+      "name": "Mali",
+      "currency": "XOF",
+      "benchmark": "BRENT",
+      "per_barrel": 58950.8463,
+      "per_litre": 370.7904
+    },
+    {
+      "country": "ML",
+      "name": "Mali",
+      "currency": "XOF",
+      "benchmark": "WTI",
+      "per_barrel": 51908.4588,
+      "per_litre": 326.495
+    },
+    {
+      "country": "ML",
+      "name": "Mali",
+      "currency": "XOF",
+      "benchmark": "DUBAI",
+      "per_barrel": 54391.9498,
+      "per_litre": 342.1157
+    },
+    {
+      "country": "MT",
+      "name": "Malta",
+      "currency": "EUR",
+      "benchmark": "BRENT",
+      "per_barrel": 89.8695,
+      "per_litre": 0.5653
+    },
+    {
+      "country": "MT",
+      "name": "Malta",
+      "currency": "EUR",
+      "benchmark": "WTI",
+      "per_barrel": 79.1335,
+      "per_litre": 0.4977
+    },
+    {
+      "country": "MT",
+      "name": "Malta",
+      "currency": "EUR",
+      "benchmark": "DUBAI",
+      "per_barrel": 82.9195,
+      "per_litre": 0.5215
+    },
+    {
+      "country": "MH",
+      "name": "Marshall Islands",
+      "currency": "USD",
+      "benchmark": "BRENT",
+      "per_barrel": 101.12,
+      "per_litre": 0.636
+    },
+    {
+      "country": "MH",
+      "name": "Marshall Islands",
+      "currency": "USD",
+      "benchmark": "WTI",
+      "per_barrel": 89.04,
+      "per_litre": 0.56
+    },
+    {
+      "country": "MH",
+      "name": "Marshall Islands",
+      "currency": "USD",
+      "benchmark": "DUBAI",
+      "per_barrel": 93.3,
+      "per_litre": 0.5868
+    },
+    {
+      "country": "MR",
+      "name": "Mauritania",
+      "currency": "MRU",
+      "benchmark": "BRENT",
+      "per_barrel": 4056.0352,
+      "per_litre": 25.5117
+    },
+    {
+      "country": "MR",
+      "name": "Mauritania",
+      "currency": "MRU",
+      "benchmark": "WTI",
+      "per_barrel": 3571.4931,
+      "per_litre": 22.4641
+    },
+    {
+      "country": "MR",
+      "name": "Mauritania",
+      "currency": "MRU",
+      "benchmark": "DUBAI",
+      "per_barrel": 3742.3664,
+      "per_litre": 23.5388
+    },
+    {
+      "country": "MU",
+      "name": "Mauritius",
+      "currency": "MUR",
+      "benchmark": "BRENT",
+      "per_barrel": 4803.9431,
+      "per_litre": 30.2159
+    },
+    {
+      "country": "MU",
+      "name": "Mauritius",
+      "currency": "MUR",
+      "benchmark": "WTI",
+      "per_barrel": 4230.0544,
+      "per_litre": 26.6063
+    },
+    {
+      "country": "MU",
+      "name": "Mauritius",
+      "currency": "MUR",
+      "benchmark": "DUBAI",
+      "per_barrel": 4432.4357,
+      "per_litre": 27.8792
+    },
+    {
+      "country": "MX",
+      "name": "Mexico",
+      "currency": "MXN",
+      "benchmark": "BRENT",
+      "per_barrel": 1817.9772,
+      "per_litre": 11.4348
+    },
+    {
+      "country": "MX",
+      "name": "Mexico",
+      "currency": "MXN",
+      "benchmark": "WTI",
+      "per_barrel": 1600.798,
+      "per_litre": 10.0687
+    },
+    {
+      "country": "MX",
+      "name": "Mexico",
+      "currency": "MXN",
+      "benchmark": "DUBAI",
+      "per_barrel": 1677.386,
+      "per_litre": 10.5505
+    },
+    {
+      "country": "FM",
+      "name": "Micronesia",
+      "currency": "USD",
+      "benchmark": "BRENT",
+      "per_barrel": 101.12,
+      "per_litre": 0.636
+    },
+    {
+      "country": "FM",
+      "name": "Micronesia",
+      "currency": "USD",
+      "benchmark": "WTI",
+      "per_barrel": 89.04,
+      "per_litre": 0.56
+    },
+    {
+      "country": "FM",
+      "name": "Micronesia",
+      "currency": "USD",
+      "benchmark": "DUBAI",
+      "per_barrel": 93.3,
+      "per_litre": 0.5868
+    },
+    {
+      "country": "MD",
+      "name": "Moldova",
+      "currency": "MDL",
+      "benchmark": "BRENT",
+      "per_barrel": 1806.167,
+      "per_litre": 11.3605
+    },
+    {
+      "country": "MD",
+      "name": "Moldova",
+      "currency": "MDL",
+      "benchmark": "WTI",
+      "per_barrel": 1590.3986,
+      "per_litre": 10.0033
+    },
+    {
+      "country": "MD",
+      "name": "Moldova",
+      "currency": "MDL",
+      "benchmark": "DUBAI",
+      "per_barrel": 1666.4891,
+      "per_litre": 10.4819
+    },
+    {
+      "country": "MC",
+      "name": "Monaco",
+      "currency": "EUR",
+      "benchmark": "BRENT",
+      "per_barrel": 89.8695,
+      "per_litre": 0.5653
+    },
+    {
+      "country": "MC",
+      "name": "Monaco",
+      "currency": "EUR",
+      "benchmark": "WTI",
+      "per_barrel": 79.1335,
+      "per_litre": 0.4977
+    },
+    {
+      "country": "MC",
+      "name": "Monaco",
+      "currency": "EUR",
+      "benchmark": "DUBAI",
+      "per_barrel": 82.9195,
+      "per_litre": 0.5215
+    },
+    {
+      "country": "MN",
+      "name": "Mongolia",
+      "currency": "MNT",
+      "benchmark": "BRENT",
+      "per_barrel": 365731.6558,
+      "per_litre": 2300.3872
+    },
+    {
+      "country": "MN",
+      "name": "Mongolia",
+      "currency": "MNT",
+      "benchmark": "WTI",
+      "per_barrel": 322040.6115,
+      "per_litre": 2025.5783
+    },
+    {
+      "country": "MN",
+      "name": "Mongolia",
+      "currency": "MNT",
+      "benchmark": "DUBAI",
+      "per_barrel": 337448.2149,
+      "per_litre": 2122.4894
+    },
+    {
+      "country": "ME",
+      "name": "Montenegro",
+      "currency": "EUR",
+      "benchmark": "BRENT",
+      "per_barrel": 89.8695,
+      "per_litre": 0.5653
+    },
+    {
+      "country": "ME",
+      "name": "Montenegro",
+      "currency": "EUR",
+      "benchmark": "WTI",
+      "per_barrel": 79.1335,
+      "per_litre": 0.4977
+    },
+    {
+      "country": "ME",
+      "name": "Montenegro",
+      "currency": "EUR",
+      "benchmark": "DUBAI",
+      "per_barrel": 82.9195,
+      "per_litre": 0.5215
+    },
+    {
+      "country": "MA",
+      "name": "Morocco",
+      "currency": "MAD",
+      "benchmark": "BRENT",
+      "per_barrel": 1007.5376,
+      "per_litre": 6.3372
+    },
+    {
+      "country": "MA",
+      "name": "Morocco",
+      "currency": "MAD",
+      "benchmark": "WTI",
+      "per_barrel": 887.1751,
+      "per_litre": 5.5802
+    },
+    {
+      "country": "MA",
+      "name": "Morocco",
+      "currency": "MAD",
+      "benchmark": "DUBAI",
+      "per_barrel": 929.6209,
+      "per_litre": 5.8472
+    },
+    {
+      "country": "MZ",
+      "name": "Mozambique",
+      "currency": "MZN",
+      "benchmark": "BRENT",
+      "per_barrel": 6454.1415,
+      "per_litre": 40.5954
+    },
+    {
+      "country": "MZ",
+      "name": "Mozambique",
+      "currency": "MZN",
+      "benchmark": "WTI",
+      "per_barrel": 5683.1167,
+      "per_litre": 35.7458
+    },
+    {
+      "country": "MZ",
+      "name": "Mozambique",
+      "currency": "MZN",
+      "benchmark": "DUBAI",
+      "per_barrel": 5955.0179,
+      "per_litre": 37.456
+    },
+    {
+      "country": "MM",
+      "name": "Myanmar",
+      "currency": "MMK",
+      "benchmark": "BRENT",
+      "per_barrel": 211844.6908,
+      "per_litre": 1332.4655
+    },
+    {
+      "country": "MM",
+      "name": "Myanmar",
+      "currency": "MMK",
+      "benchmark": "WTI",
+      "per_barrel": 186537.295,
+      "per_litre": 1173.2865
+    },
+    {
+      "country": "MM",
+      "name": "Myanmar",
+      "currency": "MMK",
+      "benchmark": "DUBAI",
+      "per_barrel": 195461.923,
+      "per_litre": 1229.4208
+    },
+    {
+      "country": "NA",
+      "name": "Namibia",
+      "currency": "NAD",
+      "benchmark": "BRENT",
+      "per_barrel": 1671.9302,
+      "per_litre": 10.5161
+    },
+    {
+      "country": "NA",
+      "name": "Namibia",
+      "currency": "NAD",
+      "benchmark": "WTI",
+      "per_barrel": 1472.198,
+      "per_litre": 9.2599
+    },
+    {
+      "country": "NA",
+      "name": "Namibia",
+      "currency": "NAD",
+      "benchmark": "DUBAI",
+      "per_barrel": 1542.6334,
+      "per_litre": 9.7029
+    },
+    {
+      "country": "NR",
+      "name": "Nauru",
+      "currency": "AUD",
+      "benchmark": "BRENT",
+      "per_barrel": 144.8888,
+      "per_litre": 0.9113
+    },
+    {
+      "country": "NR",
+      "name": "Nauru",
+      "currency": "AUD",
+      "benchmark": "WTI",
+      "per_barrel": 127.5801,
+      "per_litre": 0.8025
+    },
+    {
+      "country": "NR",
+      "name": "Nauru",
+      "currency": "AUD",
+      "benchmark": "DUBAI",
+      "per_barrel": 133.684,
+      "per_litre": 0.8408
+    },
+    {
+      "country": "NP",
+      "name": "Nepal",
+      "currency": "NPR",
+      "benchmark": "BRENT",
+      "per_barrel": 15607.5417,
+      "per_litre": 98.1687
+    },
+    {
+      "country": "NP",
+      "name": "Nepal",
+      "currency": "NPR",
+      "benchmark": "WTI",
+      "per_barrel": 13743.0332,
+      "per_litre": 86.4412
+    },
+    {
+      "country": "NP",
+      "name": "Nepal",
+      "currency": "NPR",
+      "benchmark": "DUBAI",
+      "per_barrel": 14400.5503,
+      "per_litre": 90.5769
+    },
+    {
+      "country": "NL",
+      "name": "Netherlands",
+      "currency": "EUR",
+      "benchmark": "BRENT",
+      "per_barrel": 89.8695,
+      "per_litre": 0.5653
+    },
+    {
+      "country": "NL",
+      "name": "Netherlands",
+      "currency": "EUR",
+      "benchmark": "WTI",
+      "per_barrel": 79.1335,
+      "per_litre": 0.4977
+    },
+    {
+      "country": "NL",
+      "name": "Netherlands",
+      "currency": "EUR",
+      "benchmark": "DUBAI",
+      "per_barrel": 82.9195,
+      "per_litre": 0.5215
+    },
+    {
+      "country": "NZ",
+      "name": "New Zealand",
+      "currency": "NZD",
+      "benchmark": "BRENT",
+      "per_barrel": 179.8745,
+      "per_litre": 1.1314
+    },
+    {
+      "country": "NZ",
+      "name": "New Zealand",
+      "currency": "NZD",
+      "benchmark": "WTI",
+      "per_barrel": 158.3863,
+      "per_litre": 0.9962
+    },
+    {
+      "country": "NZ",
+      "name": "New Zealand",
+      "currency": "NZD",
+      "benchmark": "DUBAI",
+      "per_barrel": 165.9641,
+      "per_litre": 1.0439
+    },
+    {
+      "country": "NI",
+      "name": "Nicaragua",
+      "currency": "NIO",
+      "benchmark": "BRENT",
+      "per_barrel": 3712.7555,
+      "per_litre": 23.3526
+    },
+    {
+      "country": "NI",
+      "name": "Nicaragua",
+      "currency": "NIO",
+      "benchmark": "WTI",
+      "per_barrel": 3269.2222,
+      "per_litre": 20.5628
+    },
+    {
+      "country": "NI",
+      "name": "Nicaragua",
+      "currency": "NIO",
+      "benchmark": "DUBAI",
+      "per_barrel": 3425.6338,
+      "per_litre": 21.5466
+    },
+    {
+      "country": "NE",
+      "name": "Niger",
+      "currency": "XOF",
+      "benchmark": "BRENT",
+      "per_barrel": 58950.8463,
+      "per_litre": 370.7904
+    },
+    {
+      "country": "NE",
+      "name": "Niger",
+      "currency": "XOF",
+      "benchmark": "WTI",
+      "per_barrel": 51908.4588,
+      "per_litre": 326.495
+    },
+    {
+      "country": "NE",
+      "name": "Niger",
+      "currency": "XOF",
+      "benchmark": "DUBAI",
+      "per_barrel": 54391.9498,
+      "per_litre": 342.1157
+    },
+    {
+      "country": "NG",
+      "name": "Nigeria",
+      "currency": "NGN",
+      "benchmark": "BRENT",
+      "per_barrel": 134299.4135,
+      "per_litre": 844.7195
+    },
+    {
+      "country": "NG",
+      "name": "Nigeria",
+      "currency": "NGN",
+      "benchmark": "WTI",
+      "per_barrel": 118255.7336,
+      "per_litre": 743.8076
+    },
+    {
+      "country": "NG",
+      "name": "Nigeria",
+      "currency": "NGN",
+      "benchmark": "DUBAI",
+      "per_barrel": 123913.5214,
+      "per_litre": 779.394
+    },
+    {
+      "country": "MK",
+      "name": "North Macedonia",
+      "currency": "MKD",
+      "benchmark": "BRENT",
+      "per_barrel": 5488.795,
+      "per_litre": 34.5235
+    },
+    {
+      "country": "MK",
+      "name": "North Macedonia",
+      "currency": "MKD",
+      "benchmark": "WTI",
+      "per_barrel": 4833.0924,
+      "per_litre": 30.3993
+    },
+    {
+      "country": "MK",
+      "name": "North Macedonia",
+      "currency": "MKD",
+      "benchmark": "DUBAI",
+      "per_barrel": 5064.3253,
+      "per_litre": 31.8537
+    },
+    {
+      "country": "NO",
+      "name": "Norway",
+      "currency": "NOK",
+      "benchmark": "BRENT",
+      "per_barrel": 966.6753,
+      "per_litre": 6.0802
+    },
+    {
+      "country": "NO",
+      "name": "Norway",
+      "currency": "NOK",
+      "benchmark": "WTI",
+      "per_barrel": 851.1944,
+      "per_litre": 5.3539
+    },
+    {
+      "country": "NO",
+      "name": "Norway",
+      "currency": "NOK",
+      "benchmark": "DUBAI",
+      "per_barrel": 891.9186,
+      "per_litre": 5.61
+    },
+    {
+      "country": "OM",
+      "name": "Oman",
+      "currency": "OMR",
+      "benchmark": "BRENT",
+      "per_barrel": 38.8803,
+      "per_litre": 0.2446
+    },
+    {
+      "country": "OM",
+      "name": "Oman",
+      "currency": "OMR",
+      "benchmark": "WTI",
+      "per_barrel": 34.2356,
+      "per_litre": 0.2153
+    },
+    {
+      "country": "OM",
+      "name": "Oman",
+      "currency": "OMR",
+      "benchmark": "DUBAI",
+      "per_barrel": 35.8736,
+      "per_litre": 0.2256
+    },
+    {
+      "country": "PK",
+      "name": "Pakistan",
+      "currency": "PKR",
+      "benchmark": "BRENT",
+      "per_barrel": 27984.1038,
+      "per_litre": 176.015
+    },
+    {
+      "country": "PK",
+      "name": "Pakistan",
+      "currency": "PKR",
+      "benchmark": "WTI",
+      "per_barrel": 24641.0661,
+      "per_litre": 154.9879
+    },
+    {
+      "country": "PK",
+      "name": "Pakistan",
+      "currency": "PKR",
+      "benchmark": "DUBAI",
+      "per_barrel": 25819.985,
+      "per_litre": 162.4031
+    },
+    {
+      "country": "PW",
+      "name": "Palau",
+      "currency": "USD",
+      "benchmark": "BRENT",
+      "per_barrel": 101.12,
+      "per_litre": 0.636
+    },
+    {
+      "country": "PW",
+      "name": "Palau",
+      "currency": "USD",
+      "benchmark": "WTI",
+      "per_barrel": 89.04,
+      "per_litre": 0.56
+    },
+    {
+      "country": "PW",
+      "name": "Palau",
+      "currency": "USD",
+      "benchmark": "DUBAI",
+      "per_barrel": 93.3,
+      "per_litre": 0.5868
+    },
+    {
+      "country": "PA",
+      "name": "Panama",
+      "currency": "PAB",
+      "benchmark": "BRENT",
+      "per_barrel": 101.12,
+      "per_litre": 0.636
+    },
+    {
+      "country": "PA",
+      "name": "Panama",
+      "currency": "PAB",
+      "benchmark": "WTI",
+      "per_barrel": 89.04,
+      "per_litre": 0.56
+    },
+    {
+      "country": "PA",
+      "name": "Panama",
+      "currency": "PAB",
+      "benchmark": "DUBAI",
+      "per_barrel": 93.3,
+      "per_litre": 0.5868
+    },
+    {
+      "country": "PG",
+      "name": "Papua New Guinea",
+      "currency": "PGK",
+      "benchmark": "BRENT",
+      "per_barrel": 452.5442,
+      "per_litre": 2.8464
+    },
+    {
+      "country": "PG",
+      "name": "Papua New Guinea",
+      "currency": "PGK",
+      "benchmark": "WTI",
+      "per_barrel": 398.4823,
+      "per_litre": 2.5064
+    },
+    {
+      "country": "PG",
+      "name": "Papua New Guinea",
+      "currency": "PGK",
+      "benchmark": "DUBAI",
+      "per_barrel": 417.5472,
+      "per_litre": 2.6263
+    },
+    {
+      "country": "PY",
+      "name": "Paraguay",
+      "currency": "PYG",
+      "benchmark": "BRENT",
+      "per_barrel": 589030.4338,
+      "per_litre": 3704.8968
+    },
+    {
+      "country": "PY",
+      "name": "Paraguay",
+      "currency": "PYG",
+      "benchmark": "WTI",
+      "per_barrel": 518663.6652,
+      "per_litre": 3262.3024
+    },
+    {
+      "country": "PY",
+      "name": "Paraguay",
+      "currency": "PYG",
+      "benchmark": "DUBAI",
+      "per_barrel": 543478.4362,
+      "per_litre": 3418.3829
+    },
+    {
+      "country": "PE",
+      "name": "Peru",
+      "currency": "PEN",
+      "benchmark": "BRENT",
+      "per_barrel": 347.5665,
+      "per_litre": 2.1861
+    },
+    {
+      "country": "PE",
+      "name": "Peru",
+      "currency": "PEN",
+      "benchmark": "WTI",
+      "per_barrel": 306.0455,
+      "per_litre": 1.925
+    },
+    {
+      "country": "PE",
+      "name": "Peru",
+      "currency": "PEN",
+      "benchmark": "DUBAI",
+      "per_barrel": 320.6879,
+      "per_litre": 2.0171
+    },
+    {
+      "country": "PH",
+      "name": "Philippines",
+      "currency": "PHP",
+      "benchmark": "BRENT",
+      "per_barrel": 6349.4044,
+      "per_litre": 39.9366
+    },
+    {
+      "country": "PH",
+      "name": "Philippines",
+      "currency": "PHP",
+      "benchmark": "WTI",
+      "per_barrel": 5590.8917,
+      "per_litre": 35.1657
+    },
+    {
+      "country": "PH",
+      "name": "Philippines",
+      "currency": "PHP",
+      "benchmark": "DUBAI",
+      "per_barrel": 5858.3804,
+      "per_litre": 36.8482
+    },
+    {
+      "country": "PL",
+      "name": "Poland",
+      "currency": "PLN",
+      "benchmark": "BRENT",
+      "per_barrel": 392.7466,
+      "per_litre": 2.4703
+    },
+    {
+      "country": "PL",
+      "name": "Poland",
+      "currency": "PLN",
+      "benchmark": "WTI",
+      "per_barrel": 345.8283,
+      "per_litre": 2.1752
+    },
+    {
+      "country": "PL",
+      "name": "Poland",
+      "currency": "PLN",
+      "benchmark": "DUBAI",
+      "per_barrel": 362.374,
+      "per_litre": 2.2793
+    },
+    {
+      "country": "PT",
+      "name": "Portugal",
+      "currency": "EUR",
+      "benchmark": "BRENT",
+      "per_barrel": 89.8695,
+      "per_litre": 0.5653
+    },
+    {
+      "country": "PT",
+      "name": "Portugal",
+      "currency": "EUR",
+      "benchmark": "WTI",
+      "per_barrel": 79.1335,
+      "per_litre": 0.4977
+    },
+    {
+      "country": "PT",
+      "name": "Portugal",
+      "currency": "EUR",
+      "benchmark": "DUBAI",
+      "per_barrel": 82.9195,
+      "per_litre": 0.5215
+    },
+    {
+      "country": "QA",
+      "name": "Qatar",
+      "currency": "QAR",
+      "benchmark": "BRENT",
+      "per_barrel": 368.0768,
+      "per_litre": 2.3151
+    },
+    {
+      "country": "QA",
+      "name": "Qatar",
+      "currency": "QAR",
+      "benchmark": "WTI",
+      "per_barrel": 324.1056,
+      "per_litre": 2.0386
+    },
+    {
+      "country": "QA",
+      "name": "Qatar",
+      "currency": "QAR",
+      "benchmark": "DUBAI",
+      "per_barrel": 339.612,
+      "per_litre": 2.1361
+    },
+    {
+      "country": "RO",
+      "name": "Romania",
+      "currency": "RON",
+      "benchmark": "BRENT",
+      "per_barrel": 480.3843,
+      "per_litre": 3.0215
+    },
+    {
+      "country": "RO",
+      "name": "Romania",
+      "currency": "RON",
+      "benchmark": "WTI",
+      "per_barrel": 422.9966,
+      "per_litre": 2.6606
+    },
+    {
+      "country": "RO",
+      "name": "Romania",
+      "currency": "RON",
+      "benchmark": "DUBAI",
+      "per_barrel": 443.2343,
+      "per_litre": 2.7879
+    },
+    {
+      "country": "RU",
+      "name": "Russia",
+      "currency": "RUB",
+      "benchmark": "BRENT",
+      "per_barrel": 8590.0012,
+      "per_litre": 54.0296
+    },
+    {
+      "country": "RU",
+      "name": "Russia",
+      "currency": "RUB",
+      "benchmark": "WTI",
+      "per_barrel": 7563.8223,
+      "per_litre": 47.5751
+    },
+    {
+      "country": "RU",
+      "name": "Russia",
+      "currency": "RUB",
+      "benchmark": "DUBAI",
+      "per_barrel": 7925.7033,
+      "per_litre": 49.8513
+    },
+    {
+      "country": "RW",
+      "name": "Rwanda",
+      "currency": "RWF",
+      "benchmark": "BRENT",
+      "per_barrel": 149497.7182,
+      "per_litre": 940.3141
+    },
+    {
+      "country": "RW",
+      "name": "Rwanda",
+      "currency": "RWF",
+      "benchmark": "WTI",
+      "per_barrel": 131638.418,
+      "per_litre": 827.9823
+    },
+    {
+      "country": "RW",
+      "name": "Rwanda",
+      "currency": "RWF",
+      "benchmark": "DUBAI",
+      "per_barrel": 137936.4824,
+      "per_litre": 867.596
+    },
+    {
+      "country": "KN",
+      "name": "Saint Kitts and Nevis",
+      "currency": "XCD",
+      "benchmark": "BRENT",
+      "per_barrel": 273.024,
+      "per_litre": 1.7173
+    },
+    {
+      "country": "KN",
+      "name": "Saint Kitts and Nevis",
+      "currency": "XCD",
+      "benchmark": "WTI",
+      "per_barrel": 240.408,
+      "per_litre": 1.5121
+    },
+    {
+      "country": "KN",
+      "name": "Saint Kitts and Nevis",
+      "currency": "XCD",
+      "benchmark": "DUBAI",
+      "per_barrel": 251.91,
+      "per_litre": 1.5845
+    },
+    {
+      "country": "LC",
+      "name": "Saint Lucia",
+      "currency": "XCD",
+      "benchmark": "BRENT",
+      "per_barrel": 273.024,
+      "per_litre": 1.7173
+    },
+    {
+      "country": "LC",
+      "name": "Saint Lucia",
+      "currency": "XCD",
+      "benchmark": "WTI",
+      "per_barrel": 240.408,
+      "per_litre": 1.5121
+    },
+    {
+      "country": "LC",
+      "name": "Saint Lucia",
+      "currency": "XCD",
+      "benchmark": "DUBAI",
+      "per_barrel": 251.91,
+      "per_litre": 1.5845
+    },
+    {
+      "country": "VC",
+      "name": "Saint Vincent and the Grenadines",
+      "currency": "XCD",
+      "benchmark": "BRENT",
+      "per_barrel": 273.024,
+      "per_litre": 1.7173
+    },
+    {
+      "country": "VC",
+      "name": "Saint Vincent and the Grenadines",
+      "currency": "XCD",
+      "benchmark": "WTI",
+      "per_barrel": 240.408,
+      "per_litre": 1.5121
+    },
+    {
+      "country": "VC",
+      "name": "Saint Vincent and the Grenadines",
+      "currency": "XCD",
+      "benchmark": "DUBAI",
+      "per_barrel": 251.91,
+      "per_litre": 1.5845
+    },
+    {
+      "country": "WS",
+      "name": "Samoa",
+      "currency": "WST",
+      "benchmark": "BRENT",
+      "per_barrel": 277.8729,
+      "per_litre": 1.7478
+    },
+    {
+      "country": "WS",
+      "name": "Samoa",
+      "currency": "WST",
+      "benchmark": "WTI",
+      "per_barrel": 244.6776,
+      "per_litre": 1.539
+    },
+    {
+      "country": "WS",
+      "name": "Samoa",
+      "currency": "WST",
+      "benchmark": "DUBAI",
+      "per_barrel": 256.3839,
+      "per_litre": 1.6126
+    },
+    {
+      "country": "SM",
+      "name": "San Marino",
+      "currency": "EUR",
+      "benchmark": "BRENT",
+      "per_barrel": 89.8695,
+      "per_litre": 0.5653
+    },
+    {
+      "country": "SM",
+      "name": "San Marino",
+      "currency": "EUR",
+      "benchmark": "WTI",
+      "per_barrel": 79.1335,
+      "per_litre": 0.4977
+    },
+    {
+      "country": "SM",
+      "name": "San Marino",
+      "currency": "EUR",
+      "benchmark": "DUBAI",
+      "per_barrel": 82.9195,
+      "per_litre": 0.5215
+    },
+    {
+      "country": "ST",
+      "name": "Sao Tome and Principe",
+      "currency": "STN",
+      "benchmark": "BRENT",
+      "per_barrel": 2201.8147,
+      "per_litre": 13.849
+    },
+    {
+      "country": "ST",
+      "name": "Sao Tome and Principe",
+      "currency": "STN",
+      "benchmark": "WTI",
+      "per_barrel": 1938.7814,
+      "per_litre": 12.1946
+    },
+    {
+      "country": "ST",
+      "name": "Sao Tome and Principe",
+      "currency": "STN",
+      "benchmark": "DUBAI",
+      "per_barrel": 2031.5399,
+      "per_litre": 12.778
+    },
+    {
+      "country": "SA",
+      "name": "Saudi Arabia",
+      "currency": "SAR",
+      "benchmark": "BRENT",
+      "per_barrel": 379.2,
+      "per_litre": 2.3851
+    },
+    {
+      "country": "SA",
+      "name": "Saudi Arabia",
+      "currency": "SAR",
+      "benchmark": "WTI",
+      "per_barrel": 333.9,
+      "per_litre": 2.1002
+    },
+    {
+      "country": "SA",
+      "name": "Saudi Arabia",
+      "currency": "SAR",
+      "benchmark": "DUBAI",
+      "per_barrel": 349.875,
+      "per_litre": 2.2007
+    },
+    {
+      "country": "SN",
+      "name": "Senegal",
+      "currency": "XOF",
+      "benchmark": "BRENT",
+      "per_barrel": 58950.8463,
+      "per_litre": 370.7904
+    },
+    {
+      "country": "SN",
+      "name": "Senegal",
+      "currency": "XOF",
+      "benchmark": "WTI",
+      "per_barrel": 51908.4588,
+      "per_litre": 326.495
+    },
+    {
+      "country": "SN",
+      "name": "Senegal",
+      "currency": "XOF",
+      "benchmark": "DUBAI",
+      "per_barrel": 54391.9498,
+      "per_litre": 342.1157
+    },
+    {
+      "country": "RS",
+      "name": "Serbia",
+      "currency": "RSD",
+      "benchmark": "BRENT",
+      "per_barrel": 10553.45,
+      "per_litre": 66.3793
+    },
+    {
+      "country": "RS",
+      "name": "Serbia",
+      "currency": "RSD",
+      "benchmark": "WTI",
+      "per_barrel": 9292.7135,
+      "per_litre": 58.4495
+    },
+    {
+      "country": "RS",
+      "name": "Serbia",
+      "currency": "RSD",
+      "benchmark": "DUBAI",
+      "per_barrel": 9737.3109,
+      "per_litre": 61.246
+    },
+    {
+      "country": "SC",
+      "name": "Seychelles",
+      "currency": "SCR",
+      "benchmark": "BRENT",
+      "per_barrel": 1475.7168,
+      "per_litre": 9.282
+    },
+    {
+      "country": "SC",
+      "name": "Seychelles",
+      "currency": "SCR",
+      "benchmark": "WTI",
+      "per_barrel": 1299.4247,
+      "per_litre": 8.1732
+    },
+    {
+      "country": "SC",
+      "name": "Seychelles",
+      "currency": "SCR",
+      "benchmark": "DUBAI",
+      "per_barrel": 1361.5939,
+      "per_litre": 8.5642
+    },
+    {
+      "country": "SL",
+      "name": "Sierra Leone",
+      "currency": "SLE",
+      "benchmark": "BRENT",
+      "per_barrel": 2493.0592,
+      "per_litre": 15.6809
+    },
+    {
+      "country": "SL",
+      "name": "Sierra Leone",
+      "currency": "SLE",
+      "benchmark": "WTI",
+      "per_barrel": 2195.2333,
+      "per_litre": 13.8076
+    },
+    {
+      "country": "SL",
+      "name": "Sierra Leone",
+      "currency": "SLE",
+      "benchmark": "DUBAI",
+      "per_barrel": 2300.2613,
+      "per_litre": 14.4682
+    },
+    {
+      "country": "SG",
+      "name": "Singapore",
+      "currency": "SGD",
+      "benchmark": "BRENT",
+      "per_barrel": 129.2071,
+      "per_litre": 0.8127
+    },
+    {
+      "country": "SG",
+      "name": "Singapore",
+      "currency": "SGD",
+      "benchmark": "WTI",
+      "per_barrel": 113.7718,
+      "per_litre": 0.7156
+    },
+    {
+      "country": "SG",
+      "name": "Singapore",
+      "currency": "SGD",
+      "benchmark": "DUBAI",
+      "per_barrel": 119.215,
+      "per_litre": 0.7498
+    },
+    {
+      "country": "SK",
+      "name": "Slovakia",
+      "currency": "EUR",
+      "benchmark": "BRENT",
+      "per_barrel": 89.8695,
+      "per_litre": 0.5653
+    },
+    {
+      "country": "SK",
+      "name": "Slovakia",
+      "currency": "EUR",
+      "benchmark": "WTI",
+      "per_barrel": 79.1335,
+      "per_litre": 0.4977
+    },
+    {
+      "country": "SK",
+      "name": "Slovakia",
+      "currency": "EUR",
+      "benchmark": "DUBAI",
+      "per_barrel": 82.9195,
+      "per_litre": 0.5215
+    },
+    {
+      "country": "SI",
+      "name": "Slovenia",
+      "currency": "EUR",
+      "benchmark": "BRENT",
+      "per_barrel": 89.8695,
+      "per_litre": 0.5653
+    },
+    {
+      "country": "SI",
+      "name": "Slovenia",
+      "currency": "EUR",
+      "benchmark": "WTI",
+      "per_barrel": 79.1335,
+      "per_litre": 0.4977
+    },
+    {
+      "country": "SI",
+      "name": "Slovenia",
+      "currency": "EUR",
+      "benchmark": "DUBAI",
+      "per_barrel": 82.9195,
+      "per_litre": 0.5215
+    },
+    {
+      "country": "SB",
+      "name": "Solomon Islands",
+      "currency": "SBD",
+      "benchmark": "BRENT",
+      "per_barrel": 810.4501,
+      "per_litre": 5.0976
+    },
+    {
+      "country": "SB",
+      "name": "Solomon Islands",
+      "currency": "SBD",
+      "benchmark": "WTI",
+      "per_barrel": 713.6321,
+      "per_litre": 4.4886
+    },
+    {
+      "country": "SB",
+      "name": "Solomon Islands",
+      "currency": "SBD",
+      "benchmark": "DUBAI",
+      "per_barrel": 747.7749,
+      "per_litre": 4.7034
+    },
+    {
+      "country": "SO",
+      "name": "Somalia",
+      "currency": "SOS",
+      "benchmark": "BRENT",
+      "per_barrel": 57810.5911,
+      "per_litre": 363.6184
+    },
+    {
+      "country": "SO",
+      "name": "Somalia",
+      "currency": "SOS",
+      "benchmark": "WTI",
+      "per_barrel": 50904.4208,
+      "per_litre": 320.1798
+    },
+    {
+      "country": "SO",
+      "name": "Somalia",
+      "currency": "SOS",
+      "benchmark": "DUBAI",
+      "per_barrel": 53339.8749,
+      "per_litre": 335.4983
+    },
+    {
+      "country": "ZA",
+      "name": "South Africa",
+      "currency": "ZAR",
+      "benchmark": "BRENT",
+      "per_barrel": 1671.9341,
+      "per_litre": 10.5162
+    },
+    {
+      "country": "ZA",
+      "name": "South Africa",
+      "currency": "ZAR",
+      "benchmark": "WTI",
+      "per_barrel": 1472.2014,
+      "per_litre": 9.2599
+    },
+    {
+      "country": "ZA",
+      "name": "South Africa",
+      "currency": "ZAR",
+      "benchmark": "DUBAI",
+      "per_barrel": 1542.6369,
+      "per_litre": 9.7029
+    },
+    {
+      "country": "KR",
+      "name": "South Korea",
+      "currency": "KRW",
+      "benchmark": "BRENT",
+      "per_barrel": 135392.0175,
+      "per_litre": 851.5917
+    },
+    {
+      "country": "KR",
+      "name": "South Korea",
+      "currency": "KRW",
+      "benchmark": "WTI",
+      "per_barrel": 119217.8129,
+      "per_litre": 749.8589
+    },
+    {
+      "country": "KR",
+      "name": "South Korea",
+      "currency": "KRW",
+      "benchmark": "DUBAI",
+      "per_barrel": 124921.6301,
+      "per_litre": 785.7349
+    },
+    {
+      "country": "SS",
+      "name": "South Sudan",
+      "currency": "SSP",
+      "benchmark": "BRENT",
+      "per_barrel": 571495.9547,
+      "per_litre": 3594.6081
+    },
+    {
+      "country": "SS",
+      "name": "South Sudan",
+      "currency": "SSP",
+      "benchmark": "WTI",
+      "per_barrel": 503223.8905,
+      "per_litre": 3165.1889
+    },
+    {
+      "country": "SS",
+      "name": "South Sudan",
+      "currency": "SSP",
+      "benchmark": "DUBAI",
+      "per_barrel": 527299.9661,
+      "per_litre": 3316.6232
+    },
+    {
+      "country": "ES",
+      "name": "Spain",
+      "currency": "EUR",
+      "benchmark": "BRENT",
+      "per_barrel": 89.8695,
+      "per_litre": 0.5653
+    },
+    {
+      "country": "ES",
+      "name": "Spain",
+      "currency": "EUR",
+      "benchmark": "WTI",
+      "per_barrel": 79.1335,
+      "per_litre": 0.4977
+    },
+    {
+      "country": "ES",
+      "name": "Spain",
+      "currency": "EUR",
+      "benchmark": "DUBAI",
+      "per_barrel": 82.9195,
+      "per_litre": 0.5215
+    },
+    {
+      "country": "LK",
+      "name": "Sri Lanka",
+      "currency": "LKR",
+      "benchmark": "BRENT",
+      "per_barrel": 33447.884,
+      "per_litre": 210.3813
+    },
+    {
+      "country": "LK",
+      "name": "Sri Lanka",
+      "currency": "LKR",
+      "benchmark": "WTI",
+      "per_barrel": 29452.132,
+      "per_litre": 185.2487
+    },
+    {
+      "country": "LK",
+      "name": "Sri Lanka",
+      "currency": "LKR",
+      "benchmark": "DUBAI",
+      "per_barrel": 30861.23,
+      "per_litre": 194.1117
+    },
+    {
+      "country": "SD",
+      "name": "Sudan",
+      "currency": "SDG",
+      "benchmark": "BRENT",
+      "per_barrel": 45447.5892,
+      "per_litre": 285.8573
+    },
+    {
+      "country": "SD",
+      "name": "Sudan",
+      "currency": "SDG",
+      "benchmark": "WTI",
+      "per_barrel": 40018.3281,
+      "per_litre": 251.7082
+    },
+    {
+      "country": "SD",
+      "name": "Sudan",
+      "currency": "SDG",
+      "benchmark": "DUBAI",
+      "per_barrel": 41932.9517,
+      "per_litre": 263.7508
+    },
+    {
+      "country": "SR",
+      "name": "Suriname",
+      "currency": "SRD",
+      "benchmark": "BRENT",
+      "per_barrel": 3815.6695,
+      "per_litre": 23.9999
+    },
+    {
+      "country": "SR",
+      "name": "Suriname",
+      "currency": "SRD",
+      "benchmark": "WTI",
+      "per_barrel": 3359.8419,
+      "per_litre": 21.1328
+    },
+    {
+      "country": "SR",
+      "name": "Suriname",
+      "currency": "SRD",
+      "benchmark": "DUBAI",
+      "per_barrel": 3520.589,
+      "per_litre": 22.1439
+    },
+    {
+      "country": "SE",
+      "name": "Sweden",
+      "currency": "SEK",
+      "benchmark": "BRENT",
+      "per_barrel": 1010.5879,
+      "per_litre": 6.3564
+    },
+    {
+      "country": "SE",
+      "name": "Sweden",
+      "currency": "SEK",
+      "benchmark": "WTI",
+      "per_barrel": 889.861,
+      "per_litre": 5.5971
+    },
+    {
+      "country": "SE",
+      "name": "Sweden",
+      "currency": "SEK",
+      "benchmark": "DUBAI",
+      "per_barrel": 932.4353,
+      "per_litre": 5.8649
+    },
+    {
+      "country": "CH",
+      "name": "Switzerland",
+      "currency": "CHF",
+      "benchmark": "BRENT",
+      "per_barrel": 84.1168,
+      "per_litre": 0.5291
+    },
+    {
+      "country": "CH",
+      "name": "Switzerland",
+      "currency": "CHF",
+      "benchmark": "WTI",
+      "per_barrel": 74.068,
+      "per_litre": 0.4659
+    },
+    {
+      "country": "CH",
+      "name": "Switzerland",
+      "currency": "CHF",
+      "benchmark": "DUBAI",
+      "per_barrel": 77.6117,
+      "per_litre": 0.4882
+    },
+    {
+      "country": "SY",
+      "name": "Syria",
+      "currency": "SYP",
+      "benchmark": "BRENT",
+      "per_barrel": 12289.8753,
+      "per_litre": 77.3011
+    },
+    {
+      "country": "SY",
+      "name": "Syria",
+      "currency": "SYP",
+      "benchmark": "WTI",
+      "per_barrel": 10821.7019,
+      "per_litre": 68.0666
+    },
+    {
+      "country": "SY",
+      "name": "Syria",
+      "currency": "SYP",
+      "benchmark": "DUBAI",
+      "per_barrel": 11339.4518,
+      "per_litre": 71.3231
+    },
+    {
+      "country": "TW",
+      "name": "Taiwan",
+      "currency": "TWD",
+      "benchmark": "BRENT",
+      "per_barrel": 3215.7166,
+      "per_litre": 20.2263
+    },
+    {
+      "country": "TW",
+      "name": "Taiwan",
+      "currency": "TWD",
+      "benchmark": "WTI",
+      "per_barrel": 2831.5606,
+      "per_litre": 17.81
+    },
+    {
+      "country": "TW",
+      "name": "Taiwan",
+      "currency": "TWD",
+      "benchmark": "DUBAI",
+      "per_barrel": 2967.0328,
+      "per_litre": 18.6621
+    },
+    {
+      "country": "TJ",
+      "name": "Tajikistan",
+      "currency": "TJS",
+      "benchmark": "BRENT",
+      "per_barrel": 932.9517,
+      "per_litre": 5.8681
+    },
+    {
+      "country": "TJ",
+      "name": "Tajikistan",
+      "currency": "TJS",
+      "benchmark": "WTI",
+      "per_barrel": 821.4994,
+      "per_litre": 5.1671
+    },
+    {
+      "country": "TJ",
+      "name": "Tajikistan",
+      "currency": "TJS",
+      "benchmark": "DUBAI",
+      "per_barrel": 860.803,
+      "per_litre": 5.4143
+    },
+    {
+      "country": "TZ",
+      "name": "Tanzania",
+      "currency": "TZS",
+      "benchmark": "BRENT",
+      "per_barrel": 267530.756,
+      "per_litre": 1682.721
+    },
+    {
+      "country": "TZ",
+      "name": "Tanzania",
+      "currency": "TZS",
+      "benchmark": "WTI",
+      "per_barrel": 235570.9901,
+      "per_litre": 1481.6997
+    },
+    {
+      "country": "TZ",
+      "name": "Tanzania",
+      "currency": "TZS",
+      "benchmark": "DUBAI",
+      "per_barrel": 246841.5698,
+      "per_litre": 1552.5896
+    },
+    {
+      "country": "TH",
+      "name": "Thailand",
+      "currency": "THB",
+      "benchmark": "BRENT",
+      "per_barrel": 3399.0349,
+      "per_litre": 21.3793
+    },
+    {
+      "country": "TH",
+      "name": "Thailand",
+      "currency": "THB",
+      "benchmark": "WTI",
+      "per_barrel": 2992.9793,
+      "per_litre": 18.8253
+    },
+    {
+      "country": "TH",
+      "name": "Thailand",
+      "currency": "THB",
+      "benchmark": "DUBAI",
+      "per_barrel": 3136.1744,
+      "per_litre": 19.726
+    },
+    {
+      "country": "TL",
+      "name": "Timor-Leste",
+      "currency": "USD",
+      "benchmark": "BRENT",
+      "per_barrel": 101.12,
+      "per_litre": 0.636
+    },
+    {
+      "country": "TL",
+      "name": "Timor-Leste",
+      "currency": "USD",
+      "benchmark": "WTI",
+      "per_barrel": 89.04,
+      "per_litre": 0.56
+    },
+    {
+      "country": "TL",
+      "name": "Timor-Leste",
+      "currency": "USD",
+      "benchmark": "DUBAI",
+      "per_barrel": 93.3,
+      "per_litre": 0.5868
+    },
+    {
+      "country": "TG",
+      "name": "Togo",
+      "currency": "XOF",
+      "benchmark": "BRENT",
+      "per_barrel": 58950.8463,
+      "per_litre": 370.7904
+    },
+    {
+      "country": "TG",
+      "name": "Togo",
+      "currency": "XOF",
+      "benchmark": "WTI",
+      "per_barrel": 51908.4588,
+      "per_litre": 326.495
+    },
+    {
+      "country": "TG",
+      "name": "Togo",
+      "currency": "XOF",
+      "benchmark": "DUBAI",
+      "per_barrel": 54391.9498,
+      "per_litre": 342.1157
+    },
+    {
+      "country": "TO",
+      "name": "Tonga",
+      "currency": "TOP",
+      "benchmark": "BRENT",
+      "per_barrel": 241.4676,
+      "per_litre": 1.5188
+    },
+    {
+      "country": "TO",
+      "name": "Tonga",
+      "currency": "TOP",
+      "benchmark": "WTI",
+      "per_barrel": 212.6214,
+      "per_litre": 1.3374
+    },
+    {
+      "country": "TO",
+      "name": "Tonga",
+      "currency": "TOP",
+      "benchmark": "DUBAI",
+      "per_barrel": 222.794,
+      "per_litre": 1.4013
+    },
+    {
+      "country": "TT",
+      "name": "Trinidad and Tobago",
+      "currency": "TTD",
+      "benchmark": "BRENT",
+      "per_barrel": 683.2208,
+      "per_litre": 4.2973
+    },
+    {
+      "country": "TT",
+      "name": "Trinidad and Tobago",
+      "currency": "TTD",
+      "benchmark": "WTI",
+      "per_barrel": 601.6019,
+      "per_litre": 3.784
+    },
+    {
+      "country": "TT",
+      "name": "Trinidad and Tobago",
+      "currency": "TTD",
+      "benchmark": "DUBAI",
+      "per_barrel": 630.3847,
+      "per_litre": 3.965
+    },
+    {
+      "country": "TN",
+      "name": "Tunisia",
+      "currency": "TND",
+      "benchmark": "BRENT",
+      "per_barrel": 300.853,
+      "per_litre": 1.8923
+    },
+    {
+      "country": "TN",
+      "name": "Tunisia",
+      "currency": "TND",
+      "benchmark": "WTI",
+      "per_barrel": 264.9125,
+      "per_litre": 1.6663
+    },
+    {
+      "country": "TN",
+      "name": "Tunisia",
+      "currency": "TND",
+      "benchmark": "DUBAI",
+      "per_barrel": 277.5869,
+      "per_litre": 1.746
+    },
+    {
+      "country": "TR",
+      "name": "Turkiye",
+      "currency": "TRY",
+      "benchmark": "BRENT",
+      "per_barrel": 4974.3438,
+      "per_litre": 31.2877
+    },
+    {
+      "country": "TR",
+      "name": "Turkiye",
+      "currency": "TRY",
+      "benchmark": "WTI",
+      "per_barrel": 4380.0986,
+      "per_litre": 27.55
+    },
+    {
+      "country": "TR",
+      "name": "Turkiye",
+      "currency": "TRY",
+      "benchmark": "DUBAI",
+      "per_barrel": 4589.6586,
+      "per_litre": 28.8681
+    },
+    {
+      "country": "TM",
+      "name": "Turkmenistan",
+      "currency": "TMT",
+      "benchmark": "BRENT",
+      "per_barrel": 353.9231,
+      "per_litre": 2.2261
+    },
+    {
+      "country": "TM",
+      "name": "Turkmenistan",
+      "currency": "TMT",
+      "benchmark": "WTI",
+      "per_barrel": 311.6428,
+      "per_litre": 1.9602
+    },
+    {
+      "country": "TM",
+      "name": "Turkmenistan",
+      "currency": "TMT",
+      "benchmark": "DUBAI",
+      "per_barrel": 326.5529,
+      "per_litre": 2.054
+    },
+    {
+      "country": "TV",
+      "name": "Tuvalu",
+      "currency": "AUD",
+      "benchmark": "BRENT",
+      "per_barrel": 144.8888,
+      "per_litre": 0.9113
+    },
+    {
+      "country": "TV",
+      "name": "Tuvalu",
+      "currency": "AUD",
+      "benchmark": "WTI",
+      "per_barrel": 127.5801,
+      "per_litre": 0.8025
+    },
+    {
+      "country": "TV",
+      "name": "Tuvalu",
+      "currency": "AUD",
+      "benchmark": "DUBAI",
+      "per_barrel": 133.684,
+      "per_litre": 0.8408
+    },
+    {
+      "country": "UG",
+      "name": "Uganda",
+      "currency": "UGX",
+      "benchmark": "BRENT",
+      "per_barrel": 396421.7225,
+      "per_litre": 2493.4222
+    },
+    {
+      "country": "UG",
+      "name": "Uganda",
+      "currency": "UGX",
+      "benchmark": "WTI",
+      "per_barrel": 349064.3807,
+      "per_litre": 2195.553
+    },
+    {
+      "country": "UG",
+      "name": "Uganda",
+      "currency": "UGX",
+      "benchmark": "DUBAI",
+      "per_barrel": 365764.9002,
+      "per_litre": 2300.5963
+    },
+    {
+      "country": "UA",
+      "name": "Ukraine",
+      "currency": "UAH",
+      "benchmark": "BRENT",
+      "per_barrel": 4549.4,
+      "per_litre": 28.6149
+    },
+    {
+      "country": "UA",
+      "name": "Ukraine",
+      "currency": "UAH",
+      "benchmark": "WTI",
+      "per_barrel": 4005.9195,
+      "per_litre": 25.1965
+    },
+    {
+      "country": "UA",
+      "name": "Ukraine",
+      "currency": "UAH",
+      "benchmark": "DUBAI",
+      "per_barrel": 4197.5774,
+      "per_litre": 26.402
+    },
+    {
+      "country": "AE",
+      "name": "United Arab Emirates",
+      "currency": "AED",
+      "benchmark": "BRENT",
+      "per_barrel": 371.3632,
+      "per_litre": 2.3358
+    },
+    {
+      "country": "AE",
+      "name": "United Arab Emirates",
+      "currency": "AED",
+      "benchmark": "WTI",
+      "per_barrel": 326.9994,
+      "per_litre": 2.0568
+    },
+    {
+      "country": "AE",
+      "name": "United Arab Emirates",
+      "currency": "AED",
+      "benchmark": "DUBAI",
+      "per_barrel": 342.6442,
+      "per_litre": 2.1552
+    },
+    {
+      "country": "GB",
+      "name": "United Kingdom",
+      "currency": "GBP",
+      "benchmark": "BRENT",
+      "per_barrel": 76.2434,
+      "per_litre": 0.4796
+    },
+    {
+      "country": "GB",
+      "name": "United Kingdom",
+      "currency": "GBP",
+      "benchmark": "WTI",
+      "per_barrel": 67.1352,
+      "per_litre": 0.4223
+    },
+    {
+      "country": "GB",
+      "name": "United Kingdom",
+      "currency": "GBP",
+      "benchmark": "DUBAI",
+      "per_barrel": 70.3472,
+      "per_litre": 0.4425
+    },
+    {
+      "country": "US",
+      "name": "United States",
+      "currency": "USD",
+      "benchmark": "BRENT",
+      "per_barrel": 101.12,
+      "per_litre": 0.636
+    },
+    {
+      "country": "US",
+      "name": "United States",
+      "currency": "USD",
+      "benchmark": "WTI",
+      "per_barrel": 89.04,
+      "per_litre": 0.56
+    },
+    {
+      "country": "US",
+      "name": "United States",
+      "currency": "USD",
+      "benchmark": "DUBAI",
+      "per_barrel": 93.3,
+      "per_litre": 0.5868
+    },
+    {
+      "country": "UY",
+      "name": "Uruguay",
+      "currency": "UYU",
+      "benchmark": "BRENT",
+      "per_barrel": 4076.4595,
+      "per_litre": 25.6402
+    },
+    {
+      "country": "UY",
+      "name": "Uruguay",
+      "currency": "UYU",
+      "benchmark": "WTI",
+      "per_barrel": 3589.4774,
+      "per_litre": 22.5772
+    },
+    {
+      "country": "UY",
+      "name": "Uruguay",
+      "currency": "UYU",
+      "benchmark": "DUBAI",
+      "per_barrel": 3761.2111,
+      "per_litre": 23.6574
+    },
+    {
+      "country": "UZ",
+      "name": "Uzbekistan",
+      "currency": "UZS",
+      "benchmark": "BRENT",
+      "per_barrel": 1193626.8431,
+      "per_litre": 7507.7009
+    },
+    {
+      "country": "UZ",
+      "name": "Uzbekistan",
+      "currency": "UZS",
+      "benchmark": "WTI",
+      "per_barrel": 1051033.7629,
+      "per_litre": 6610.8157
+    },
+    {
+      "country": "UZ",
+      "name": "Uzbekistan",
+      "currency": "UZS",
+      "benchmark": "DUBAI",
+      "per_barrel": 1101319.071,
+      "per_litre": 6927.1014
+    },
+    {
+      "country": "VU",
+      "name": "Vanuatu",
+      "currency": "VUV",
+      "benchmark": "BRENT",
+      "per_barrel": 12108.7265,
+      "per_litre": 76.1617
+    },
+    {
+      "country": "VU",
+      "name": "Vanuatu",
+      "currency": "VUV",
+      "benchmark": "WTI",
+      "per_barrel": 10662.1935,
+      "per_litre": 67.0633
+    },
+    {
+      "country": "VU",
+      "name": "Vanuatu",
+      "currency": "VUV",
+      "benchmark": "DUBAI",
+      "per_barrel": 11172.312,
+      "per_litre": 70.2719
+    },
+    {
+      "country": "VA",
+      "name": "Vatican City",
+      "currency": "EUR",
+      "benchmark": "BRENT",
+      "per_barrel": 89.8695,
+      "per_litre": 0.5653
+    },
+    {
+      "country": "VA",
+      "name": "Vatican City",
+      "currency": "EUR",
+      "benchmark": "WTI",
+      "per_barrel": 79.1335,
+      "per_litre": 0.4977
+    },
+    {
+      "country": "VA",
+      "name": "Vatican City",
+      "currency": "EUR",
+      "benchmark": "DUBAI",
+      "per_barrel": 82.9195,
+      "per_litre": 0.5215
+    },
+    {
+      "country": "VE",
+      "name": "Venezuela",
+      "currency": "VES",
+      "benchmark": "BRENT",
+      "per_barrel": 88365.431,
+      "per_litre": 555.8029
+    },
+    {
+      "country": "VE",
+      "name": "Venezuela",
+      "currency": "VES",
+      "benchmark": "WTI",
+      "per_barrel": 77809.1177,
+      "per_litre": 489.4055
+    },
+    {
+      "country": "VE",
+      "name": "Venezuela",
+      "currency": "VES",
+      "benchmark": "DUBAI",
+      "per_barrel": 81531.7911,
+      "per_litre": 512.8205
+    },
+    {
+      "country": "VN",
+      "name": "Vietnam",
+      "currency": "VND",
+      "benchmark": "BRENT",
+      "per_barrel": 2622637.9564,
+      "per_litre": 16495.9271
+    },
+    {
+      "country": "VN",
+      "name": "Vietnam",
+      "currency": "VND",
+      "benchmark": "WTI",
+      "per_barrel": 2309332.3145,
+      "per_litre": 14525.2902
+    },
+    {
+      "country": "VN",
+      "name": "Vietnam",
+      "currency": "VND",
+      "benchmark": "DUBAI",
+      "per_barrel": 2419819.2379,
+      "per_litre": 15220.2333
+    },
+    {
+      "country": "YE",
+      "name": "Yemen",
+      "currency": "YER",
+      "benchmark": "BRENT",
+      "per_barrel": 23851.5819,
+      "per_litre": 150.0222
+    },
+    {
+      "country": "YE",
+      "name": "Yemen",
+      "currency": "YER",
+      "benchmark": "WTI",
+      "per_barrel": 21002.2236,
+      "per_litre": 132.1003
+    },
+    {
+      "country": "YE",
+      "name": "Yemen",
+      "currency": "YER",
+      "benchmark": "DUBAI",
+      "per_barrel": 22007.047,
+      "per_litre": 138.4204
+    },
+    {
+      "country": "ZM",
+      "name": "Zambia",
+      "currency": "ZMW",
+      "benchmark": "BRENT",
+      "per_barrel": 1992.7265,
+      "per_litre": 12.5339
+    },
+    {
+      "country": "ZM",
+      "name": "Zambia",
+      "currency": "ZMW",
+      "benchmark": "WTI",
+      "per_barrel": 1754.6714,
+      "per_litre": 11.0366
+    },
+    {
+      "country": "ZM",
+      "name": "Zambia",
+      "currency": "ZMW",
+      "benchmark": "DUBAI",
+      "per_barrel": 1838.6213,
+      "per_litre": 11.5646
+    },
+    {
+      "country": "ZW",
+      "name": "Zimbabwe",
+      "currency": "ZWL",
+      "benchmark": "BRENT",
+      "per_barrel": 2705.7993,
+      "per_litre": 17.019
+    },
+    {
+      "country": "ZW",
+      "name": "Zimbabwe",
+      "currency": "ZWL",
+      "benchmark": "WTI",
+      "per_barrel": 2382.559,
+      "per_litre": 14.9859
+    },
+    {
+      "country": "ZW",
+      "name": "Zimbabwe",
+      "currency": "ZWL",
+      "benchmark": "DUBAI",
+      "per_barrel": 2496.5494,
+      "per_litre": 15.7029
+    }
+  ]
+}
